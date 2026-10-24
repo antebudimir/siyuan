@@ -1,109 +1,47 @@
+> **⚠️ Fork Notice**: This is a fork of the original [SiYuan](https://github.com/siyuan-note/siyuan) project, not affiliated with or endorsed by the SiYuan team. I created this fork primarily to unlock third-party sync (S3/WebDAV) so it works fully without a paid subscription or an official SiYuan account Storage is my baggage. I also cleaned up the UI accordingly ("Account & Sync" tab is now just "Sync", subscription prompts are gone, and the in-app updater points at this fork's releases). For self-hosted use, I've made fully local AI/OCR configuration, and optional OIDC access authentication. I'll try to keep this fork in sync with the original repo and continue implementing feats I find useful for my self-hosted setup, but for full support and the most up-to-date version, please use the original repo. All credit for the core app belongs to the upstream devs. licensed under AGPL-3.0, same as upstream. Bear in mind that fficial cloud feats (AI trial, cloud assets, ld246 publish) still require a real SiYuan account, as they're hosted on upstream's servers.
+
 <p align="center">
 <img alt="SiYuan" src="https://b3log.org/images/brand/siyuan-128.png">
 <br>
 <em>From thought to insight, with agents</em>
 <br><br>
-<a title="Build Status" target="_blank" href="https://github.com/siyuan-note/siyuan/actions/workflows/cd.yml"><img src="https://img.shields.io/github/actions/workflow/status/siyuan-note/siyuan/cd.yml?style=flat-square"></a>
-<a title="Releases" target="_blank" href="https://github.com/siyuan-note/siyuan/releases"><img src="https://img.shields.io/github/release/siyuan-note/siyuan.svg?style=flat-square&color=9CF"></a>
-<a title="Downloads" target="_blank" href="https://github.com/siyuan-note/siyuan/releases"><img src="https://img.shields.io/github/downloads/siyuan-note/siyuan/total.svg?style=flat-square&color=blueviolet"></a>
+<a title="Build Status" target="_blank" href="https://github.com/antebudimir/siyuan/actions/workflows/fork-ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/antebudimir/siyuan/fork-ci.yml?style=flat-square"></a>
+<a title="Releases" target="_blank" href="https://github.com/antebudimir/siyuan/releases"><img src="https://img.shields.io/github/release/antebudimir/siyuan.svg?style=flat-square&color=9CF"></a>
+<a title="Downloads" target="_blank" href="https://github.com/antebudimir/siyuan/releases"><img src="https://img.shields.io/github/downloads/antebudimir/siyuan/total.svg?style=flat-square&color=blueviolet"></a>
 <br>
-<a title="Docker Pulls" target="_blank" href="https://hub.docker.com/r/b3log/siyuan"><img src="https://img.shields.io/docker/pulls/b3log/siyuan.svg?style=flat-square&color=green"></a>
-<a title="Docker Image Size" target="_blank" href="https://hub.docker.com/r/b3log/siyuan"><img src="https://img.shields.io/docker/image-size/b3log/siyuan.svg?style=flat-square&color=ff96b4"></a>
-<a title="Hits" target="_blank" href="https://github.com/siyuan-note/siyuan"><img src="https://hits.b3log.org/siyuan-note/siyuan.svg"></a>
-<br>
+<a title="Docker Pulls" target="_blank" href="https://github.com/antebudimir/siyuan/pkgs/container/siyuan-fork"><img src="https://img.shields.io/badge/dynamic/json?logo=docker&url=https://ghcr.io/v2/antebudimir/siyuan-fork/tags/list&query=$.tags[0]&label=pulls&style=flat-square&color=green"></a>
 <a title="AGPLv3" target="_blank" href="https://www.gnu.org/licenses/agpl-3.0.txt"><img src="http://img.shields.io/badge/license-AGPLv3-orange.svg?style=flat-square"></a>
-<a title="Code Size" target="_blank" href="https://github.com/siyuan-note/siyuan"><img src="https://img.shields.io/github/languages/code-size/siyuan-note/siyuan.svg?style=flat-square&color=yellow"></a>
-<a title="GitHub Pull Requests" target="_blank" href="https://github.com/siyuan-note/siyuan/pulls"><img src="https://img.shields.io/github/issues-pr-closed/siyuan-note/siyuan.svg?style=flat-square&color=FF9966"></a>
-<br>
-<a title="GitHub Commits" target="_blank" href="https://github.com/siyuan-note/siyuan/commits/master"><img src="https://img.shields.io/github/commit-activity/m/siyuan-note/siyuan.svg?style=flat-square"></a>
-<a title="Last Commit" target="_blank" href="https://github.com/siyuan-note/siyuan/commits/master"><img src="https://img.shields.io/github/last-commit/siyuan-note/siyuan.svg?style=flat-square&color=FF9900"></a>
-<br><br>
-<a title="X" target="_blank" href="https://x.com/b3logos"><img alt="X Follow" src="https://img.shields.io/twitter/follow/b3logos?label=Follow&style=social"></a>
-<br><br>
-<a href="https://trendshift.io/repositories/3949" target="_blank"><img src="https://trendshift.io/api/badge/repositories/3949" alt="siyuan-note%2Fsiyuan | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 </p>
 
 <p align="center">
 <b>English</b>
-| <a href="README.zh-CN.md">中文</a>
-| <a href="README.ja.md">日本語</a>
-| <a href="README.tr.md">Türkçe</a>
 </p>
 
----
-## About this fork
+## 🔐 Authentication
 
-This fork removes the SiYuan account requirement for sync. You can sync your
-workspaces through any third-party provider — WebDAV, Amazon S3-compatible
-storage, or a local/filesystem path — without logging in or subscribing.
+This fork requires no account for sync, but **local auth is mandatory** if exposed to network. SiYuan's built-in auth mechanisms are used:
 
-- **Sync:** configure a provider in Settings - Sync and use it freely; the
-  paid-subscription checks are removed.
-- **Updates:** the updater checks this fork's GitHub releases
-  (`antebudimir/siyuan`) instead of the official channel.
-- **Account UI:** the account login card and trial crown are hidden. Official
-  cloud features (AI trial, cloud assets, ld246 publish) still require a real
-  SiYuan account if you want them.
-
-## Authentication
-
-This fork requires no account for sync. Local auth is provided by SiYuan's
-built-in mechanisms:
-
-- **Access auth code** (recommended): start with `--accessAuthCode <secret>`
-  or set it in Settings - Authentication. **Always set this on a
-  network-reachable instance** — without it, anyone who can reach the port
-  can read your notes.
-- **OIDC**: configure against your self-hosted IdP (Authelia/Authentik/Keycloak)
-  in Settings - Authentication.
-- **Lock screen**: Ctrl+Lock, plus auto-lock timeout.
-
-## Building and running
-
-Build the kernel from `kernel/`:
-
-```bash
-go build -tags fts5 -o siyuan-kernel
-```
-
-Run it with `--wd` pointing at the `app/` directory of this repository —
-without it the kernel cannot load `appearance/langs` and the UI fails to
-start:
-
-```bash
-./siyuan-kernel serve --wd /path/to/siyuan/app --workspace /path/to/workspace --accessAuthCode <secret>
-```
+- **Access auth code (Recommended):** Start the kernel with `--accessAuthCode <secret>` or set it in Settings -> Authentication. **Always set this on a network-reachable instance.** Without it, anyone who can reach the port can read your notes.
+- **OIDC:** Configure against your self-hosted IdP (Authelia/Authentik/Keycloak) in Settings -> Authentication.
+- **Lock screen:** Ctrl+Lock, plus auto-lock timeout.
 
 ---
 
 ## Table of Contents
 
+- [🔐 Authentication](#-authentication)
 - [💡 Introduction](#-introduction)
 - [🔮 Features](#-features)
-- [🏗️ Architecture and Ecosystem](#-architecture-and-ecosystem)
+- [🏗️ Architecture and Ecosystem](#️-architecture-and-ecosystem)
 - [🗺️ Roadmap](#️-roadmap)
 - [🚀 Download Setup](#-download-setup)
-  - [App Market](#app-market)
   - [Installation Package](#installation-package)
-  - [Package Manager](#package-manager)
   - [Docker Hosting](#docker-hosting)
-  - [Kubernetes Hosting](#kubernetes-hosting)
-  - [Unraid Hosting](#unraid-hosting)
-  - [TrueNAS Hosting](#truenas-hosting)
-  - [Test Channels](#test-channels)
-- [⌨️ Command-line Interface](#-command-line-interface)
+- [⌨️ Command-line Interface](#️-command-line-interface)
 - [🏘️ Community](#️-community)
 - [🛠️ Development Guide](#️-development-guide)
 - [❓ FAQ](#-faq)
-  - [How does SiYuan store data?](#how-does-siyuan-store-data)
-  - [Does it support data synchronization through a third-party sync disk?](#does-it-support-data-synchronization-through-a-third-party-sync-disk)
-  - [Is SiYuan open source?](#is-siyuan-open-source)
-  - [How to upgrade to a new version?](#how-to-upgrade-to-a-new-version)
-  - [What if some blocks (such as paragraph blocks in list items) cannot find the block icon?](#what-if-some-blocks-such-as-paragraph-blocks-in-list-items-cannot-find-the-block-icon)
-  - [What should I do if the data repo key is lost?](#what-should-i-do-if-the-data-repo-key-is-lost)
-  - [Do I need to pay for it?](#do-i-need-to-pay-for-it)
 - [🙏 Acknowledgement](#-acknowledgement)
-  - [Contributors](#contributors)
 
 ---
 
@@ -145,7 +83,7 @@ Most features are free, even for commercial use.
   - Table view
 - Flashcard spaced repetition
 - AI writing and Q/A chat via OpenAI API
-- Tesseract OCR 
+- Tesseract OCR
 - Multi-tab, drag and drop to split screen
 - Template snippet
 - JavaScript/CSS snippet
@@ -154,23 +92,19 @@ Most features are free, even for commercial use.
 - [API](https://github.com/siyuan-note/siyuan/blob/master/docs/API.md)
 - Community marketplace
 
-Some features are only available to paid members, for more details please refer to [Pricing](https://b3log.org/siyuan/en/pricing.html).
-
 ## 🏗️ Architecture and Ecosystem
 
-![SiYuan Arch](screenshots/SiYuan_Arch.svg "SiYuan Arch")
-
-| Project                                                  | Description           | Forks                                                                           | Stars                                                                                | 
-|----------------------------------------------------------|-----------------------|---------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| [lute](https://github.com/88250/lute)                    | Editor engine         | ![GitHub forks](https://img.shields.io/github/forks/88250/lute)                 | ![GitHub Repo stars](https://img.shields.io/github/stars/88250/lute)                 |
-| [chrome](https://github.com/siyuan-note/siyuan-chrome)   | Chrome/Edge extension | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/siyuan-chrome)  | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/siyuan-chrome)  |
-| [bazaar](https://github.com/siyuan-note/bazaar)          | Community marketplace | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/bazaar)         | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/bazaar)         |
-| [dejavu](https://github.com/siyuan-note/dejavu)          | Data repo             | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/dejavu)         | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/dejavu)         |
-| [petal](https://github.com/siyuan-note/petal)            | Plugin API            | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/petal)          | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/petal)          |
-| [android](https://github.com/siyuan-note/siyuan-android) | Android App           | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/siyuan-android) | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/siyuan-android) |
-| [ios](https://github.com/siyuan-note/siyuan-ios)         | iOS App               | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/siyuan-ios)     | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/siyuan-ios)     |
-| [harmony](https://github.com/siyuan-note/siyuan-harmony) | HarmonyOS App         | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/siyuan-harmony) | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/siyuan-harmony) |
-| [riff](https://github.com/siyuan-note/riff)              | Spaced repetition     | ![GitHub forks](https://img.shields.io/github/forks/siyuan-note/riff)           | ![GitHub Repo stars](https://img.shields.io/github/stars/siyuan-note/riff)           |
+| Project                                                  | Description           |
+|----------------------------------------------------------|-----------------------|
+| [lute](https://github.com/88250/lute)                    | Editor engine         |
+| [chrome](https://github.com/siyuan-note/siyuan-chrome)   | Chrome/Edge extension |
+| [bazaar](https://github.com/siyuan-note/bazaar)          | Community marketplace |
+| [dejavu](https://github.com/siyuan-note/dejavu)          | Data repo             |
+| [petal](https://github.com/siyuan-note/petal)            | Plugin API            |
+| [android](https://github.com/antebudimir/siyuan-android) | Android App (Fork)    |
+| [ios](https://github.com/siyuan-note/siyuan-ios)         | iOS App               |
+| [harmony](https://github.com/siyuan-note/siyuan-harmony) | HarmonyOS App         |
+| [riff](https://github.com/siyuan-note/riff)              | Spaced repetition     |
 
 ## 🗺️ Roadmap
 
@@ -179,34 +113,9 @@ Some features are only available to paid members, for more details please refer 
 
 ## 🚀 Download Setup
 
-It is recommended to give priority to installing through the application market on desktop and mobile, so that you can upgrade the version with one click in the future.
-
-### App Market
-
-Mobile:
-
-- [App Store](https://apps.apple.com/us/app/siyuan/id1583226508)
-- [Google Play](https://play.google.com/store/apps/details?id=org.b3log.siyuan)
-- [F-Droid](https://f-droid.org/packages/org.b3log.siyuan)
-
-Desktop:
-
-- [Microsoft Store](https://apps.microsoft.com/detail/9p7hpmxp73k4)
-
 ### Installation Package
 
-- [B3log](https://b3log.org/siyuan/en/download.html)
-- [GitHub](https://github.com/siyuan-note/siyuan/releases)
-
-### Package Manager
-
-#### `siyuan`
-
-[![Packaging status](https://repology.org/badge/vertical-allrepos/siyuan.svg)](https://repology.org/project/siyuan/versions)
-
-#### `siyuan-note`
-
-[![Packaging status](https://repology.org/badge/vertical-allrepos/siyuan-note.svg)](https://repology.org/project/siyuan-note/versions)
+- [GitHub Releases](https://github.com/antebudimir/siyuan/releases)
 
 ### Docker Hosting
 
@@ -217,8 +126,7 @@ Desktop:
 
 The easiest way to serve SiYuan on a server is to deploy it through Docker.
 
-- Image name `b3log/siyuan`
-- [Image URL](https://hub.docker.com/r/b3log/siyuan)
+- Image name `ghcr.io/antebudimir/siyuan-fork`
 
 #### File structure
 
@@ -233,9 +141,9 @@ The overall program is located under `/opt/siyuan/`, which is basically the stru
 
 The entry point is set when building the Docker image: `ENTRYPOINT ["/opt/siyuan/entrypoint.sh"]`. This script allows changing the `PUID` and `PGID` of the user that will run inside the container. This is especially relevant to solve permission issues when mounting directories from the host. The `PUID` (User ID) and `PGID` (Group ID) can be passed as environment variables, making it easier to ensure correct permissions when accessing host-mounted directories.
 
-Use the following parameters when running the container with `docker run b3log/siyuan`:
+Use the following parameters when running the container with `docker run ghcr.io/antebudimir/siyuan-fork`:
 
-> **Note:** Since v3.7.0, the `serve` subcommand must be passed explicitly (e.g. `docker run b3log/siyuan serve --workspace=...`). Run `docker run --rm b3log/siyuan serve --help` to see all serving options.
+> **Note:** Since v3.7.0, the `serve` subcommand must be passed explicitly. Run `docker run --rm ghcr.io/antebudimir/siyuan-fork serve --help` to see all serving options.
 
 - `--workspace`: Specifies the workspace folder path, mounted to the container via `-v` on the host
 - `--accessAuthCode`: Specifies the lock screen password
@@ -247,7 +155,7 @@ docker run -d \
   -v workspace_dir_host:workspace_dir_container \
   -p 6806:6806 \
   -e PUID=1001 -e PGID=1002 \
-  b3log/siyuan \
+  ghcr.io/antebudimir/siyuan-fork \
   serve \
   --workspace=workspace_dir_container \
   --accessAuthCode=xxx
@@ -279,7 +187,7 @@ docker run -d \
   -v /siyuan/workspace:/siyuan/workspace \
   -p 6806:6806 \
   -e PUID=1001 -e PGID=1002 \
-  b3log/siyuan \
+  ghcr.io/antebudimir/siyuan-fork \
   serve \
   --workspace=/siyuan/workspace/ \
   --accessAuthCode=xxx
@@ -293,7 +201,7 @@ For users running SiYuan with Docker Compose, the environment variables `PUID` a
 version: "3.9"
 services:
   main:
-    image: b3log/siyuan
+    image: ghcr.io/antebudimir/siyuan-fork
     command: ['serve', '--workspace=/siyuan/workspace/', '--accessAuthCode=${AuthCode}']
     ports:
       - 6806:6806
@@ -306,13 +214,6 @@ services:
       - PGID=${YOUR_USER_PGID}  # Customize group ID
 ```
 
-In this setup:
-
-- `PUID` and `PGID` are set dynamically and passed to the container
-- If these variables are not provided, the default `1000` will be used
-
-By specifying `PUID` and `PGID` in the environment, you avoid the need to explicitly set the `user` directive (`user: '1000:1000'`) in the compose file. The container will dynamically adjust the user and group based on these environment variables at startup.
-
 #### User Permissions
 
 In the image, the `entrypoint.sh` script ensures the creation of the `siyuan` user and group with the specified `PUID` and `PGID`. Therefore, when the host creates a workspace folder, pay attention to setting the user and group ownership of the folder to match the `PUID` and `PGID` you plan to use. For example:
@@ -320,8 +221,6 @@ In the image, the `entrypoint.sh` script ensures the creation of the `siyuan` us
 ```bash
 chown -R 1001:1002 /siyuan/workspace
 ```
-
-If you use custom `PUID` and `PGID` values, the entrypoint script will ensure that the correct user and group are created inside the container, and ownership of mounted volumes will be adjusted accordingly. There’s no need to manually pass `-u` in `docker run` or `docker-compose` as the environment variables will handle the customization.
 
 #### Hidden port
 
@@ -343,96 +242,6 @@ Use an NGINX reverse proxy to hide port 6806. Please note:
 - Import Markdown file is not supported
 
 </details>
-
-### Kubernetes Hosting
-
-<details>
-<summary>Kubernetes Deployment</summary>
-
-The [HelmForge SiYuan chart](https://github.com/helmforgedev/charts/tree/main/charts/siyuan) is community-maintained by HelmForge, uses the official `b3log/siyuan` image, and is not an official SiYuan chart. Please report chart issues to [HelmForge](https://github.com/helmforgedev/charts/issues).
-
-Prepare Helm, kubectl, and a Kubernetes cluster with a default StorageClass that can provision a 10Gi ReadWriteOnce volume, then run the following commands:
-
-```bash
-helm repo add helmforge https://repo.helmforge.dev
-helm repo update
-helm install siyuan helmforge/siyuan --namespace siyuan --create-namespace --wait
-kubectl -n siyuan get secret siyuan-siyuan-auth -o go-template='{{index .data "access-code" | base64decode}}{{"\n"}}'
-kubectl -n siyuan port-forward service/siyuan-siyuan 6806:6806
-```
-
-Open <http://localhost:6806> and enter the generated lock screen password. Keep this password secure; it is distinct from the API token. The names above assume the default chart values and release name `siyuan`.
-
-For remote access, use a dedicated HTTPS hostname and an Ingress controller that proxies WebSockets on `/ws`, without URL rewriting. Configure `ingress` and allow the controller's namespace through `networkPolicy.ingressFrom`; the default policy allows same-namespace ingress and DNS egress only. Add explicit egress rules for cloud sync or other external services. See the [chart guide and production example](https://helmforge.dev/docs/charts/siyuan) for TLS, existing Secrets, and storage configuration.
-
-- **One workspace, one writer:** Never scale replicas or mount the same workspace in another running instance, even with ReadWriteMany storage. The chart uses `Recreate`, so upgrades stop the old writer before starting the new one and cause downtime.
-- **Persistence:** The complete workspace is mounted at `/siyuan/workspace`. The chart retains its generated PVC on uninstall by default; deleting the namespace or PVC can still destroy data. Reuse a retained or restored claim with `persistence.existingClaim`.
-- **Backups and upgrades:** Gracefully stop the writer before backing up the complete workspace, or use an application-consistent backup procedure. A copy of the live SQLite index alone is insufficient. Securely preserve authentication Secrets, encryption keys, and encrypted-notebook recovery passwords, and test restores into a separate PVC. Back up before upgrades and review storage-format changes: Helm rollback does not undo data migrations.
-
-The Docker hosting limitations also apply: browser use only, no desktop or mobile application connections, no PDF/HTML/Word export, and no Markdown file import.
-
-</details>
-
-### Unraid Hosting
-
-<details>
-<summary>Unraid Deployment</summary>
-
-Note: First run `chown -R 1000:1000 /mnt/user/appdata/siyuan` in the terminal
-
-Template reference:
-
-```
-Web UI: 6806
-Container Port: 6806
-Container Path: /home/siyuan
-Host path: /mnt/user/appdata/siyuan
-PUID: 1000
-PGID: 1000
-Publish parameters: serve --accessAuthCode=******(Lock screen password)
-```
-
-</details>
-
-### TrueNAS Hosting
-
-<details>
-<summary>TrueNAS Deployment</summary>
-
-Note: First, run the commands below in the TrueNAS Shell. Please update `Pool_1/Apps_Data/siyuan` to match your dataset path.
-
-```shell
-zfs create Pool_1/Apps_Data/siyuan
-chown -R 1001:1002 /mnt/Pool_1/Apps_Data/siyuan
-chmod 755 /mnt/Pool_1/Apps_Data/siyuan
-```
-
-Navigate to Apps - DiscoverApps - More Options (on top right, besides Custom App) - Install via YAML
-
-Template reference:
-
-```yaml
-services:
-  siyuan:
-    image: b3log/siyuan
-    container_name: siyuan
-    command: ['serve', '--workspace=/siyuan/workspace/', '--accessAuthCode=2222']
-    ports:
-      - 6806:6806
-    volumes:
-      - /mnt/Pool_1/Apps_Data/siyuan:/siyuan/workspace  # Adjust to your dataset path 
-    restart: unless-stopped
-    environment:
-      - TZ=America/New_York  # Replace with your timezone if needed
-      - PUID=1001
-      - PGID=1002
-```
-
-</details>
-
-### Test Channels
-
-Select Beta or Alpha in `Settings - About - Update channel` to receive prereleases. Beta includes stable, RC, and Beta releases; Alpha includes all releases. Test channels require access to GitHub.
 
 ## ⌨️ Command-line Interface
 
@@ -458,7 +267,7 @@ siyuan export md --id <block-id> -w ~/SiYuan
 ### Available Commands
 
 | Category | Commands |
-|----------|----------|
+| ---------- | ---------- |
 | Notebooks & Documents | `notebook`, `document`, `dailynote` — CRUD and daily notes |
 | Content | `block`, `attr`, `outline` — block read/write, attributes, outline |
 | Metadata | `tag`, `bookmark`, `template` — tags, bookmarks, template snippets |
@@ -477,22 +286,14 @@ Run `siyuan --help` for the full command tree. Use `-f json` (default is `-f tab
 
 The CLI binary is `<install-dir>/resources/kernel/SiYuan-Kernel`, invoked via the `siyuan` command.
 
-- **Windows**: the installer automatically adds the kernel directory to `PATH`, so `siyuan` works out of the box. The Microsoft Store edition (3.8.7+) registers the `siyuan.exe` app execution alias on Windows 10 1607 (build 14393) or later. After installing or updating, open a new terminal and run `siyuan --help`
-  ```powershell
-  siyuan --help
-
-  # Check which command is being used
-  Get-Command siyuan -All
-  where.exe siyuan
-  ```
-  If the command is unavailable, check that the SiYuan app execution alias is enabled in Windows and `%LOCALAPPDATA%\Microsoft\WindowsApps` is in `PATH`. The commands above show command resolution; multiple SiYuan editions or `PATH` order may select another executable
-
-  If you created the old `siyuan.cmd` shim, first verify the Store alias directly with `& "$env:LOCALAPPDATA\Microsoft\WindowsApps\siyuan.exe" --help`, then optionally remove the shim: `Remove-Item "$env:LOCALAPPDATA\Microsoft\WindowsApps\siyuan.cmd"`
 - **macOS**: create a symlink after installing:
+
   ```bash
   ln -s /Applications/SiYuan.app/Contents/Resources/kernel/SiYuan-Kernel /usr/local/bin/siyuan
   ```
+
 - **Linux**: create a symlink after installing:
+
   ```bash
   ln -s <install-dir>/resources/kernel/SiYuan-Kernel /usr/local/bin/siyuan
   ```
@@ -506,6 +307,31 @@ The CLI binary is `<install-dir>/resources/kernel/SiYuan-Kernel`, invoked via th
 ## 🛠️ Development Guide
 
 See [Development Guide](https://github.com/siyuan-note/siyuan/blob/master/.github/CONTRIBUTING.md).
+
+### Building from Source
+
+#### Kernel
+
+```bash
+cd kernel
+go build -tags fts5 -o siyuan-kernel
+```
+
+#### Frontend
+
+```bash
+cd app
+pnpm install
+pnpm build
+```
+
+#### Running Locally
+
+When running the kernel locally from the source directory, you must pass the working directory so it can find the appearance/langs:
+
+```bash
+./siyuan-kernel serve --wd /path/to/siyuan/app --workspace /path/to/workspace --accessAuthCode YOUR_SECRET_CODE
+```
 
 ## ❓ FAQ
 
@@ -527,14 +353,14 @@ The data is saved in the workspace data folder:
 
 Data synchronization through third-party synchronization disks is not supported, otherwise data may be corrupted.
 
-Although it does not support third-party sync disks, it supports connecting with third-party cloud storage (Members' privileges).
+Although it does not support third-party sync disks, it supports connecting with third-party cloud storage. In this fork, S3 and WebDAV sync are fully unlocked without a subscription.
 
 ### Is SiYuan open source?
 
 SiYuan is completely open source, and contributions are welcome:
 
-- [User Interface and Kernel](https://github.com/siyuan-note/siyuan)
-- [Android](https://github.com/siyuan-note/siyuan-android)
+- [User Interface and Kernel](https://github.com/antebudimir/siyuan)
+- [Android](https://github.com/antebudimir/siyuan-android)
 - [iOS](https://github.com/siyuan-note/siyuan-ios)
 - [HarmonyOS](https://github.com/siyuan-note/siyuan-harmony)
 - [Chrome Clipping Extension](https://github.com/siyuan-note/siyuan-chrome)
@@ -543,11 +369,10 @@ For more details, please refer to [Development Guide](https://github.com/siyuan-
 
 ### How to upgrade to a new version?
 
-- If installed via app store, please update via app store
 - If it is installed with the desktop installation package on Windows or macOS, you can enable the option of <kbd>Settings</kbd> - <kbd>About</kbd> - <kbd>Automatically download update installation package</kbd>, so that SiYuan will automatically download the latest version of the installation package and prompt to install
 - If it is installed by manual installation package, please download the installation package again to install
 
-You can <kbd>Check update</kbd> in <kbd>Settings</kbd> - <kbd>About</kbd> - <kbd>Current Version</kbd>, or pay attention to [Official Download](https://b3log.org/siyuan/en/download.html) or [GitHub Releases](https://github.com/siyuan-note/siyuan/releases) to get the new version.
+You can <kbd>Check update</kbd> in <kbd>Settings</kbd> - <kbd>About</kbd> - <kbd>Current Version</kbd>, or pay attention to [GitHub Releases](https://github.com/antebudimir/siyuan/releases) to get the new version. The updater in this fork checks this fork's releases.
 
 ### What if some blocks (such as paragraph blocks in list items) cannot find the block icon?
 
@@ -555,20 +380,18 @@ The block icon is omitted for the first sub-block under the list item. You can m
 
 ### What should I do if the data repo key is lost?
 
-- If the data repo key is correctly initialized on multiple devices previously, the key is the same on all devices and can be retrieved in <kbd>Settings</kbd> - <kbd>Account & Sync</kbd> - <kbd>Local Data Repo</kbd> - <kbd>Data repo key</kbd> - <kbd>Copy key string</kbd>
+- If the data repo key is correctly initialized on multiple devices previously, the key is the same on all devices and can be retrieved in <kbd>Settings</kbd> - <kbd>Sync</kbd> - <kbd>Local Data Repo</kbd> - <kbd>Data repo key</kbd> - <kbd>Copy key string</kbd>
 - If it has not been configured correctly before (for example, the keys on multiple devices are inconsistent) or all devices are unavailable and the key string cannot be obtained, you can reset the key by following the steps below:
 
   1. Manually back up the data, you can use <kbd>Export Data</kbd> or directly copy the <kbd>workspace/data/</kbd> folder on the file system
-  2. <kbd>Settings</kbd> - <kbd>Account & Sync</kbd> - <kbd>Local Data Repo</kbd> - <kbd>Data repo key</kbd> - <kbd>Reset data repo</kbd>
+  2. <kbd>Settings</kbd> - <kbd>Sync</kbd> - <kbd>Local Data Repo</kbd> - <kbd>Data repo key</kbd> - <kbd>Reset data repo</kbd>
   3. Reinitialize the data repo key. After initializing the key on one device, other devices import the key
   4. The cloud uses the new synchronization directory, the old synchronization directory is no longer available and can be deleted
   5. The existing cloud snapshots are no longer available and can be deleted
 
 ### Do I need to pay for it?
 
-Most features are free, even for commercial use.
-
-Member's privileges can only be used after payment, please refer to [Pricing](https://b3log.org/siyuan/en/pricing.html).
+Most features are free, even for commercial use. In this fork, third-party sync (S3/WebDAV) is completely free and requires no account. Official cloud features (AI trial, cloud assets) still require a paid SiYuan account if you choose to use them.
 
 ## 🙏 Acknowledgement
 
@@ -576,10 +399,4 @@ The birth of SiYuan is inseparable from many open source projects and contributo
 
 The growth of SiYuan is inseparable from user feedback and promotion. Thank you, everyone, for your help with SiYuan ❤️
 
-### Contributors
-
-Welcome to join us and contribute code to SiYuan together.
-
-<a href="https://github.com/siyuan-note/siyuan/graphs/contributors">
-   <img src="https://contrib.rocks/image?repo=siyuan-note/siyuan" />
-</a>
+*This fork is based on the work of the [SiYuan contributors](https://github.com/siyuan-note/siyuan/graphs/contributors).*
