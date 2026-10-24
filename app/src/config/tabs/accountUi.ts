@@ -635,10 +635,7 @@ export const onSetaccount = () => {
     const toolbarVIPEl = document.getElementById("toolbarVIP");
     if (toolbarVIPEl) {
         const parts: string[] = [];
-        if (!window.siyuan.user) {
-            // 未登录
-            parts.push(genToolbarItemHTML(window.siyuan.languages.freeSub, genVIPIconHTML("ft__error")));
-        } else {
+        if (window.siyuan.user) {
             const isOneTimePay = window.siyuan.user.userSiYuanOneTimePayStatus === 1;
             if (window.siyuan.user.userSiYuanProExpireTime === -1) {
                 // 终身会员
