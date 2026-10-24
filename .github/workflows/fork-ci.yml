@@ -1,7 +1,7 @@
 name: Fork CI
 
-# Fork CI：构建 Linux 内核、前端与最小化 Docker 镜像，并在 fork 标签上发布 Release。
-# 与上游 cd.yml 不同：不打包 Electron 桌面端、不做 ONNX/OCR、不依赖上游密钥。
+# Fork CI：构建 Linux 内核、前端、最小化 Docker 镜像与 Linux 桌面安装包，并在 fork 标签上发布 Release。
+# 与上游 cd.yml 不同：仅 Linux 桌面端（无 mac/Windows）、不做 ONNX/OCR、不依赖上游密钥。
 
 on:
   push:
@@ -126,11 +126,92 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+  desktop:
+    name: Build Linux desktop installers
+    # 分支推送只产出 Docker edge 镜像，桌面打包耗时且仅发布时需要。
+    if: github.event_name != 'push'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: kernel/go.mod
+          cache-dependency-path: kernel/go.sum
+          cache: true
+
+      - name: Set up musl compiler
+        id: musl-compiler
+        # 与上游桌面构建一致：静态链接内核，AppImage 无需目标系统 libfuse2 之外的运行时依赖。
+        env:
+          TARGET_PREFIX: x86_64-linux-musl
+          SHA256: c5d410d9f82a4f24c549fe5d24f988f85b2679b452413a9f7e5f7b956f2fe7ea
+        run: |
+          curl --fail --location --retry 3 "https://github.com/musl-cc/musl.cc/releases/download/v0.0.1/${TARGET_PREFIX}-cross.tgz" -o "$RUNNER_TEMP/musl-cross.tgz"
+          printf '%s  %s\n' "$SHA256" "$RUNNER_TEMP/musl-cross.tgz" | sha256sum --check --strict
+          tar -xzf "$RUNNER_TEMP/musl-cross.tgz" -C "$RUNNER_TEMP"
+          echo "cc=$RUNNER_TEMP/${TARGET_PREFIX}-cross/bin/${TARGET_PREFIX}-gcc" >> "$GITHUB_OUTPUT"
+
+      - name: Build kernel
+        # 与上游桌面构建一致的静态 pie 配方；fork 差异仅保留 fts5 标签。
+        run: go build -buildmode=pie -tags fts5 -o ../app/kernel-linux/SiYuan-Kernel -ldflags "-s -w -X github.com/siyuan-note/siyuan/kernel/util.Mode=prod -extldflags -static-pie" .
+        working-directory: kernel
+        env:
+          CGO_ENABLED: 1
+          CC: ${{ steps.musl-compiler.outputs.cc }}
+
+      - name: Verify static kernel
+        env:
+          LC_ALL: C
+        run: |
+          program_headers="$(readelf -lW app/kernel-linux/SiYuan-Kernel)"
+          dynamic_section="$(readelf -dW app/kernel-linux/SiYuan-Kernel)"
+          # 静态内核不应包含动态加载器或共享库依赖。
+          if [[ "$program_headers" == *INTERP* || "$dynamic_section" == *"(NEEDED)"* ]]; then
+            echo "Linux kernel must be statically linked"
+            exit 1
+          fi
+          app/kernel-linux/SiYuan-Kernel --version
+
+      - name: Install RPM build tools
+        run: sudo apt-get update && sudo apt-get install -y rpm
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install pnpm
+        # 版本与 app/package.json 的 packageManager 字段一致。
+        run: corepack enable && corepack install --global pnpm@12.6.0
+        working-directory: app
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+        working-directory: app
+
+      - name: Build Electron app
+        run: pnpm run dist-linux
+        working-directory: app
+
+      - name: Upload desktop artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-linux
+          path: |
+            app/build/siyuan-*-linux.AppImage
+            app/build/siyuan-*-linux.tar.gz
+            app/build/siyuan-*-linux.deb
+            app/build/siyuan-*-linux.rpm
+          if-no-files-found: error
+
   release:
     name: Create GitHub Release
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-24.04
-    needs: [kernel, frontend]
+    needs: [kernel, frontend, desktop]
     permissions:
       contents: write
     steps:
@@ -147,7 +228,20 @@ jobs:
           chmod +x siyuan-kernel
           if [ -d changelogs ]; then EXTRA=changelogs; else EXTRA=; fi
           zip -r "../siyuan-fork-${{ github.ref_name }}-linux-amd64.zip" siyuan-kernel appearance guide stage $EXTRA
-          sha256sum "../siyuan-fork-${{ github.ref_name }}-linux-amd64.zip" > SHA256SUMS.txt
+
+      - name: Rename desktop installers
+        # 安装包文件名带 package.json 版本，重命名以携带 fork 标签，保持发布资产命名一致。
+        run: |
+          TAG="${{ github.ref_name }}"
+          for f in dist/siyuan-*-linux.AppImage dist/siyuan-*-linux.tar.gz dist/siyuan-*-linux.deb dist/siyuan-*-linux.rpm; do
+            [ -e "$f" ] || continue
+            base="$(basename "$f")"
+            mv "$f" "siyuan-fork-${TAG}-${base#siyuan-}"
+          done
+
+      - name: Checksums
+        run: |
+          sha256sum siyuan-fork-*.zip siyuan-fork-*-linux.* > SHA256SUMS.txt
 
       - name: Create Release
         uses: ncipollo/release-action@v1
@@ -155,6 +249,6 @@ jobs:
           tag: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
           generateReleaseNotes: true
-          artifacts: "siyuan-fork-*.zip,dist/SHA256SUMS.txt"
+          artifacts: "siyuan-fork-*.zip,siyuan-fork-*-linux.AppImage,siyuan-fork-*-linux.tar.gz,siyuan-fork-*-linux.deb,siyuan-fork-*-linux.rpm,SHA256SUMS.txt"
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
