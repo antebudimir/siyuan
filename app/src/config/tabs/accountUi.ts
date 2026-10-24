@@ -80,7 +80,8 @@ export const refreshCloudUser = async (force = false, root?: Element) => {
 
 /** 账号节：由 syncTab 注册 */
 export const registerAccountGroup = (tab: SettingTabBuilder) => {
-    const group = tab.group("account", window.siyuan.languages.configGroupAccount);
+    // 本 fork：未登录时隐藏整个账号节（含组标题），登录后保留原样
+    const group = tab.group("account", window.siyuan.user ? window.siyuan.languages.configGroupAccount : "");
 
     group.slot({
         key: "accountMain",
@@ -130,8 +131,9 @@ export const registerAccountGroup = (tab: SettingTabBuilder) => {
 };
 
 const genAccountMainHTML = () => {
+    // Fork：账号功能对本分支无意义，未登录时不渲染登录表单
     if (!window.siyuan.user) {
-        return `<div id="configAccountMain" class="b3-label b3-label--noborder config-item fn__flex-column config-account--login">${genAccountAuthHTML("login")}</div>`;
+        return "";
     }
 
     const isIOS = isInIOS();

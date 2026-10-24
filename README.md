@@ -31,6 +31,50 @@
 </p>
 
 ---
+## About this fork
+
+This fork removes the SiYuan account requirement for sync. You can sync your
+workspaces through any third-party provider — WebDAV, Amazon S3-compatible
+storage, or a local/filesystem path — without logging in or subscribing.
+
+- **Sync:** configure a provider in Settings - Sync and use it freely; the
+  paid-subscription checks are removed.
+- **Updates:** the updater checks this fork's GitHub releases
+  (`antebudimir/siyuan`) instead of the official channel.
+- **Account UI:** the account login card and trial crown are hidden. Official
+  cloud features (AI trial, cloud assets, ld246 publish) still require a real
+  SiYuan account if you want them.
+
+## Authentication
+
+This fork requires no account for sync. Local auth is provided by SiYuan's
+built-in mechanisms:
+
+- **Access auth code** (recommended): start with `--accessAuthCode <secret>`
+  or set it in Settings - Authentication. **Always set this on a
+  network-reachable instance** — without it, anyone who can reach the port
+  can read your notes.
+- **OIDC**: configure against your self-hosted IdP (Authelia/Authentik/Keycloak)
+  in Settings - Authentication.
+- **Lock screen**: Ctrl+Lock, plus auto-lock timeout.
+
+## Building and running
+
+Build the kernel from `kernel/`:
+
+```bash
+go build -tags fts5 -o siyuan-kernel
+```
+
+Run it with `--wd` pointing at the `app/` directory of this repository —
+without it the kernel cannot load `appearance/langs` and the UI fails to
+start:
+
+```bash
+./siyuan-kernel serve --wd /path/to/siyuan/app --workspace /path/to/workspace --accessAuthCode <secret>
+```
+
+---
 
 ## Table of Contents
 
