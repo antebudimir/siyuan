@@ -1,0 +1,159 @@
+name: Fork CI
+
+# Fork CI：构建 Linux 内核、前端与最小化 Docker 镜像，并在 fork 标签上发布 Release。
+# 与上游 cd.yml 不同：不打包 Electron 桌面端、不做 ONNX/OCR、不依赖上游密钥。
+
+on:
+  push:
+    branches:
+      - fork
+    tags:
+      - 'v*-fork.*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE: ghcr.io/antebudimir/siyuan-fork
+
+jobs:
+  kernel:
+    name: Build Linux kernel
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: kernel/go.mod
+          cache-dependency-path: kernel/go.sum
+          cache: true
+
+      - name: Build kernel
+        # 与本地 fork 配方一致：仅 fts5，不含 sqlcipher 与 ONNX。
+        run: go build -tags fts5 -ldflags "-s -w" -o siyuan-kernel ./kernel/
+
+      - name: Upload kernel artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: siyuan-kernel-linux-amd64
+          path: siyuan-kernel
+          if-no-files-found: error
+
+  frontend:
+    name: Build frontend
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install pnpm
+        # 版本与 app/package.json 的 packageManager 字段一致。
+        run: corepack enable && corepack install --global pnpm@12.6.0
+        working-directory: app
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+        working-directory: app
+
+      - name: Build frontend
+        run: pnpm run build
+        working-directory: app
+
+      - name: Trim changelogs
+        run: node scripts/trimChangelogs.js
+        working-directory: app
+
+      - name: Upload frontend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend
+          path: |
+            app/appearance
+            app/guide
+            app/stage
+            app/changelogs
+          if-no-files-found: error
+
+  docker:
+    name: Build Docker image
+    runs-on: ubuntu-24.04
+    needs: [kernel]
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to ghcr.io
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Determine image tags
+        id: tags
+        run: |
+          if [[ "$GITHUB_REF_NAME" =~ ^v.*-fork\.[0-9]+$ ]]; then
+            echo "tags=${{ env.IMAGE }}:$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
+          else
+            echo "tags=${{ env.IMAGE }}:edge" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build and push image
+        # Dockerfile.fork 自行构建前端，此任务不依赖 frontend 产物，避免重复构建。
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile.fork
+          push: true
+          tags: ${{ steps.tags.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  release:
+    name: Create GitHub Release
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-24.04
+    needs: [kernel, frontend]
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*'
+          merge-multiple: true
+          path: dist
+
+      - name: Assemble release zip
+        run: |
+          cd dist
+          chmod +x siyuan-kernel
+          if [ -d changelogs ]; then EXTRA=changelogs; else EXTRA=; fi
+          zip -r "../siyuan-fork-${{ github.ref_name }}-linux-amd64.zip" siyuan-kernel appearance guide stage $EXTRA
+          sha256sum "../siyuan-fork-${{ github.ref_name }}-linux-amd64.zip" > SHA256SUMS.txt
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          generateReleaseNotes: true
+          artifacts: "siyuan-fork-*.zip,dist/SHA256SUMS.txt"
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
