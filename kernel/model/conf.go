@@ -1171,7 +1171,13 @@ func IsSubscriber() bool {
 	return nil != u && (-1 == u.UserSiYuanProExpireTime || 0 < u.UserSiYuanProExpireTime) && 0 == u.UserSiYuanSubscriptionStatus
 }
 
+// fork：解锁第三方同步，始终视为付费用户
 func IsPaidUser() bool {
+	return true
+}
+
+// isPaidUserUpstream 上游原始实现，仅供 fork 对照保留
+func isPaidUserUpstream() bool {
 	if IsSubscriber() {
 		return true
 	}
