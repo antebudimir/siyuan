@@ -129,11 +129,21 @@ jobs:
   desktop:
     name: Build Linux desktop installers
     # 分支推送只产出 Docker edge 镜像，桌面打包耗时且仅发布时需要。
+    # 依赖 frontend 产物：app/stage/build 被 .gitignore 忽略，不会出现在 checkout 中，
+    # 缺少它打出的安装包会因内核 404 而卡在 "Finishing boot..."。
+    needs: [frontend]
     if: github.event_name != 'push'
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+
+      - name: Download frontend build
+        # 产物根目录即 app/ 内容（appearance/stage/changelogs/guide），解到 app/ 覆盖 checkout 内容。
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend
+          path: app
 
       - name: Set up Go
         uses: actions/setup-go@v6
@@ -195,6 +205,42 @@ jobs:
       - name: Build Electron app
         run: pnpm run dist-linux
         working-directory: app
+
+      - name: Smoke test AppImage
+        # 冒烟测试：解包 AppImage 并按 Electron 的参数拉起内核，确认前端资源已打包、
+        # 内核能完成启动（bootProgress 到 100），避免再发出缺少 stage/build 的安装包。
+        env:
+          LC_ALL: C
+        run: |
+          appimage="$(ls app/build/siyuan-*-linux.AppImage | head -n 1)"
+          chmod +x "$appimage"
+          "${appimage}" --appimage-extract > /dev/null
+          test -f squashfs-root/resources/stage/build/desktop/index.html || {
+            echo "packaged frontend is missing: stage/build/desktop/index.html"
+            exit 1
+          }
+          workspace="$RUNNER_TEMP/smoke-ws"
+          mkdir -p "$workspace"
+          ./squashfs-root/resources/kernel/SiYuan-Kernel serve --port 58123 \
+            --wd "$PWD/squashfs-root/resources" --workspace "$workspace" \
+            > "$RUNNER_TEMP/smoke-kernel.log" 2>&1 &
+          kernel_pid=$!
+          ok=0
+          for attempt in {1..60}; do
+            if curl --fail --silent --request POST \
+              http://127.0.0.1:58123/api/system/bootProgress \
+              | node -e 'let raw="";process.stdin.on("data",c=>raw+=c).on("end",()=>{try{process.exit(JSON.parse(raw).data?.progress>=100?0:1)}catch{process.exit(1)}})'; then
+              ok=1
+              break
+            fi
+            sleep 5
+          done
+          kill "$kernel_pid" 2>/dev/null || true
+          if [ "$ok" -ne 1 ]; then
+            echo "kernel did not finish booting; last log lines:"
+            tail -40 "$RUNNER_TEMP/smoke-kernel.log"
+            exit 1
+          fi
 
       - name: Upload desktop artifacts
         uses: actions/upload-artifact@v4
