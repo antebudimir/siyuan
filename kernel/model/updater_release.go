@@ -33,14 +33,13 @@ import (
 	"github.com/siyuan-note/httpclient"
 	"github.com/siyuan-note/logging"
 	"github.com/siyuan-note/siyuan/kernel/conf"
-	"github.com/siyuan-note/siyuan/kernel/util"
 	"golang.org/x/mod/semver"
 	"golang.org/x/sync/singleflight"
 )
 
 const (
-	githubReleasesURL            = "https://api.github.com/repos/siyuan-note/siyuan/releases?per_page=100"
-	githubReleaseURLPrefix       = "https://github.com/siyuan-note/siyuan/releases/tag/v"
+	githubReleasesURL            = "https://api.github.com/repos/antebudimir/siyuan/releases?per_page=100"
+	githubReleaseURLPrefix       = "https://github.com/antebudimir/siyuan/releases/tag/v"
 	githubAPIReleaseCacheSeconds = int64(6 * 60 * 60)
 	maxChecksumManifestSize      = int64(1024 * 1024)
 )
@@ -81,79 +80,16 @@ var (
 
 func getUpdateRelease(force bool) (*updateRelease, error) {
 	channel := Conf.System.Load().UpdateChannel
-	if conf.UpdateChannelStable == channel {
-		return getStableUpdateRelease(force)
-	}
 	if !isValidUpdateChannel(channel) {
 		return nil, errors.New("update channel is invalid")
 	}
+	// fork：stable 通道也走 fork 仓库的 GitHub Releases，不再读取上游云端（Rhy）数据
 	return getGitHubUpdateRelease(channel, force)
 }
 
-func getStableUpdateRelease(force bool) (*updateRelease, error) {
-	result, err := util.GetRhyResult(context.TODO(), force)
-	if err != nil {
-		return nil, err
-	}
-	version, ok := result["ver"].(string)
-	normalizedVersion := normalizeReleaseVersion(version)
-	if !ok || !semver.IsValid(normalizedVersion) || "" != semver.Prerelease(normalizedVersion) {
-		return nil, errors.New("stable release version is invalid")
-	}
-	version = strings.TrimPrefix(normalizedVersion, "v")
-
-	release := &updateRelease{
-		Version:    version,
-		Channel:    conf.UpdateChannelStable,
-		ReleaseURL: getStableReleaseURL(result, version),
-		Packages:   map[string]*updatePackage{},
-	}
-	pkgName := currentInstallPackageName(release.Version)
-	if "" == pkgName {
-		return release, nil
-	}
-	checksum := getStablePackageChecksum(result, pkgName)
-	if "" == checksum {
-		return release, nil
-	}
-	githubURL := "https://github.com/siyuan-note/siyuan/releases/download/v" + version + "/" + pkgName
-	release.Packages[pkgName] = &updatePackage{
-		URLs:     getUpdatePackageURLs(pkgName, githubURL),
-		Checksum: checksum,
-	}
-	return release, nil
-}
-
-func getStableReleaseURL(result map[string]any, version string) string {
-	releaseURL, _ := result["release"].(string)
-	if localized, ok := result["release_"+Conf.Lang].(string); ok && "" != localized {
-		releaseURL = localized
-	} else if localized, ok = result["release_"+util.LangToLegacy(Conf.Lang)].(string); ok && "" != localized {
-		// 兼容云端 JSON 数据中历史下划线 key（release_zh_CN 等）。
-		releaseURL = localized
-	}
-	if "" == releaseURL {
-		releaseURL = githubReleaseURLPrefix + strings.TrimPrefix(version, "v")
-	}
-	return releaseURL
-}
-
-func getStablePackageChecksum(result map[string]any, pkgName string) string {
-	checksums, ok := result["checksums"].(map[string]any)
-	if !ok {
-		return ""
-	}
-	checksum, ok := checksums[pkgName].(string)
-	if !ok {
-		return ""
-	}
-	return normalizeSHA256(checksum)
-}
-
 func getUpdatePackageURLs(pkgName, githubURL string) []string {
-	b3logURL := "https://release.b3log.org/siyuan/" + pkgName
-	liuyunURL := "https://release.liuyun.io/siyuan/" + pkgName
-	return []string{b3logURL, liuyunURL, githubURL}
+	// fork：仅从 fork 仓库的 GitHub Releases 下载，移除上游 CDN 镜像
+	return []string{githubURL}
 }
 
 func getGitHubUpdateRelease(channel string, force bool) (*updateRelease, error) {
@@ -278,9 +214,10 @@ func isReleaseAllowed(channel, version string) bool {
 	}
 	prerelease := strings.TrimPrefix(semver.Prerelease(normalized), "-")
 	label := prereleaseChannelLabel(prerelease)
+	// fork：stable 通道额外接受 fork 预发布标签（如 v3.8.8-fork.1）
 	switch channel {
 	case conf.UpdateChannelStable:
-		return "" == prerelease
+		return "" == prerelease || "fork" == label
 	case conf.UpdateChannelBeta:
 		return "" == prerelease || "beta" == label || "rc" == label
 	case conf.UpdateChannelAlpha:
@@ -292,7 +229,7 @@ func isReleaseAllowed(channel, version string) bool {
 
 func prereleaseChannelLabel(prerelease string) string {
 	identifier, _, _ := strings.Cut(prerelease, ".")
-	for _, channel := range []string{"alpha", "beta", "rc"} {
+	for _, channel := range []string{"alpha", "beta", "rc", "fork"} {
 		if channel == identifier {
 			return channel
 		}
