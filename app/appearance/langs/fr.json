@@ -1394,7 +1394,7 @@
 	"configGroupImages": "Images",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "Compte",
-	"accountSync": "Compte et Synchronisation",
+	"accountSync": "Synchronisation",
 	"configGroupSync": "Synchronisation",
 	"authentication": "Authentification",
 	"configGroupServer": "Serveur",

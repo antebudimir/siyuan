@@ -1394,7 +1394,7 @@
 	"configGroupImages": "画像",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "アカウント",
-	"accountSync": "アカウントと同期",
+	"accountSync": "同期",
 	"configGroupSync": "同期",
 	"authentication": "認証",
 	"configGroupServer": "サーバー",

@@ -1394,7 +1394,7 @@
 	"configGroupImages": "圖片",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "帳號",
-	"accountSync": "帳號與同步",
+	"accountSync": "同步",
 	"configGroupSync": "同步",
 	"authentication": "鑑權",
 	"configGroupServer": "伺服",

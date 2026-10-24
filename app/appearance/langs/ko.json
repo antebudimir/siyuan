@@ -1394,7 +1394,7 @@
 	"configGroupImages": "이미지",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "계정",
-	"accountSync": "계정 및 동기화",
+	"accountSync": "동기화",
 	"configGroupSync": "동기화",
 	"authentication": "인증",
 	"configGroupServer": "서버",

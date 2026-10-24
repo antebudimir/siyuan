@@ -1394,7 +1394,7 @@
 	"configGroupImages": "Slike",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "Nalog",
-	"accountSync": "Nalog i sinhronizacija",
+	"accountSync": "Sinhronizacija",
 	"configGroupSync": "Sinhronizacija",
 	"authentication": "Autentifikacija",
 	"configGroupServer": "Server",

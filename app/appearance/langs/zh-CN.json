@@ -1394,7 +1394,7 @@
 	"configGroupImages": "图片",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "账号",
-	"accountSync": "账号与同步",
+	"accountSync": "同步",
 	"configGroupSync": "同步",
 	"authentication": "鉴权",
 	"configGroupServer": "伺服",

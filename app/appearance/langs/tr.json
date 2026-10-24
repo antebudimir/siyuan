@@ -1394,7 +1394,7 @@
 	"configGroupImages": "Görseller",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "Hesap",
-	"accountSync": "Hesap ve Senkronizasyon",
+	"accountSync": "Senkronizasyon",
 	"configGroupSync": "Senkronizasyon",
 	"authentication": "Kimlik Doğrulama",
 	"configGroupServer": "Sunucu",
