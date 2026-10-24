@@ -35,13 +35,14 @@ jobs:
 
       - name: Build kernel
         # 与本地 fork 配方一致：仅 fts5，不含 sqlcipher 与 ONNX。
-        run: go build -tags fts5 -ldflags "-s -w" -o siyuan-kernel ./kernel/
+        run: go build -tags fts5 -ldflags "-s -w" -o siyuan-kernel .
+        working-directory: kernel
 
       - name: Upload kernel artifact
         uses: actions/upload-artifact@v4
         with:
           name: siyuan-kernel-linux-amd64
-          path: siyuan-kernel
+          path: kernel/siyuan-kernel
           if-no-files-found: error
 
   frontend:
