@@ -510,7 +510,6 @@ test("dock catalog exposes the built-in default positions", () => {
         tag: "LeftBottom",
         backlink: "RightBottom",
         agentChat: "RightTop",
-        inbox: "LeftTop",
         graph: "RightTop",
         globalGraph: "RightTop",
     };

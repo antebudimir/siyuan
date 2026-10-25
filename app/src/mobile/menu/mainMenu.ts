@@ -81,7 +81,6 @@ export const MOBILE_MAIN_MENU_GROUPS: IMobileMainMenuGroup[] = [{
         dockItem("menuBookmark", "bookmark", "iconBookmark", lang("bookmark")),
         dockItem("menuTag", "tag", "iconTag", lang("tag")),
         dockItem("menuBacklink", "backlink", "iconLink", lang("backlinks")),
-        dockItem("menuInbox", "inbox", "iconInbox", lang("inbox")),
         {
             id: "menuRecent",
             icon: "iconRecentDocs",

@@ -48,7 +48,6 @@ func ServeAPI(ginServer *gin.Engine) {
 	registerAttrRoutes(ginServer)
 	registerCloudRoutes(ginServer)
 	registerSyncRoutes(ginServer)
-	registerInboxRoutes(ginServer)
 	registerExtensionRoutes(ginServer)
 	registerClipboardRoutes(ginServer)
 	registerAssetRoutes(ginServer)
@@ -554,13 +553,6 @@ func registerSyncRoutes(ginServer *gin.Engine) {
 	ginServer.Handle("POST", "/api/sync/importSyncProviderS3", contractRouteHandlers(apicontract.ImportSyncProviderS3, importSyncProviderS3)...)
 	ginServer.Handle("POST", "/api/sync/exportSyncProviderWebDAV", contractRouteHandlers(apicontract.ExportSyncProviderWebDAV, exportSyncProviderWebDAV)...)
 	ginServer.Handle("POST", "/api/sync/importSyncProviderWebDAV", contractRouteHandlers(apicontract.ImportSyncProviderWebDAV, importSyncProviderWebDAV)...)
-}
-
-// registerInboxRoutes 注册本域的契约路由。
-func registerInboxRoutes(ginServer *gin.Engine) {
-	ginServer.Handle("POST", "/api/inbox/getShorthands", contractRouteHandlers(apicontract.GetShorthands, getShorthands)...)
-	ginServer.Handle("POST", "/api/inbox/getShorthand", contractRouteHandlers(apicontract.GetShorthand, getShorthand)...)
-	ginServer.Handle("POST", "/api/inbox/removeShorthands", contractRouteHandlers(apicontract.RemoveShorthands, removeShorthands)...)
 }
 
 // registerExtensionRoutes 注册本域的契约路由。

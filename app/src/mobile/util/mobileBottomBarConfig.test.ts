@@ -79,13 +79,13 @@ describe("mobile bottom bar config", () => {
         assert.deepEqual(config.actions, ["tabs", "forward", "documents", "back", "search"]);
     });
 
-    it("supports inbox, backlinks, the agent, spaced repetition, and forward as configurable actions", () => {
+    it("supports bookmarks, backlinks, the agent, spaced repetition, and forward as configurable actions", () => {
         const config = normalizeMobileBottomBarConfig({
             version: MOBILE_BOTTOM_BAR_CONFIG_VERSION,
-            actions: ["inbox", "backlink", "agent", "spacedRepetition", "forward"],
+            actions: ["bookmark", "backlink", "agent", "spacedRepetition", "forward"],
         });
 
-        assert.deepEqual(config.actions, ["inbox", "backlink", "agent", "spacedRepetition", "forward"]);
+        assert.deepEqual(config.actions, ["bookmark", "backlink", "agent", "spacedRepetition", "forward"]);
     });
 
     it("supports selecting and quickly creating daily notes", () => {

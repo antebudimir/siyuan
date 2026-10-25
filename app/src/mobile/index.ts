@@ -130,7 +130,6 @@ class App {
                     bookmark: null,
                     tag: null,
                     backlink: null,
-                    inbox: null,
                     agent: null,
                 }
             },

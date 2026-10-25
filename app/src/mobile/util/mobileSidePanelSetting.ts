@@ -33,8 +33,6 @@ const getBuiltInDockLabel = (dockId: MobileSidePanelBuiltInDockId) => {
             return window.siyuan.languages.tag;
         case "backlink":
             return window.siyuan.languages.backlinks;
-        case "inbox":
-            return window.siyuan.languages.inbox;
         case "agent":
             return window.siyuan.languages.agentChat;
     }
@@ -52,7 +50,6 @@ const getBuiltInDockIcon = (dockId: MobileSidePanelBuiltInDockId) => {
             return "iconTag";
         case "backlink":
             return "iconLink";
-        case "inbox":
             return "iconInbox";
         case "agent":
             return "iconSparkles";

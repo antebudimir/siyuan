@@ -412,7 +412,7 @@ const ensureAgentChatDock = (layout: Pick<Config.IUiLayout, "left" | "right" | "
 const initInternalDock = (dockItem: Config.IUILayoutDockTab[]) => {
     for (let index = dockItem.length - 1; index >= 0; index--) {
         const existSubItem = dockItem[index];
-        if ((window.siyuan.isPublish && (existSubItem.type === "inbox" || existSubItem.type === "agentChat")) ||
+        if ((window.siyuan.isPublish && existSubItem.type === "agentChat") ||
             (isDisabledFeature("ai") && existSubItem.type === "agentChat")) {
             dockItem.splice(index, 1);
             continue;
@@ -1088,7 +1088,7 @@ export const addResize = (obj: Layout | Wnd, after = true) => {
         let minSize = 232;
         Array.from(element.querySelectorAll(".file-tree")).find((item) => {
             if (item.classList.contains("sy__backlink") || item.classList.contains("sy__graph")
-                || item.classList.contains("sy__globalGraph") || item.classList.contains("sy__inbox")) {
+                || item.classList.contains("sy__globalGraph")) {
                 if (!item.classList.contains("fn__none") && !hasClosestByClassName(item, "fn__none")) {
                     minSize = 320;
                     return true;
@@ -1301,7 +1301,7 @@ export const addResize = (obj: Layout | Wnd, after = true) => {
         const previousElement = resizeElement.previousElementSibling as HTMLElement;
         const nextElement = resizeElement.nextElementSibling as HTMLElement;
         if (previousElement && nextElement) {
-            const bigType = ["graph", "inbox", "globalGraph", "backlink"];
+            const bigType = ["graph", "globalGraph", "backlink"];
             let size = 232;
             nextElement.style.transition = "none";
             previousElement.style.transition = "none";

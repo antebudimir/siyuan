@@ -21,7 +21,6 @@ import {MobileBookmarks} from "../dock/MobileBookmarks";
 import {MobileTags} from "../dock/MobileTags";
 import {activeBlur, initKeyboardToolbar} from "./keyboardToolbar";
 import {syncGuide} from "../../sync/syncGuide";
-import {Inbox} from "../../layout/dock/Inbox";
 import type {App} from "../../index";
 import {checkFold} from "../../util/noRelyPCFunction";
 import {setTitle} from "../../util/processTitle";
@@ -229,8 +228,6 @@ const updateDock = (app: App, type: string, element: HTMLElement) => {
         } else {
             window.siyuan.mobile.docks.tag.update();
         }
-    } else if (type === "inbox" && !window.siyuan.mobile.docks.inbox) {
-        window.siyuan.mobile.docks.inbox = new Inbox(app, element);
     } else if (type === "agent") {
         void import("../agent/MobileAgentChat").then(({activateMobileAgent}) => {
             activateMobileAgent(app, element);

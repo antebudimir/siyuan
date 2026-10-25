@@ -17,7 +17,6 @@ test("publishing removes unavailable docks without skipping adjacent titles", ()
             {siyuan: {isPublish, languages}}, () => !isPublish);
         const docks = [
             {type: "agentChat", hotkeyLangId: "agentChat"},
-            ...(isPublish ? [{type: "inbox", hotkeyLangId: "inbox"}] : []),
             {type: "graph", hotkeyLangId: "graphView"},
             {type: "globalGraph", hotkeyLangId: "globalGraph"},
             {type: "bookmark", hotkeyLangId: "bookmark"},

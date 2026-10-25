@@ -12,7 +12,6 @@ import {Graph} from "./Graph";
 import {Model} from "../Model";
 import {adjustLayout, getWndByLayout, saveLayout, setPanelFocus} from "../util";
 import {getDockByType, resizeTabs, setTabPosition} from "../tabUtil";
-import {Inbox} from "./Inbox";
 import {Protyle} from "../../protyle";
 import {Backlink} from "./Backlink";
 import {AgentChat} from "./agent/AgentChat";
@@ -35,10 +34,10 @@ import {isWindow} from "../../util/functions";
 import {bindPanelTransitionGuard} from "../../util/panelTransition";
 import {isTouchHoverInput} from "../../util/hoverInput";
 
-const TYPES = ["file", "outline", "inbox", "bookmark", "tag", "graph", "globalGraph", "backlink", "agentChat"];
+const TYPES = ["file", "outline", "bookmark", "tag", "graph", "globalGraph", "backlink", "agentChat"];
 const DEFAULT_DOCK_SIZE = 232;
 const WIDE_DOCK_SIZE = 320;
-const WIDE_DOCK_TYPES = ["graph", "globalGraph", "backlink", "inbox"];
+const WIDE_DOCK_TYPES = ["graph", "globalGraph", "backlink"];
 type TDockTabData = Config.IUILayoutDockTab & {entryId?: string};
 
 export class Dock {
@@ -401,7 +400,7 @@ export class Dock {
         }
         const widePanel = Array.from(this.layout.element.querySelectorAll(".file-tree")).find((item) => {
             return (item.classList.contains("sy__backlink") || item.classList.contains("sy__graph") ||
-                item.classList.contains("sy__globalGraph") || item.classList.contains("sy__inbox")) &&
+                item.classList.contains("sy__globalGraph")) &&
                 !item.classList.contains("fn__none") && !hasClosestByClassName(item, "fn__none");
         });
         return widePanel ? WIDE_DOCK_SIZE : DEFAULT_DOCK_SIZE;
@@ -867,13 +866,6 @@ export class Dock {
                                     blockId: editor?.protyle?.block?.rootID,
                                     notebookId: editor?.protyle?.notebookId,
                                 }));
-                            }
-                        });
-                        break;
-                    case "inbox":
-                        tab = new Tab({
-                            callback: (tab: Tab) => {
-                                tab.addModel(new Inbox(this.app, tab));
                             }
                         });
                         break;

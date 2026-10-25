@@ -7,7 +7,6 @@ export const MOBILE_SIDE_PANEL_DOCK_IDS = [
     "bookmark",
     "tag",
     "backlink",
-    "inbox",
     "agent",
 ] as const;
 
@@ -51,7 +50,6 @@ export const DEFAULT_MOBILE_SIDE_PANEL_LEFT: readonly MobileSidePanelBuiltInDock
     "file",
     "bookmark",
     "tag",
-    "inbox",
 ];
 
 export const DEFAULT_MOBILE_SIDE_PANEL_RIGHT: readonly MobileSidePanelBuiltInDockId[] = [

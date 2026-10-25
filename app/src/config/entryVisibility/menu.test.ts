@@ -89,7 +89,6 @@ test("dock blank menu lists configurable dock entries only", () => {
         const items = buildEntryVisibilityMenuItems("dock", runtime);
         const ids = items.map((item) => item.id);
         assert.ok(ids.includes("dock.file"));
-        assert.ok(ids.includes("dock.inbox"));
         assert.ok(!ids.some((id) => id.includes("separator")));
     });
 });

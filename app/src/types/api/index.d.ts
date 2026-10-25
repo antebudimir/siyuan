@@ -1686,8 +1686,6 @@ export type RemoveFileRequestInput = { "app"?: string | null; "path": string; };
 
 export type RemoveRepoTagSnapshotRequestInput = { "tag": string; };
 
-export type RemoveShorthandsRequestInput = { "ids": Array<string>; };
-
 export type RemoveTagRequestInput = { "label": string; };
 
 export type RemoveUnusedAttributeViewRequestInput = { "id": string; };
@@ -2187,16 +2185,6 @@ export type SettingVariables = { "items": Array<SettingVariable | null> | null; 
 export type SettingVariablesInput = { "items"?: Array<SettingVariableInput | null> | null; };
 
 export type SettingsWindowRequestInput = { "settingsWindow": boolean; };
-
-export type Shorthand = { "hCreated": string; "oId": string; "shorthandContent": string; "shorthandDesc": string; "shorthandFrom": number; "shorthandMd": string; "shorthandTitle": string; "shorthandURL": string; };
-
-export type ShorthandPage = { "pagination": ShorthandPagination; "shorthands": Array<Shorthand | null>; };
-
-export type ShorthandPagination = { "paginationPageCount": number; "paginationPageNums": Array<number> | null; "paginationRecordCount": number; };
-
-export type ShorthandsData = { "code": number; "data": ShorthandPage; "msg": string; };
-
-export type ShorthandsRequestInput = { "page": number; };
 
 export type Snippet = { "content": string; "disabledInPublish": boolean; "enabled": boolean; "id": string; "name": string; "type": string; };
 
@@ -5738,27 +5726,6 @@ export interface APIPOSTRoutes {
     "/api/import/startObsidianVaultImport": {
         request: ObsidianImportRequestInput;
         response: { "code": 0; "data": ObsidianVaultTask | null; "msg": string; } | { "code": -1; "data": { "closeTimeout": number; } | null; "msg": string; };
-        body: "json";
-        /** 服务器路由要求；资源权限与笔记本租约仍由内核校验 */
-        authorization?: readonly ["authenticated","admin","writable"];
-    };
-    "/api/inbox/getShorthand": {
-        request: TrimmedIDRequestInput;
-        response: { "code": 0; "data": Shorthand | null; "msg": string; } | { "code": -1 | 1; "data": { "closeTimeout": number; } | null; "msg": string; };
-        body: "json";
-        /** 服务器路由要求；资源权限与笔记本租约仍由内核校验 */
-        authorization?: readonly ["authenticated","admin"];
-    };
-    "/api/inbox/getShorthands": {
-        request: ShorthandsRequestInput;
-        response: { "code": 0; "data": ShorthandsData | null; "msg": string; } | { "code": -1 | 1; "data": { "closeTimeout": number; } | null; "msg": string; };
-        body: "json";
-        /** 服务器路由要求；资源权限与笔记本租约仍由内核校验 */
-        authorization?: readonly ["authenticated","admin"];
-    };
-    "/api/inbox/removeShorthands": {
-        request: RemoveShorthandsRequestInput;
-        response: { "code": 0; "data": null; "msg": string; } | { "code": -1 | 1; "data": { "closeTimeout": number; } | null; "msg": string; };
         body: "json";
         /** 服务器路由要求；资源权限与笔记本租约仍由内核校验 */
         authorization?: readonly ["authenticated","admin","writable"];

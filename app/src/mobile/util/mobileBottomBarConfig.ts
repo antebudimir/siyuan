@@ -14,7 +14,6 @@ export const MOBILE_BOTTOM_BAR_ACTIONS = [
     "bookmark",
     "tag",
     "backlink",
-    "inbox",
     "agent",
     "spacedRepetition",
     "dailyNote",

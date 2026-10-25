@@ -351,14 +351,14 @@ test("moving a dock entry snapshot is atomic across scopes and supports empty ta
 
 test("moving within one dock scope detects invalid and no-op drops", () => {
     const snapshot = emptySnapshot();
-    snapshot[DOCK_ORDER_SCOPE_BY_POSITION.LeftTop] = ["file", "outline", "inbox"];
+    snapshot[DOCK_ORDER_SCOPE_BY_POSITION.LeftTop] = ["file", "outline", "tag"];
 
     assert.deepEqual(moveDockEntryOrderSnapshot(
         snapshot,
-        "inbox",
+        "tag",
         DOCK_ORDER_SCOPE_BY_POSITION.LeftTop,
         "file",
-    )?.[DOCK_ORDER_SCOPE_BY_POSITION.LeftTop], ["inbox", "file", "outline"]);
+    )?.[DOCK_ORDER_SCOPE_BY_POSITION.LeftTop], ["tag", "file", "outline"]);
     assert.equal(moveDockEntryOrderSnapshot(
         snapshot,
         "file",

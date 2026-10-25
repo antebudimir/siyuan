@@ -64,7 +64,6 @@ export const globalCommand = (command: string, app: App, range?: Range, openOnly
         case "outline":
         case "bookmark":
         case "tag":
-        case "inbox":
             openDock(command);
             return true;
         case "backlinks":
@@ -90,7 +89,6 @@ export const globalCommand = (command: string, app: App, range?: Range, openOnly
             return true;
         case "bookmark":
         case "tag":
-        case "inbox":
             getDockByType(command).toggleModel(command);
             return true;
         case "backlinks":
