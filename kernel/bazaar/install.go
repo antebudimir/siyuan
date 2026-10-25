@@ -36,7 +36,6 @@ import (
 )
 
 var downloadPackageFlight singleflight.Group
-var bazaarDownloadCloudServer = util.GetCloudServer
 var bazaarDownloadFileServer = util.BazaarOSSServer
 var packageInstallLock = semaphore.NewWeighted(1)
 
@@ -81,21 +80,6 @@ func downloadBazaarFileContext(ctx context.Context, repoURLHash string, pushProg
 		util.PushDownloadProgress(repoURL, 1)
 	}
 	return buf.Bytes(), nil
-}
-
-// incPackageDownloads 增加集市包下载次数
-func incPackageDownloads(repoURL, packageName, systemID string) {
-	if "" == systemID {
-		return
-	}
-	repo := strings.TrimPrefix(repoURL, "https://github.com/")
-	u := bazaarDownloadCloudServer() + "/apis/siyuan/bazaar/addBazaarPackageDownloadCount"
-	httpclient.NewCloudRequest30s().SetBody(
-		map[string]any{
-			"systemID":    systemID,
-			"repo":        repo,
-			"packageName": packageName,
-		}).Post(u)
 }
 
 // packageManifestNames 各类型集市包清单文件名
@@ -147,7 +131,6 @@ func InstallPackageWithOptions(repoURL, repoHash, repoRef, installPath, systemID
 		logging.LogWarnf("set package [%s] folder mtime failed: %s", packageName, err)
 	}
 
-	go incPackageDownloads(repoURL, packageName, systemID)
 	return result, nil
 }
 
