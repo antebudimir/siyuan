@@ -353,6 +353,15 @@ declare namespace Config {
             light: {color: string; opacity: number};
             dark: {color: string; opacity: number};
         };
+        /** 块引用描边样式，未配置时使用默认描边 */
+        blockRefStyle?: {
+            mode: string;
+            borderWidth: number;
+            radius: number;
+            paddingX: number;
+            paddingY: number;
+            borderColor: string;
+        };
         /** 全局默认字体，按优先级从高到低排列；动态文字图标使用此列表和首选字重，字体由客户端解析，日期类图标保留内置字体 */
         globalFontFamilies: IEditor["fontFamilies"];
         /**

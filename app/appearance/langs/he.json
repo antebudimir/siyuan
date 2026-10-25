@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "סגנון הפניה לבלוק",
+	"blockRefStyleTip": "התאמה אישית של עובי המסגרת, רדיוס הפינות, הריפוד ואזור הלחיצה של הפניות לבלוק",
+	"blockRefStyleBorder": "מסגרת",
+	"blockRefStyleBorderWidth": "עובי מסגרת",
+	"blockRefStyleRadius": "רדיוס פינות",
+	"blockRefStylePaddingX": "ריפוד אופקי",
+	"blockRefStylePaddingY": "ריפוד אנכי",
+	"blockRefStyleBorderColor": "צבע מסגרת",
+	"blockRefStyleBorderColorAuto": "אוטומטי (לפי ערכת נושא)",
 	"workspaceStorageView": "הצג",
 	"listMindmapDocumentLayout": "פריסת המסמך",
 	"livePhoto": "תמונה חיה",

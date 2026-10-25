@@ -598,6 +598,7 @@ func settingAppearancePayload(value *conf.Appearance) *apicontract.SettingAppear
 		result.MobileBars = &apicontract.SettingMobileBars{AutoHide: value.MobileBars.AutoHide, SidebarSwipe: value.MobileBars.SidebarSwipe, SidebarButtons: value.MobileBars.SidebarButtons}
 	}
 	result.BodyGradient = settingBodyGradientPayload(value.BodyGradient)
+	result.BlockRefStyle = settingBlockRefStylePayload(value.BlockRefStyle)
 	if value.GlobalFontFamilies != nil {
 		result.GlobalFontFamilies = make([]*apicontract.SettingEditorFont, len(value.GlobalFontFamilies))
 		for i, item := range value.GlobalFontFamilies {
@@ -651,6 +652,20 @@ func settingBodyGradientPayload(value *conf.BodyGradient) *apicontract.SettingBo
 	result.Light = *settingBodyGradientColorPayload(&value.Light)
 	result.Dark = *settingBodyGradientColorPayload(&value.Dark)
 	return result
+}
+
+func settingBlockRefStylePayload(value *conf.BlockRefStyle) *apicontract.SettingBlockRefStyle {
+	if value == nil {
+		return nil
+	}
+	return &apicontract.SettingBlockRefStyle{
+		Mode:        value.Mode,
+		BorderWidth: value.BorderWidth,
+		Radius:      value.Radius,
+		PaddingX:    value.PaddingX,
+		PaddingY:    value.PaddingY,
+		BorderColor: value.BorderColor,
+	}
 }
 
 func settingBodyGradientColorPayload(value *conf.BodyGradientColor) *apicontract.SettingBodyGradientColor {

@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "Styl odwołań do bloków",
+	"blockRefStyleTip": "Dostosuj grubość obramowania, zaokrąglenie narożników, dopełnienie i klikalny obszar odwołań do bloków",
+	"blockRefStyleBorder": "Obramowanie",
+	"blockRefStyleBorderWidth": "Grubość obramowania",
+	"blockRefStyleRadius": "Zaokrąglenie narożników",
+	"blockRefStylePaddingX": "Dopełnienie poziome",
+	"blockRefStylePaddingY": "Dopełnienie pionowe",
+	"blockRefStyleBorderColor": "Kolor obramowania",
+	"blockRefStyleBorderColorAuto": "Automatycznie (motyw)",
 	"workspaceStorageView": "Pokaż",
 	"listMindmapDocumentLayout": "Układ dokumentu",
 	"livePhoto": "Live Photo",

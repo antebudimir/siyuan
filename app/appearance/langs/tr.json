@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "Blok referans stili",
+	"blockRefStyleTip": "Blok referanslarının kenarlık kalınlığını, köşe yarıçapını, dolguyu ve tıklanabilir alanı özelleştirin",
+	"blockRefStyleBorder": "Kenarlık",
+	"blockRefStyleBorderWidth": "Kenarlık kalınlığı",
+	"blockRefStyleRadius": "Köşe yarıçapı",
+	"blockRefStylePaddingX": "Yatay dolgu",
+	"blockRefStylePaddingY": "Dikey dolgu",
+	"blockRefStyleBorderColor": "Kenarlık rengi",
+	"blockRefStyleBorderColorAuto": "Otomatik (tema)",
 	"workspaceStorageView": "Görüntüle",
 	"listMindmapDocumentLayout": "Belge düzeni",
 	"livePhoto": "Canlı Fotoğraf",

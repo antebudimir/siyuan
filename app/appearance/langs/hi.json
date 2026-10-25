@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "ब्लॉक संदर्भ शैली",
+	"blockRefStyleTip": "ब्लॉक संदर्भों की बॉर्डर चौड़ाई, कोने की त्रिज्या, पैडिंग और क्लिक करने योग्य क्षेत्र अनुकूलित करें",
+	"blockRefStyleBorder": "बॉर्डर",
+	"blockRefStyleBorderWidth": "बॉर्डर चौड़ाई",
+	"blockRefStyleRadius": "कोने की त्रिज्या",
+	"blockRefStylePaddingX": "क्षैतिज पैडिंग",
+	"blockRefStylePaddingY": "लंबवत पैडिंग",
+	"blockRefStyleBorderColor": "बॉर्डर का रंग",
+	"blockRefStyleBorderColorAuto": "स्वतः (थीम के अनुसार)",
 	"workspaceStorageView": "देखें",
 	"listMindmapDocumentLayout": "दस्तावेज़ लेआउट",
 	"livePhoto": "लाइव फ़ोटो",

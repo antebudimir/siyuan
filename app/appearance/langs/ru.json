@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "Стиль ссылок на блоки",
+	"blockRefStyleTip": "Настройте толщину рамки, скругление углов, внутренние отступы и кликабельную область ссылок на блоки",
+	"blockRefStyleBorder": "Рамка",
+	"blockRefStyleBorderWidth": "Толщина рамки",
+	"blockRefStyleRadius": "Радиус скругления",
+	"blockRefStylePaddingX": "Горизонтальный отступ",
+	"blockRefStylePaddingY": "Вертикальный отступ",
+	"blockRefStyleBorderColor": "Цвет рамки",
+	"blockRefStyleBorderColorAuto": "Автоматически (по теме)",
 	"workspaceStorageView": "Показать",
 	"listMindmapDocumentLayout": "Макет документа",
 	"livePhoto": "Живое фото",

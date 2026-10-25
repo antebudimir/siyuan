@@ -249,6 +249,46 @@ func NormalizeFlashcard(flashcard *Flashcard) (*Flashcard, string) {
 	return flashcard, message
 }
 
+// NormalizeBlockRefStyle 补全块引用描边样式缺失字段，并将越界数值收敛到允许范围。
+func NormalizeBlockRefStyle(style *BlockRefStyle) *BlockRefStyle {
+	defaults := NewBlockRefStyle()
+	if style == nil {
+		return defaults
+	}
+	if style.Mode != "off" {
+		style.Mode = "border"
+	}
+	if style.BorderWidth < 0 {
+		style.BorderWidth = defaults.BorderWidth
+	}
+	if style.Radius < 0 {
+		style.Radius = defaults.Radius
+	}
+	if style.PaddingX < 0 {
+		style.PaddingX = defaults.PaddingX
+	}
+	if style.PaddingY < 0 {
+		style.PaddingY = defaults.PaddingY
+	}
+	if style.BorderColor != "auto" && !isHexColor(style.BorderColor) {
+		style.BorderColor = defaults.BorderColor
+	}
+	return style
+}
+
+// isHexColor 判断是否为 #RRGGBB 格式的十六进制颜色。
+func isHexColor(color string) bool {
+	if len(color) != 7 || color[0] != '#' {
+		return false
+	}
+	for _, char := range color[1:] {
+		if !('0' <= char && char <= '9' || 'a' <= char && char <= 'f' || 'A' <= char && char <= 'F') {
+			return false
+		}
+	}
+	return true
+}
+
 // NormalizeAppearance 补全外观缺失字段，并将已移除的图标包和越界的状态栏配置转换为当前可用值。
 // mobile 表示是否为移动端容器，决定状态栏默认项。
 func NormalizeAppearance(appearance *Appearance, mobile bool) *Appearance {
@@ -284,6 +324,7 @@ func NormalizeAppearance(appearance *Appearance, mobile bool) *Appearance {
 	if appearance.MobileBars == nil {
 		appearance.MobileBars = NewMobileBars()
 	}
+	appearance.BlockRefStyle = NormalizeBlockRefStyle(appearance.BlockRefStyle)
 	if appearance.MobileBars.AutoHide == nil {
 		appearance.MobileBars.AutoHide = new(true)
 	}

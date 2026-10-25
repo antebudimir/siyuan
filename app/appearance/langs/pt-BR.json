@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "Estilo da referência de bloco",
+	"blockRefStyleTip": "Personalize a espessura da borda, o raio dos cantos, o preenchimento e a área clicável das referências de bloco",
+	"blockRefStyleBorder": "Borda",
+	"blockRefStyleBorderWidth": "Espessura da borda",
+	"blockRefStyleRadius": "Raio dos cantos",
+	"blockRefStylePaddingX": "Preenchimento horizontal",
+	"blockRefStylePaddingY": "Preenchimento vertical",
+	"blockRefStyleBorderColor": "Cor da borda",
+	"blockRefStyleBorderColorAuto": "Automático (tema)",
 	"workspaceStorageView": "Ver",
 	"listMindmapDocumentLayout": "Layout do documento",
 	"livePhoto": "Live Photo",

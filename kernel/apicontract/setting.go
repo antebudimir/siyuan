@@ -426,6 +426,7 @@ type SettingAppearance struct {
 	OutlineKeepCurrentExpand bool                      `json:"outlineKeepCurrentExpand" api:"optional,nullable"`
 	MobileBars               *SettingMobileBars        `json:"mobileBars" api:"optional,nullable"`
 	BodyGradient             *SettingBodyGradient      `json:"bodyGradient" api:"optional,nullable"`
+	BlockRefStyle            *SettingBlockRefStyle     `json:"blockRefStyle" api:"optional,nullable"`
 	GlobalFontFamilies       []*SettingEditorFont      `json:"globalFontFamilies" api:"optional,nullable"`
 	Mode                     int                       `json:"mode" api:"optional,nullable"`
 	ModeOS                   bool                      `json:"modeOS" api:"optional,nullable"`
@@ -468,6 +469,16 @@ type SettingBodyGradient struct {
 	Mode  string                   `json:"mode" api:"optional,nullable"`
 	Light SettingBodyGradientColor `json:"light" api:"optional,nullable"`
 	Dark  SettingBodyGradientColor `json:"dark" api:"optional,nullable"`
+}
+
+// SettingBlockRefStyle 块引用描边样式；mode 取 border 或 off，borderColor 取 auto 或十六进制 RGB。
+type SettingBlockRefStyle struct {
+	Mode        string `json:"mode" api:"optional,nullable"`
+	BorderWidth int    `json:"borderWidth" api:"optional,nullable"`
+	Radius      int    `json:"radius" api:"optional,nullable"`
+	PaddingX    int    `json:"paddingX" api:"optional,nullable"`
+	PaddingY    int    `json:"paddingY" api:"optional,nullable"`
+	BorderColor string `json:"borderColor" api:"optional,nullable"`
 }
 
 type SettingBodyGradientColor struct {

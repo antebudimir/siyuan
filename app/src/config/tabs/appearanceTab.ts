@@ -52,6 +52,7 @@ import {genMobileBarsSettingHTML, mountMobileBarsSetting} from "../../mobile/uti
 /// #endif
 import {genEntryVisibilityHtml, mountEntryVisibility} from "../entryVisibility/ui";
 import {genBodyGradientHtml, mountBodyGradient} from "./bodyGradient";
+import {genBlockRefStyleHtml, mountBlockRefStyle} from "./blockRefStyle";
 import {isCompactModeAvailable, isCompactModeEnabled, setCompactModeEnabled} from "./compactMode";
 import {isMenuMouseScrollAvailable, isMenuMouseScrollEnabled, setMenuMouseScrollEnabled} from "./menuMouseScroll";
 import {openInlineStyleDialog} from "../../protyle/toolbar/inlineStyleDialog";
@@ -922,6 +923,12 @@ const registerAppearanceInterfaceGroup = (tab: SettingTabBuilder) => {
         keywords: [window.siyuan.languages.bodyGradient, window.siyuan.languages.bodyGradientTip],
         html: genBodyGradientHtml,
         afterMount: mountBodyGradient,
+    });
+    group.slot({
+        key: "blockRefStyle",
+        keywords: [window.siyuan.languages.blockRefStyle, window.siyuan.languages.blockRefStyleTip],
+        html: genBlockRefStyleHtml,
+        afterMount: mountBlockRefStyle,
     });
     if (isCompactModeAvailable()) {
         group.switch("compactMode", {

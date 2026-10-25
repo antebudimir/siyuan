@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "สไตล์การอ้างอิงบล็อก",
+	"blockRefStyleTip": "ปรับแต่งความหนาของเส้นขอบ รัศมีมุม ระยะห่างภายใน และพื้นที่คลิกของการอ้างอิงบล็อก",
+	"blockRefStyleBorder": "เส้นขอบ",
+	"blockRefStyleBorderWidth": "ความหนาของเส้นขอบ",
+	"blockRefStyleRadius": "รัศมีมุม",
+	"blockRefStylePaddingX": "ระยะห่างภายในแนวนอน",
+	"blockRefStylePaddingY": "ระยะห่างภายในแนวตั้ง",
+	"blockRefStyleBorderColor": "สีเส้นขอบ",
+	"blockRefStyleBorderColorAuto": "อัตโนมัติ (ตามธีม)",
 	"workspaceStorageView": "ดู",
 	"listMindmapDocumentLayout": "เค้าโครงเอกสาร",
 	"livePhoto": "ภาพถ่าย Live Photo",

@@ -25,6 +25,7 @@ type Appearance struct {
 	OutlineKeepCurrentExpand bool                `json:"outlineKeepCurrentExpand"` // 大纲保持当前标题展开
 	MobileBars               *MobileBars         `json:"mobileBars"`               // 移动端工具栏与侧栏访问偏好
 	BodyGradient             *BodyGradient       `json:"bodyGradient"`             // 背景渐变，空值表示自动配色
+	BlockRefStyle            *BlockRefStyle      `json:"blockRefStyle"`            // 块引用描边样式，空值表示默认描边
 	GlobalFontFamilies       []*EditorFont       `json:"globalFontFamilies"`       // 按优先级排列的全局默认字体
 	Mode                     int                 `json:"mode"`                     // 模式：0：明亮，1：暗黑
 	ModeOS                   bool                `json:"modeOS"`                   // 模式是否跟随系统
@@ -79,6 +80,26 @@ type BodyGradientColor struct {
 	Opacity float64 `json:"opacity"` // 渐变起点的不透明度，范围为 0 至 100
 }
 
+type BlockRefStyle struct {
+	Mode        string `json:"mode"`        // border：描边按钮样式，off：关闭描边
+	BorderWidth int    `json:"borderWidth"` // 描边宽度，单位 px
+	Radius      int    `json:"radius"`      // 圆角半径，单位 px
+	PaddingX    int    `json:"paddingX"`    // 水平内边距，单位 px
+	PaddingY    int    `json:"paddingY"`    // 垂直内边距，单位 px
+	BorderColor string `json:"borderColor"` // auto：跟随主题引用色，十六进制 RGB：自定义颜色
+}
+
+func NewBlockRefStyle() *BlockRefStyle {
+	return &BlockRefStyle{
+		Mode:        "border",
+		BorderWidth: 1,
+		Radius:      4,
+		PaddingX:    4,
+		PaddingY:    0,
+		BorderColor: "auto",
+	}
+}
+
 func NewAppearance() *Appearance {
 	return NewAppearanceForContainer(false)
 }
@@ -89,6 +110,7 @@ func NewAppearanceForContainer(mobile bool) *Appearance {
 		MenuMouseScroll:     true,
 		PDFTheme:            NewPDFTheme(),
 		MobileBars:          NewMobileBars(),
+		BlockRefStyle:       NewBlockRefStyle(),
 		GlobalFontFamilies:  []*EditorFont{},
 		Mode:                0,
 		ModeOS:              true,

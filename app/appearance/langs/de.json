@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "Blockreferenz-Stil",
+	"blockRefStyleTip": "Rahmenbreite, Eckenradius, Innenabstand und klickbaren Bereich von Blockreferenzen anpassen",
+	"blockRefStyleBorder": "Rahmen",
+	"blockRefStyleBorderWidth": "Rahmenbreite",
+	"blockRefStyleRadius": "Eckenradius",
+	"blockRefStylePaddingX": "Horizontaler Innenabstand",
+	"blockRefStylePaddingY": "Vertikaler Innenabstand",
+	"blockRefStyleBorderColor": "Rahmenfarbe",
+	"blockRefStyleBorderColorAuto": "Automatisch (Theme)",
 	"workspaceStorageView": "Anzeigen",
 	"listMindmapDocumentLayout": "Dokumentlayout",
 	"livePhoto": "Live Photo",

@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "Estilo de referencia de bloque",
+	"blockRefStyleTip": "Personaliza el grosor del borde, el radio de las esquinas, el relleno y el área pulsable de las referencias de bloque",
+	"blockRefStyleBorder": "Borde",
+	"blockRefStyleBorderWidth": "Grosor del borde",
+	"blockRefStyleRadius": "Radio de las esquinas",
+	"blockRefStylePaddingX": "Relleno horizontal",
+	"blockRefStylePaddingY": "Relleno vertical",
+	"blockRefStyleBorderColor": "Color del borde",
+	"blockRefStyleBorderColorAuto": "Automático (tema)",
 	"workspaceStorageView": "Ver",
 	"listMindmapDocumentLayout": "Diseño del documento",
 	"livePhoto": "Live Photo",

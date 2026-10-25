@@ -16439,6 +16439,16 @@
     "BazaarAppearance": {
       "type": "object",
       "properties": {
+        "blockRefStyle": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BazaarBlockRefStyle"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "bodyGradient": {
           "anyOf": [
             {
@@ -16632,6 +16642,7 @@
         }
       },
       "required": [
+        "blockRefStyle",
         "bodyGradient",
         "closeButtonBehavior",
         "codeBlockThemeDark",
@@ -16737,6 +16748,38 @@
       "required": [
         "label",
         "name"
+      ],
+      "additionalProperties": false
+    },
+    "BazaarBlockRefStyle": {
+      "type": "object",
+      "properties": {
+        "borderColor": {
+          "type": "string"
+        },
+        "borderWidth": {
+          "type": "integer"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "paddingX": {
+          "type": "integer"
+        },
+        "paddingY": {
+          "type": "integer"
+        },
+        "radius": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "borderColor",
+        "borderWidth",
+        "mode",
+        "paddingX",
+        "paddingY",
+        "radius"
       ],
       "additionalProperties": false
     },
@@ -40025,6 +40068,16 @@
     "SetAppearanceRequestInput": {
       "type": "object",
       "properties": {
+        "blockRefStyle": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SettingBlockRefStyleInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "bodyGradient": {
           "anyOf": [
             {
@@ -43421,6 +43474,16 @@
     "SettingAppearance": {
       "type": "object",
       "properties": {
+        "blockRefStyle": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SettingBlockRefStyle"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "bodyGradient": {
           "anyOf": [
             {
@@ -43614,6 +43677,7 @@
         }
       },
       "required": [
+        "blockRefStyle",
         "bodyGradient",
         "closeButtonBehavior",
         "codeBlockThemeDark",
@@ -43689,6 +43753,16 @@
     "SettingAppearanceInput": {
       "type": "object",
       "properties": {
+        "blockRefStyle": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SettingBlockRefStyleInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "bodyGradient": {
           "anyOf": [
             {
@@ -44360,6 +44434,104 @@
           "anyOf": [
             {
               "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SettingBlockRefStyle": {
+      "type": "object",
+      "properties": {
+        "borderColor": {
+          "type": "string"
+        },
+        "borderWidth": {
+          "type": "integer"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "paddingX": {
+          "type": "integer"
+        },
+        "paddingY": {
+          "type": "integer"
+        },
+        "radius": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "borderColor",
+        "borderWidth",
+        "mode",
+        "paddingX",
+        "paddingY",
+        "radius"
+      ],
+      "additionalProperties": false
+    },
+    "SettingBlockRefStyleInput": {
+      "type": "object",
+      "properties": {
+        "borderColor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "borderWidth": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "paddingX": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "paddingY": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "radius": {
+          "anyOf": [
+            {
+              "type": "integer"
             },
             {
               "type": "null"

@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "Gaya referensi blok",
+	"blockRefStyleTip": "Sesuaikan ketebalan tepi, radius sudut, padding, dan area klik referensi blok",
+	"blockRefStyleBorder": "Tepi",
+	"blockRefStyleBorderWidth": "Ketebalan tepi",
+	"blockRefStyleRadius": "Radius sudut",
+	"blockRefStylePaddingX": "Padding horizontal",
+	"blockRefStylePaddingY": "Padding vertikal",
+	"blockRefStyleBorderColor": "Warna tepi",
+	"blockRefStyleBorderColorAuto": "Otomatis (tema)",
 	"workspaceStorageView": "Lihat",
 	"listMindmapDocumentLayout": "Tata letak dokumen",
 	"livePhoto": "Live Photo",

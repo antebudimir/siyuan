@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "块引用样式",
+	"blockRefStyleTip": "自定义块引用的边框宽度、圆角、内边距和可点击区域",
+	"blockRefStyleBorder": "边框",
+	"blockRefStyleBorderWidth": "边框宽度",
+	"blockRefStyleRadius": "圆角半径",
+	"blockRefStylePaddingX": "水平内边距",
+	"blockRefStylePaddingY": "垂直内边距",
+	"blockRefStyleBorderColor": "边框颜色",
+	"blockRefStyleBorderColorAuto": "自动（跟随主题）",
 	"workspaceStorageView": "查看",
 	"listMindmapDocumentLayout": "文档布局",
 	"livePhoto": "实况照片",

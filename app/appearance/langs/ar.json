@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "نمط الإحالة إلى كتلة",
+	"blockRefStyleTip": "تخصيص سماكة الإطار وانحناء الزوايا والحشو والمساحة القابلة للنقر للإحالات إلى الكتل",
+	"blockRefStyleBorder": "الإطار",
+	"blockRefStyleBorderWidth": "سماكة الإطار",
+	"blockRefStyleRadius": "انحناء الزوايا",
+	"blockRefStylePaddingX": "الحشو الأفقي",
+	"blockRefStylePaddingY": "الحشو الرأسي",
+	"blockRefStyleBorderColor": "لون الإطار",
+	"blockRefStyleBorderColorAuto": "تلقائي (حسب السمة)",
 	"workspaceStorageView": "عرض",
 	"listMindmapDocumentLayout": "تخطيط المستند",
 	"livePhoto": "صورة حية",

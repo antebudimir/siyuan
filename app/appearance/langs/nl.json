@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "Blokverwijzingstijl",
+	"blockRefStyleTip": "Pas de randdikte, hoekstraal, opvulling en klikbare gebied van blokverwijzingen aan",
+	"blockRefStyleBorder": "Rand",
+	"blockRefStyleBorderWidth": "Randdikte",
+	"blockRefStyleRadius": "Hoekstraal",
+	"blockRefStylePaddingX": "Horizontale opvulling",
+	"blockRefStylePaddingY": "Verticale opvulling",
+	"blockRefStyleBorderColor": "Randkleur",
+	"blockRefStyleBorderColorAuto": "Automatisch (thema)",
 	"workspaceStorageView": "Bekijken",
 	"listMindmapDocumentLayout": "Documentindeling",
 	"livePhoto": "Live Photo",

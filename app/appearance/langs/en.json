@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "Block ref style",
+	"blockRefStyleTip": "Customize the block reference border, corner radius, padding, and clickable area",
+	"blockRefStyleBorder": "Border",
+	"blockRefStyleBorderWidth": "Border width",
+	"blockRefStyleRadius": "Corner radius",
+	"blockRefStylePaddingX": "Horizontal padding",
+	"blockRefStylePaddingY": "Vertical padding",
+	"blockRefStyleBorderColor": "Border color",
+	"blockRefStyleBorderColorAuto": "Automatic (theme)",
 	"workspaceStorageView": "View",
 	"listMindmapDocumentLayout": "Document layout",
 	"livePhoto": "Live Photo",

@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "Style des références de bloc",
+	"blockRefStyleTip": "Personnalisez l'épaisseur de la bordure, l'arrondi, le remplissage et la zone cliquable des références de bloc",
+	"blockRefStyleBorder": "Bordure",
+	"blockRefStyleBorderWidth": "Épaisseur de la bordure",
+	"blockRefStyleRadius": "Rayon des coins",
+	"blockRefStylePaddingX": "Marge intérieure horizontale",
+	"blockRefStylePaddingY": "Marge intérieure verticale",
+	"blockRefStyleBorderColor": "Couleur de la bordure",
+	"blockRefStyleBorderColorAuto": "Automatique (thème)",
 	"workspaceStorageView": "Afficher",
 	"listMindmapDocumentLayout": "Disposition du document",
 	"livePhoto": "Live Photo",

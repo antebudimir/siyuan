@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "Стил референци на блокове",
+	"blockRefStyleTip": "Прилагодите дебљину ивице, радиус углова, испуну и кликабелну област референци на блокове",
+	"blockRefStyleBorder": "Ивица",
+	"blockRefStyleBorderWidth": "Дебљина ивице",
+	"blockRefStyleRadius": "Радиус углова",
+	"blockRefStylePaddingX": "Хоризонтална испуна",
+	"blockRefStylePaddingY": "Вертикална испуна",
+	"blockRefStyleBorderColor": "Боја ивице",
+	"blockRefStyleBorderColorAuto": "Аутоматски (према теми)",
 	"workspaceStorageView": "Прикажи",
 	"listMindmapDocumentLayout": "Распоред документа",
 	"livePhoto": "Жива фотографија",

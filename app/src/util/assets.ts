@@ -1,6 +1,7 @@
 import {config as configApi} from "../config/util/configApi";
 import {Constants} from "../constants";
 import {getBodyGradientImage} from "./bodyGradient";
+import {setBlockRefStyle} from "./blockRefStyle";
 import {addScript} from "../protyle/util/addScript";
 import {ensureLute} from "../protyle/util/lute";
 import {addStyle} from "../protyle/util/addStyle";
@@ -137,6 +138,7 @@ export const loadAssets = async (appearance: Config.IAppearance) => {
     initSelectionStyle();
     const scriptLoads: Promise<unknown>[] = [];
     setBodyHighlight(appearance.bodyGradient);
+    setBlockRefStyle(appearance.blockRefStyle);
     const data = getHostCapabilities().customAppearance ? appearance : {
         ...appearance,
         themeLight: "daylight",

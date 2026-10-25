@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "Стиль посилань на блоки",
+	"blockRefStyleTip": "Налаштуйте товщину рамки, радіус кутів, внутрішні відступи та клікабельну область посилань на блоки",
+	"blockRefStyleBorder": "Рамка",
+	"blockRefStyleBorderWidth": "Товщина рамки",
+	"blockRefStyleRadius": "Радіус кутів",
+	"blockRefStylePaddingX": "Горизонтальний відступ",
+	"blockRefStylePaddingY": "Вертикальний відступ",
+	"blockRefStyleBorderColor": "Колір рамки",
+	"blockRefStyleBorderColorAuto": "Автоматично (за темою)",
 	"workspaceStorageView": "Переглянути",
 	"listMindmapDocumentLayout": "Макет документа",
 	"livePhoto": "Живе фото",

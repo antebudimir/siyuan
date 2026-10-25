@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "ブロック参照スタイル",
+	"blockRefStyleTip": "ブロック参照の枠線の太さ、角丸、余白、クリック領域をカスタマイズします",
+	"blockRefStyleBorder": "枠線",
+	"blockRefStyleBorderWidth": "枠線の太さ",
+	"blockRefStyleRadius": "角丸の半径",
+	"blockRefStylePaddingX": "水平方向の余白",
+	"blockRefStylePaddingY": "垂直方向の余白",
+	"blockRefStyleBorderColor": "枠線の色",
+	"blockRefStyleBorderColorAuto": "自動（テーマに従う）",
 	"workspaceStorageView": "表示",
 	"listMindmapDocumentLayout": "文書内のレイアウト",
 	"livePhoto": "Live Photo",

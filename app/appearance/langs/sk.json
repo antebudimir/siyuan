@@ -1,4 +1,13 @@
 {
+	"blockRefStyle": "Štýl odkazu na blok",
+	"blockRefStyleTip": "Prispôsobte hrúbku ohraničenia, polomer rohov, vnútorné odsadenie a klikateľnú oblasť odkazov na bloky",
+	"blockRefStyleBorder": "Ohraničenie",
+	"blockRefStyleBorderWidth": "Hrúbka ohraničenia",
+	"blockRefStyleRadius": "Polomer rohov",
+	"blockRefStylePaddingX": "Vodorovné odsadenie",
+	"blockRefStylePaddingY": "Zvislé odsadenie",
+	"blockRefStyleBorderColor": "Farba ohraničenia",
+	"blockRefStyleBorderColorAuto": "Automaticky (podľa témy)",
 	"workspaceStorageView": "Zobraziť",
 	"listMindmapDocumentLayout": "Rozloženie dokumentu",
 	"livePhoto": "Live Photo",
