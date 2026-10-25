@@ -1330,7 +1330,7 @@ Note: To ensure data security, access to this interface is prohibited in Publish
   }
   ```
 
-Block-writing APIs can return after their block-tree transaction is committed but before asynchronous SQL indexing has caught up. If a subsequent `/api/query/sql` call must observe that write, call `POST /api/sqlite/flushTransaction` after the write and wait for `code: 0` before querying SQL. For example, `getBlockKramdown` reads the block tree and can show newly written content before the SQL index does. Kramdown, DOM, and SQL columns are different representations and are not normalized plain text.
+Block-writing APIs can return after their block-tree transaction is committed but before asynchronous SQL indexing has caught up. If a subsequent `/api/query/sql` call must observe that write, call `POST /api/sqlite/flushTransaction` after the write and wait for `code: 0` before querying SQL. For example, `getBlockKramdown` reads the block tree and can show newly written content before the SQL index does. Kramdown, DOM, and SQL columns are different representations and are not normalized plain text. Writes made by plugins or external agents while a data sync is in flight are not lost; they are picked up by the next sync cycle rather than the running one.
 
 ## Templates
 
