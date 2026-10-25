@@ -20,6 +20,7 @@ export const MOBILE_BOTTOM_BAR_ACTIONS = [
     "dailyNote",
     "newDailyNote",
     "command",
+    "docInfo",
 ] as const;
 
 export type MobileBottomBarBuiltInAction = typeof MOBILE_BOTTOM_BAR_ACTIONS[number];

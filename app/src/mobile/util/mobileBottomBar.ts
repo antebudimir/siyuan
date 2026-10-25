@@ -12,6 +12,8 @@ import {closePanel} from "./closePanel";
 import {activeBlur} from "./keyboardToolbar";
 import {isMobileBlockSelecting} from "./mobileBars";
 import {insertHTML} from "../../protyle/util/insertHTML";
+import {openFileAttr} from "../../menus/commonMenuItem";
+import {fetchPost} from "../../util/fetch";
 import {newDailyNote, newDailyNoteFromLastNotebook} from "../../util/mount";
 import {
     getMobilePluginDockEntries,
@@ -69,6 +71,8 @@ const getActionLabel = (action: MobileBottomBarBuiltInAction) => {
             return window.siyuan.languages.fileTree11;
         case "command":
             return window.siyuan.languages.commandPanel;
+        case "docInfo":
+            return window.siyuan.languages.attr;
     }
 };
 
@@ -248,6 +252,19 @@ export const initMobileBottomBar = (app: App) => {
             insertHTML(`<span data-type="block-ref" data-id="${createDocId}" data-subtype="d">${getBlockRefAnchorText(createDocTitle)}</span>`, protyle);
         });
         closePanel({preserveKeyboard: true});
+    });
+    bindBottomBarAction("mobileBottomBarDocInfo", () => {
+        if (isMobileBlockSelecting()) {
+            return;
+        }
+        const editor = window.siyuan.mobile.editor;
+        if (!editor) {
+            return;
+        }
+        activeBlur();
+        fetchPost("/api/block/getDocInfo", {id: editor.protyle.block.rootID}, (response) => {
+            openFileAttr(response.data.ial, "bookmark", editor.protyle);
+        });
     });
     bindBottomBarAction("mobileBottomBarRecent", () => {
         if (isMobileBlockSelecting()) {
