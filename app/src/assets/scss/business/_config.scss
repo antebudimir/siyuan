@@ -177,6 +177,22 @@
   }
 }
 
+.config-custom-background {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 8px;
+
+  &__color {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 120px;
+  }
+}
+
 .config-blockref-style {
   display: flex;
   align-items: center;

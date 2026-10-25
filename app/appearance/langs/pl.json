@@ -1,4 +1,7 @@
 {
+	"customBackground": "Kolor tła",
+	"customBackgroundTip": "Dostosuj kolor tła interfejsu; edytor, panele boczne i puste obszary będą go stosować",
+	"customBackgroundTheme": "Zgodnie z motywem",
 	"blockRefStyle": "Styl odwołań do bloków",
 	"blockRefStyleTip": "Dostosuj grubość obramowania, zaokrąglenie narożników, dopełnienie i klikalny obszar odwołań do bloków",
 	"blockRefStyleBorder": "Obramowanie",

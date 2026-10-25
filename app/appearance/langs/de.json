@@ -1,4 +1,7 @@
 {
+	"customBackground": "Hintergrundfarbe",
+	"customBackgroundTip": "Passen Sie die Hintergrundfarbe der Oberfläche an; Editor, Seitenleisten und leere Bereiche übernehmen sie",
+	"customBackgroundTheme": "Thema folgen",
 	"blockRefStyle": "Blockreferenz-Stil",
 	"blockRefStyleTip": "Rahmenbreite, Eckenradius, Innenabstand und klickbaren Bereich von Blockreferenzen anpassen",
 	"blockRefStyleBorder": "Rahmen",

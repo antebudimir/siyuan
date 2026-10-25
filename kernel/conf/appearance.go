@@ -25,6 +25,7 @@ type Appearance struct {
 	OutlineKeepCurrentExpand bool                `json:"outlineKeepCurrentExpand"` // 大纲保持当前标题展开
 	MobileBars               *MobileBars         `json:"mobileBars"`               // 移动端工具栏与侧栏访问偏好
 	BodyGradient             *BodyGradient       `json:"bodyGradient"`             // 背景渐变，空值表示自动配色
+	CustomBackground         *CustomBackground   `json:"customBackground"`         // 自定义背景色，空值表示跟随主题
 	BlockRefStyle            *BlockRefStyle      `json:"blockRefStyle"`            // 块引用描边样式，空值表示默认描边
 	GlobalFontFamilies       []*EditorFont       `json:"globalFontFamilies"`       // 按优先级排列的全局默认字体
 	Mode                     int                 `json:"mode"`                     // 模式：0：明亮，1：暗黑
@@ -80,6 +81,21 @@ type BodyGradientColor struct {
 	Opacity float64 `json:"opacity"` // 渐变起点的不透明度，范围为 0 至 100
 }
 
+// CustomBackground 自定义界面背景色；mode 取 theme 或 custom，颜色为十六进制 RGB。
+type CustomBackground struct {
+	Mode  string `json:"mode"`  // theme：跟随主题，custom：自定义颜色
+	Light string `json:"light"` // 明亮模式的背景色
+	Dark  string `json:"dark"`  // 暗黑模式的背景色
+}
+
+func NewCustomBackground() *CustomBackground {
+	return &CustomBackground{
+		Mode:  "theme",
+		Light: "#ffffff",
+		Dark:  "#1e1e1e",
+	}
+}
+
 type BlockRefStyle struct {
 	Mode        string `json:"mode"`        // border：描边按钮样式，off：关闭描边
 	BorderWidth int    `json:"borderWidth"` // 描边宽度，单位 px
@@ -111,6 +127,7 @@ func NewAppearanceForContainer(mobile bool) *Appearance {
 		PDFTheme:            NewPDFTheme(),
 		MobileBars:          NewMobileBars(),
 		BlockRefStyle:       NewBlockRefStyle(),
+		CustomBackground:    NewCustomBackground(),
 		GlobalFontFamilies:  []*EditorFont{},
 		Mode:                0,
 		ModeOS:              true,

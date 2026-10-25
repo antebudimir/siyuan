@@ -1,4 +1,7 @@
 {
+	"customBackground": "背景色",
+	"customBackgroundTip": "インターフェースの背景色をカスタマイズします。エディター、サイドパネル、空白領域がすべて従います",
+	"customBackgroundTheme": "テーマに従う",
 	"blockRefStyle": "ブロック参照スタイル",
 	"blockRefStyleTip": "ブロック参照の枠線の太さ、角丸、余白、クリック領域をカスタマイズします",
 	"blockRefStyleBorder": "枠線",

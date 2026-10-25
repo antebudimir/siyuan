@@ -1,6 +1,6 @@
 import {config as configApi} from "../config/util/configApi";
 import {Constants} from "../constants";
-import {getBodyGradientImage} from "./bodyGradient";
+import {getBodyGradientImage, normalizeCustomBackground} from "./bodyGradient";
 import {setBlockRefStyle} from "./blockRefStyle";
 import {addScript} from "../protyle/util/addScript";
 import {ensureLute} from "../protyle/util/lute";
@@ -138,6 +138,7 @@ export const loadAssets = async (appearance: Config.IAppearance) => {
     initSelectionStyle();
     const scriptLoads: Promise<unknown>[] = [];
     setBodyHighlight(appearance.bodyGradient);
+    setCustomBackground(appearance.customBackground);
     setBlockRefStyle(appearance.blockRefStyle);
     const data = getHostCapabilities().customAppearance ? appearance : {
         ...appearance,
@@ -480,6 +481,20 @@ export const getThemeMode = () => {
     } else {
         return window.siyuan.config.appearance.mode === 0 ? "light" : "dark";
     }
+};
+
+export const setCustomBackground = (background = window.siyuan.config.appearance.customBackground) => {
+    const config = normalizeCustomBackground(background);
+    const rootStyle = document.documentElement.style;
+    if (config.mode !== "custom") {
+        // 跟随主题时移除内联覆盖，让主题变量恢复生效。
+        rootStyle.removeProperty("--b3-theme-background");
+        rootStyle.removeProperty("--b3-body-background");
+        return;
+    }
+    const color = getThemeMode() === "dark" ? config.dark : config.light;
+    rootStyle.setProperty("--b3-theme-background", color);
+    rootStyle.setProperty("--b3-body-background", color);
 };
 
 export const setBodyHighlight = (gradient = window.siyuan.config.appearance.bodyGradient) => {

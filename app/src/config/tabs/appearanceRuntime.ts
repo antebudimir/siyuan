@@ -22,6 +22,7 @@ import {remountOpenSettingTab} from "../setting/mount";
 import {createConfigNamespaceApi} from "../util/namespaceApi";
 import {createSectionRuntime} from "../util/sectionRuntime";
 import {syncBodyGradient} from "./bodyGradient";
+import {setCustomBackground} from "../../util/assets";
 import {syncBlockRefStyle} from "./blockRefStyle";
 import {setBlockRefStyle} from "../../util/blockRefStyle";
 import {refreshDynamicIcons} from "../../emoji/dynamicIcon";
@@ -109,6 +110,7 @@ const applyAppearanceConfig = async (data: Config.IAppearance, refresh?: IAppear
             changed: () => inPlace,
             apply: () => {
                 setBodyHighlight(data.bodyGradient);
+                setCustomBackground(data.customBackground);
                 setBlockRefStyle(data.blockRefStyle);
                 syncBodyGradient();
                 syncBlockRefStyle();

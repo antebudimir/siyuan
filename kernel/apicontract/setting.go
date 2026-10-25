@@ -426,6 +426,7 @@ type SettingAppearance struct {
 	OutlineKeepCurrentExpand bool                      `json:"outlineKeepCurrentExpand" api:"optional,nullable"`
 	MobileBars               *SettingMobileBars        `json:"mobileBars" api:"optional,nullable"`
 	BodyGradient             *SettingBodyGradient      `json:"bodyGradient" api:"optional,nullable"`
+	CustomBackground         *SettingCustomBackground  `json:"customBackground" api:"optional,nullable"`
 	BlockRefStyle            *SettingBlockRefStyle     `json:"blockRefStyle" api:"optional,nullable"`
 	GlobalFontFamilies       []*SettingEditorFont      `json:"globalFontFamilies" api:"optional,nullable"`
 	Mode                     int                       `json:"mode" api:"optional,nullable"`
@@ -469,6 +470,13 @@ type SettingBodyGradient struct {
 	Mode  string                   `json:"mode" api:"optional,nullable"`
 	Light SettingBodyGradientColor `json:"light" api:"optional,nullable"`
 	Dark  SettingBodyGradientColor `json:"dark" api:"optional,nullable"`
+}
+
+// SettingCustomBackground 自定义界面背景色；mode 取 theme 或 custom，颜色为十六进制 RGB。
+type SettingCustomBackground struct {
+	Mode  string `json:"mode" api:"optional,nullable"`  // theme：跟随主题，custom：自定义颜色
+	Light string `json:"light" api:"optional,nullable"` // 明亮模式的背景色
+	Dark  string `json:"dark" api:"optional,nullable"`  // 暗黑模式的背景色
 }
 
 // SettingBlockRefStyle 块引用描边样式；mode 取 border 或 off，borderColor 取 auto 或十六进制 RGB。

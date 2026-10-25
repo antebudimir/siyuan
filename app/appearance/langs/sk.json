@@ -1,4 +1,7 @@
 {
+	"customBackground": "Farba pozadia",
+	"customBackgroundTip": "Prispôsobte farbu pozadia rozhrania; editor, bočné panely a prázdne oblasti ju preberú",
+	"customBackgroundTheme": "Podľa témy",
 	"blockRefStyle": "Štýl odkazu na blok",
 	"blockRefStyleTip": "Prispôsobte hrúbku ohraničenia, polomer rohov, vnútorné odsadenie a klikateľnú oblasť odkazov na bloky",
 	"blockRefStyleBorder": "Ohraničenie",

@@ -1,3 +1,19 @@
+export interface ICustomBackground {
+    mode: "theme" | "custom";
+    light: string;
+    dark: string;
+}
+
+export const normalizeCustomBackground = (value?: {mode?: string; light?: string; dark?: string}): ICustomBackground => {
+    const normalizeColor = (color: string | undefined, fallback: string) =>
+        /^#[\da-f]{6}$/i.test(color || "") ? color : fallback;
+    return {
+        mode: value?.mode === "custom" ? "custom" : "theme",
+        light: normalizeColor(value?.light, "#ffffff"),
+        dark: normalizeColor(value?.dark, "#1e1e1e"),
+    };
+};
+
 export interface IBodyGradient {
     mode: "auto" | "custom" | "off";
     light: {color: string; opacity: number};

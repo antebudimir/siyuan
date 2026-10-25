@@ -580,6 +580,7 @@ func bazaarAppearance(value *conf.Appearance) *apicontract.BazaarAppearance {
 		ret.MobileBars = &apicontract.BazaarMobileBars{AutoHide: value.MobileBars.AutoHide, SidebarSwipe: value.MobileBars.SidebarSwipe, SidebarButtons: value.MobileBars.SidebarButtons}
 	}
 	ret.BodyGradient = bazaarBodyGradient(value.BodyGradient)
+	ret.CustomBackground = bazaarCustomBackground(value.CustomBackground)
 	ret.BlockRefStyle = bazaarBlockRefStyle(value.BlockRefStyle)
 	if value.GlobalFontFamilies != nil {
 		ret.GlobalFontFamilies = make([]*apicontract.BazaarEditorFont, len(value.GlobalFontFamilies))
@@ -645,6 +646,17 @@ func bazaarBlockRefStyle(value *conf.BlockRefStyle) *apicontract.BazaarBlockRefS
 		PaddingX:    value.PaddingX,
 		PaddingY:    value.PaddingY,
 		BorderColor: value.BorderColor,
+	}
+}
+
+func bazaarCustomBackground(value *conf.CustomBackground) *apicontract.BazaarCustomBackground {
+	if value == nil {
+		return nil
+	}
+	return &apicontract.BazaarCustomBackground{
+		Mode:  value.Mode,
+		Light: value.Light,
+		Dark:  value.Dark,
 	}
 }
 

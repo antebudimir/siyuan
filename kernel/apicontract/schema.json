@@ -16471,6 +16471,16 @@
         "compactMode": {
           "type": "boolean"
         },
+        "customBackground": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BazaarCustomBackground"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "darkThemes": {
           "anyOf": [
             {
@@ -16648,6 +16658,7 @@
         "codeBlockThemeDark",
         "codeBlockThemeLight",
         "compactMode",
+        "customBackground",
         "darkThemes",
         "entryVisibility",
         "globalFontFamilies",
@@ -16816,6 +16827,26 @@
       "required": [
         "color",
         "opacity"
+      ],
+      "additionalProperties": false
+    },
+    "BazaarCustomBackground": {
+      "type": "object",
+      "properties": {
+        "dark": {
+          "type": "string"
+        },
+        "light": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "dark",
+        "light",
+        "mode"
       ],
       "additionalProperties": false
     },
@@ -40128,6 +40159,16 @@
             }
           ]
         },
+        "customBackground": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SettingCustomBackgroundInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "darkThemes": {
           "anyOf": [
             {
@@ -43506,6 +43547,16 @@
         "compactMode": {
           "type": "boolean"
         },
+        "customBackground": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SettingCustomBackground"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "darkThemes": {
           "anyOf": [
             {
@@ -43683,6 +43734,7 @@
         "codeBlockThemeDark",
         "codeBlockThemeLight",
         "compactMode",
+        "customBackground",
         "darkThemes",
         "entryVisibility",
         "globalFontFamilies",
@@ -43807,6 +43859,16 @@
           "anyOf": [
             {
               "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "customBackground": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SettingCustomBackgroundInput"
             },
             {
               "type": "null"
@@ -44954,6 +45016,62 @@
           "type": "boolean"
         },
         "token": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SettingCustomBackground": {
+      "type": "object",
+      "properties": {
+        "dark": {
+          "type": "string"
+        },
+        "light": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "dark",
+        "light",
+        "mode"
+      ],
+      "additionalProperties": false
+    },
+    "SettingCustomBackgroundInput": {
+      "type": "object",
+      "properties": {
+        "dark": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "light": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mode": {
           "anyOf": [
             {
               "type": "string"

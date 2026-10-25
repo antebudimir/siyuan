@@ -1,4 +1,7 @@
 {
+	"customBackground": "배경색",
+	"customBackgroundTip": "인터페이스 배경색을 사용자 지정합니다. 편집기, 사이드 패널, 빈 영역이 모두 따릅니다",
+	"customBackgroundTheme": "테마 따르기",
 	"blockRefStyle": "블록 참조 스타일",
 	"blockRefStyleTip": "블록 참조의 테두리 두께, 모서리 반경, 안쪽 여백, 클릭 영역을 사용자 지정합니다",
 	"blockRefStyleBorder": "테두리",

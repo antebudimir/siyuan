@@ -1,4 +1,7 @@
 {
+	"customBackground": "لون الخلفية",
+	"customBackgroundTip": "تخصيص لون خلفية الواجهة؛ يتبعه المحرر واللوحات الجانبية والمناطق الفارغة",
+	"customBackgroundTheme": "اتباع السمة",
 	"blockRefStyle": "نمط الإحالة إلى كتلة",
 	"blockRefStyleTip": "تخصيص سماكة الإطار وانحناء الزوايا والحشو والمساحة القابلة للنقر للإحالات إلى الكتل",
 	"blockRefStyleBorder": "الإطار",

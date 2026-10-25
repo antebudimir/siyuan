@@ -289,6 +289,24 @@ func isHexColor(color string) bool {
 	return true
 }
 
+// NormalizeCustomBackground 补全自定义背景色缺失字段，并收敛非法取值。
+func NormalizeCustomBackground(background *CustomBackground) *CustomBackground {
+	defaults := NewCustomBackground()
+	if background == nil {
+		return defaults
+	}
+	if background.Mode != "custom" {
+		background.Mode = "theme"
+	}
+	if !isHexColor(background.Light) {
+		background.Light = defaults.Light
+	}
+	if !isHexColor(background.Dark) {
+		background.Dark = defaults.Dark
+	}
+	return background
+}
+
 // NormalizeAppearance 补全外观缺失字段，并将已移除的图标包和越界的状态栏配置转换为当前可用值。
 // mobile 表示是否为移动端容器，决定状态栏默认项。
 func NormalizeAppearance(appearance *Appearance, mobile bool) *Appearance {
@@ -325,6 +343,7 @@ func NormalizeAppearance(appearance *Appearance, mobile bool) *Appearance {
 		appearance.MobileBars = NewMobileBars()
 	}
 	appearance.BlockRefStyle = NormalizeBlockRefStyle(appearance.BlockRefStyle)
+	appearance.CustomBackground = NormalizeCustomBackground(appearance.CustomBackground)
 	if appearance.MobileBars.AutoHide == nil {
 		appearance.MobileBars.AutoHide = new(true)
 	}

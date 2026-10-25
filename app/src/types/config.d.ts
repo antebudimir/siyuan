@@ -353,6 +353,12 @@ declare namespace Config {
             light: {color: string; opacity: number};
             dark: {color: string; opacity: number};
         };
+        /** 自定义界面背景色，未配置时跟随主题 */
+        customBackground?: {
+            mode: string;
+            light: string;
+            dark: string;
+        };
         /** 块引用描边样式，未配置时使用默认描边 */
         blockRefStyle?: {
             mode: string;

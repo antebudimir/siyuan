@@ -1,4 +1,7 @@
 {
+	"customBackground": "背景顏色",
+	"customBackgroundTip": "自訂介面背景顏色，編輯器、側邊欄和空白區域都會跟隨",
+	"customBackgroundTheme": "跟隨主題",
 	"blockRefStyle": "區塊引用樣式",
 	"blockRefStyleTip": "自訂區塊引用的邊框寬度、圓角、內邊距和可點擊區域",
 	"blockRefStyleBorder": "邊框",

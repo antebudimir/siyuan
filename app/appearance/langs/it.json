@@ -1,4 +1,7 @@
 {
+	"customBackground": "Colore di sfondo",
+	"customBackgroundTip": "Personalizza il colore di sfondo dell'interfaccia; editor, pannelli laterali e aree vuote lo seguono",
+	"customBackgroundTheme": "Segui il tema",
 	"blockRefStyle": "Stile del riferimento a blocco",
 	"blockRefStyleTip": "Personalizza spessore del bordo, raggio degli angoli, spaziatura interna e area cliccabile dei riferimenti a blocco",
 	"blockRefStyleBorder": "Bordo",

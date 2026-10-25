@@ -1,4 +1,7 @@
 {
+	"customBackground": "Warna latar belakang",
+	"customBackgroundTip": "Sesuaikan warna latar belakang antarmuka; editor, panel samping, dan area kosong mengikutinya",
+	"customBackgroundTheme": "Ikuti tema",
 	"blockRefStyle": "Gaya referensi blok",
 	"blockRefStyleTip": "Sesuaikan ketebalan tepi, radius sudut, padding, dan area klik referensi blok",
 	"blockRefStyleBorder": "Tepi",

@@ -1,4 +1,7 @@
 {
+	"customBackground": "Arka plan rengi",
+	"customBackgroundTip": "Arayüzün arka plan rengini özelleştirin; düzenleyici, yan paneller ve boş alanlar bunu izler",
+	"customBackgroundTheme": "Temayı izle",
 	"blockRefStyle": "Blok referans stili",
 	"blockRefStyleTip": "Blok referanslarının kenarlık kalınlığını, köşe yarıçapını, dolguyu ve tıklanabilir alanı özelleştirin",
 	"blockRefStyleBorder": "Kenarlık",

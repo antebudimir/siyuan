@@ -1,4 +1,7 @@
 {
+	"customBackground": "צבע רקע",
+	"customBackgroundTip": "התאמה אישית של צבע הרקע בממשק; העורך, הסרגלים הצדדיים והאזורים הריקים יעקבו אחריו",
+	"customBackgroundTheme": "עקוב אחר ערכת הנושא",
 	"blockRefStyle": "סגנון הפניה לבלוק",
 	"blockRefStyleTip": "התאמה אישית של עובי המסגרת, רדיוס הפינות, הריפוד ואזור הלחיצה של הפניות לבלוק",
 	"blockRefStyleBorder": "מסגרת",

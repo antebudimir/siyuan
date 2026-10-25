@@ -52,6 +52,7 @@ import {genMobileBarsSettingHTML, mountMobileBarsSetting} from "../../mobile/uti
 /// #endif
 import {genEntryVisibilityHtml, mountEntryVisibility} from "../entryVisibility/ui";
 import {genBodyGradientHtml, mountBodyGradient} from "./bodyGradient";
+import {genCustomBackgroundHtml, mountCustomBackground} from "./customBackground";
 import {genBlockRefStyleHtml, mountBlockRefStyle} from "./blockRefStyle";
 import {isCompactModeAvailable, isCompactModeEnabled, setCompactModeEnabled} from "./compactMode";
 import {isMenuMouseScrollAvailable, isMenuMouseScrollEnabled, setMenuMouseScrollEnabled} from "./menuMouseScroll";
@@ -923,6 +924,12 @@ const registerAppearanceInterfaceGroup = (tab: SettingTabBuilder) => {
         keywords: [window.siyuan.languages.bodyGradient, window.siyuan.languages.bodyGradientTip],
         html: genBodyGradientHtml,
         afterMount: mountBodyGradient,
+    });
+    group.slot({
+        key: "customBackground",
+        keywords: [window.siyuan.languages.customBackground, window.siyuan.languages.customBackgroundTip],
+        html: genCustomBackgroundHtml,
+        afterMount: mountCustomBackground,
     });
     group.slot({
         key: "blockRefStyle",

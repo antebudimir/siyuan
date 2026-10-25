@@ -1,4 +1,7 @@
 {
+	"customBackground": "背景颜色",
+	"customBackgroundTip": "自定义界面背景颜色，编辑器、侧栏和空白区域都会跟随",
+	"customBackgroundTheme": "跟随主题",
 	"blockRefStyle": "块引用样式",
 	"blockRefStyleTip": "自定义块引用的边框宽度、圆角、内边距和可点击区域",
 	"blockRefStyleBorder": "边框",

@@ -1,4 +1,7 @@
 {
+	"customBackground": "Background color",
+	"customBackgroundTip": "Customize the interface background color; the editor, side panels, and empty areas all follow it",
+	"customBackgroundTheme": "Follow theme",
 	"blockRefStyle": "Block ref style",
 	"blockRefStyleTip": "Customize the block reference border, corner radius, padding, and clickable area",
 	"blockRefStyleBorder": "Border",
