@@ -1,6 +1,5 @@
 # Kernel API type contracts
 
-[中文](API-CONTRACTS.zh-CN.md)
 
 ## Scope
 
@@ -12,7 +11,7 @@ This document defines type declarations, compatibility requirements, generated a
 2. Bind business entry points through `contractHandler` and register their handlers with `contractRouteHandlers`, preserving route middleware order and lease scope
 3. When deleting an endpoint, remove both its route registration and contract definition
 4. Update actual-response, input-compatibility, and strict type tests; run generation and correct calls identified by the compiler
-5. Synchronize generated and related public declarations in `petal`. Maintain endpoint behavior, defaults, constraints, and compatibility in contract source comments and the corresponding maintained Petal declarations. For changed existing endpoints, check and update affected entries across `docs/API.md`, `docs/API.zh-CN.md`, and `docs/API.ja.md`; their endpoint coverage may differ. Add newly implemented endpoints to those references only when explicitly requested by the user
+5. Synchronize generated and related public declarations in `petal`. Maintain endpoint behavior, defaults, constraints, and compatibility in contract source comments and the corresponding maintained Petal declarations. For changed existing endpoints, check and update affected entries in `docs/API.md`. Add newly implemented endpoints to those references only when explicitly requested by the user
 
 This document and its translations are maintenance guides. Update them when the contract mechanism, compatibility policy, generation workflow, or test discovery/verification rules change, or when the user explicitly requests it. Do not append endpoint-specific behavior, feature summaries, verification results, or focused test commands for routine endpoint or feature changes. Put user-facing instructions in the bundled user guide, executable plugin examples in `plugin-sample`, and task-specific checks and results in the task response or PR description. Keep Petal's README limited to its project title and the `plugin-sample` link. Follow the documentation scope rules in [AGENTS.md](../AGENTS.md).
 

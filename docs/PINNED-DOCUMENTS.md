@@ -1,6 +1,5 @@
 # Pinned documents in the document panel
 
-[中文](PINNED-DOCUMENTS.zh-CN.md)
 
 Related issue: https://github.com/siyuan-note/siyuan/issues/19401
 

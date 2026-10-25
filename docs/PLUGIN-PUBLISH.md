@@ -1,6 +1,5 @@
 # Plugin publishing
 
-[中文](PLUGIN-PUBLISH.zh-CN.md)
 
 Publish permissions apply to visitors, not individual browser plugins. Published data can be downloaded by visitors and read by other code in the same page. Never publish tokens, passwords, registration codes, or private notebook content.
 

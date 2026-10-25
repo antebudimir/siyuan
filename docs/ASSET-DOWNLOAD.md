@@ -1,6 +1,5 @@
 # On-demand asset downloads
 
-[中文](ASSET-DOWNLOAD.zh-CN.md)
 
 Related issue: https://github.com/siyuan-note/siyuan/issues/19149
 

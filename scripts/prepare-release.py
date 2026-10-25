@@ -84,13 +84,6 @@ def plan(args):
     edit(args.harmony_dir / "AppScope/app.json5", lambda text: mobile_version(
         text, HARMONY_NAME, HARMONY_CODE, args.version, args.harmony_code, "鸿蒙"))
 
-    def document(text):
-        # 只替换完整版本号，保留预发布示例后缀，不误改其他版本或路径数字。
-        marker = r'<!-- release-version: (' + VERSION + r') -->'
-        old = field(text, marker, "文档发布版本标记")[1]
-        return re.sub(r'(?<![\d.])' + re.escape(old) + r'(?!\d|\.\d)', args.version, text)
-
-    edit(args.repo / "docs/RELEASE-VERIFICATION.zh-CN.md", document)
     if args.index_dir.resolve() in {args.repo.resolve(), args.android_dir.resolve(), args.harmony_dir.resolve()}:
         raise PreparationError("b3log-index 必须是独立仓库")
     changes.extend(index_plan(args))

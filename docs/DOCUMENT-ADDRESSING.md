@@ -1,10 +1,9 @@
 # Document titles and addressing
 
-[中文](DOCUMENT-ADDRESSING.zh-CN.md)
 
 Related issue: [Improve hPath by separating display text from document addressing](https://github.com/siyuan-note/siyuan/issues/19938)
 
-This is an implementation design draft defining document titles, hierarchy addressing, readable paths, APIs, and migration behavior. The new fields, endpoints, and version mechanisms below are proposed contracts, not capabilities already supported by the current release. See [Document rename and path indexes](DOCUMENT-HPATH.md) (Chinese) for the current rename and index update mechanism.
+This is an implementation design draft defining document titles, hierarchy addressing, readable paths, APIs, and migration behavior. The new fields, endpoints, and version mechanisms below are proposed contracts, not capabilities already supported by the current release.
 
 ## Goals and scope
 

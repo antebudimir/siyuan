@@ -1,6 +1,5 @@
 # Theme and icon synchronization
 
-[中文](APPEARANCE-SYNC.zh-CN.md)
 
 Related issues: [#18883](https://github.com/siyuan-note/siyuan/issues/18883), [#19634](https://github.com/siyuan-note/siyuan/issues/19634), [#19635](https://github.com/siyuan-note/siyuan/issues/19635)
 

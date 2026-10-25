@@ -1,6 +1,5 @@
 # SiYuan Workspace File-System Layout
 
-[中文](WORKSPACE.zh-CN.md)
 
 > This document describes how a SiYuan workspace is organized on disk.
 > It complements [`SY-FORMAT.md`](./SY-FORMAT.md): the latter describes the **internal** JSON structure of a `.sy` file, while this one describes the **overall** file-system layout of the workspace.

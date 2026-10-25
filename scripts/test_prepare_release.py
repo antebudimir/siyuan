@@ -28,8 +28,6 @@ class PrepareTests(unittest.TestCase):
             self.args.index_dir / prepare.INDEX_VERSION_FILE: '- const siyuanVersion = "3.8.5"\r\n',
             self.args.repo / "app/package.json": '{"version": "3.8.5"}\r\n',
             self.args.repo / "kernel/util/working.go": 'var Mode = "dev"\r\nconst Ver = "3.8.5"\r\n',
-            self.args.repo / "docs/RELEASE-VERIFICATION.zh-CN.md":
-                '<!-- release-version: 3.8.5 -->\r\nv3.8.5 3.8.5-beta.1 siyuan-3.8.5.apk 3.8.50\r\n',
             self.args.android_dir / "build.gradle": 'siyuanVersionCode = 398\r\nsiyuanVersionName = "3.8.5"\r\n',
             self.args.harmony_dir / "AppScope/app.json5": '{"versionName": "3.8.5", "versionCode": 1000096}\r\n',
         }
@@ -39,17 +37,15 @@ class PrepareTests(unittest.TestCase):
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(text.encode("utf-8"))
 
-    def test_versions_and_document_update_idempotently(self):
+    def test_versions_update_idempotently(self):
         changes = prepare.plan(self.args)
-        self.assertEqual(len(changes), 8)
+        self.assertEqual(len(changes), 7)
         prepare.apply(changes)
         self.assertEqual(prepare.plan(self.args), [])
         self.assertIn('"3.8.6"', prepare.read(self.args.index_dir / prepare.INDEX_VERSION_FILE))
         self.assertIn('Mode = "prod"', prepare.read(self.args.repo / "kernel/util/working.go"))
         self.assertIn('siyuanVersionCode = 399', prepare.read(self.args.android_dir / "build.gradle"))
         self.assertIn('1000097', prepare.read(self.args.harmony_dir / "AppScope/app.json5"))
-        self.assertIn('v3.8.6 3.8.6-beta.1 siyuan-3.8.6.apk 3.8.50',
-                      prepare.read(self.args.repo / "docs/RELEASE-VERIFICATION.zh-CN.md"))
         for path, _, _ in changes:
             self.assertNotIn(b"\n", path.read_bytes().replace(b"\r\n", b""))
 

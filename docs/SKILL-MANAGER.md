@@ -1,6 +1,5 @@
 # Skill manager
 
-[简体中文](SKILL-MANAGER.zh-CN.md)
 
 Open Workspace skills in the Skills group under Settings - Artificial Intelligence. The manager edits skills stored in the current workspace at `data/storage/ai/agent/skills/<directory>/SKILL.md`. External skills from `~/.agents/skills` remain in the adjacent read-only list, where they can be enabled individually.
 

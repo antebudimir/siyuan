@@ -1,6 +1,5 @@
 # Template manager
 
-[中文](TEMPLATE-MANAGER.zh-CN.md)
 
 ## Feature scope
 

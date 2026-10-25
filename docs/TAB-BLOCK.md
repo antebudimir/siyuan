@@ -1,6 +1,5 @@
 # Tab Block
 
-[中文](TAB-BLOCK.zh-CN.md)
 
 Related issue: https://github.com/siyuan-note/siyuan/issues/17642
 

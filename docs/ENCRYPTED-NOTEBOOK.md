@@ -1,6 +1,5 @@
 # Encrypted notebooks
 
-[中文](ENCRYPTED-NOTEBOOK.zh-CN.md)
 
 ## Feature scope
 

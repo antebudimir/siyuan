@@ -1,6 +1,5 @@
 # SiYuan `.sy` File JSON Structure — Read/write reference
 
-[中文](SY-FORMAT.zh-CN.md)
 
 > Canonical Spec baseline: `2` for ordinary documents, `3` for documents containing tabs, `4` for documents using table-cell rich text, `5` for documents containing mind map nodes; compatible readers may upgrade older or missing versions.
 > Verified against samples: `20200825162036-4dx365o.sy` (formatting elements), `20200905090211-2vixtlf.sy` (block types).
