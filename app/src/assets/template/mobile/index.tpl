@@ -100,6 +100,9 @@
     <button id="mobileBottomBarNewDoc" class="mobile-bottom-bar__item" data-action="newDoc" type="button">
         <svg><use xlink:href="#iconAddDoc"></use></svg>
     </button>
+    <button id="mobileBottomBarNewFileRef" class="mobile-bottom-bar__item fn__none" data-action="newFileRef" type="button">
+        <svg><use xlink:href="#iconFile"></use></svg>
+    </button>
     <button id="toolbarTabs" class="mobile-bottom-bar__item" data-action="tabs" type="button">
         <span class="toolbar__tabs-count">0</span>
     </button>

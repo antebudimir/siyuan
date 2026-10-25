@@ -115,10 +115,12 @@ const genSlashMenuEntryHTML = (entry: ISlashMenuEntry) => {
 
 export const getBuiltinSlashMenuItems = (protyle: IProtyle): IHintData[] => {
     const items: Array<ISlashMenuEntry | IHintData> = [{
-        filter: [window.siyuan.languages.template, "template", "模板", "moban", "muban", "mb"],
-        id: "template",
-        value: Constants.ZWSP,
-        icon: "iconMarkdown",
+        filter: [window.siyuan.languages.heading1, "heading1", "h1", "一级标题", "yijibiaoti", "yjbt"],
+        id: "heading1",
+        value: "# " + Lute.Caret,
+        icon: "iconH1",
+        hotkey: window.siyuan.config.keymap.editor.heading.heading1.custom,
+        marker: "# ",
     }, ...(getHostCapabilities().widgets ? [{
         filter: [window.siyuan.languages.widget, "widget", "挂件", "guajian", "gj"],
         id: "widget",
@@ -166,13 +168,6 @@ export const getBuiltinSlashMenuItems = (protyle: IProtyle): IHintData[] => {
         value: "",
         id: "separator_1",
         html: "separator",
-    }, {
-        filter: [window.siyuan.languages.heading1, "heading1", "h1", "一级标题", "yijibiaoti", "yjbt"],
-        id: "heading1",
-        value: "# " + Lute.Caret,
-        icon: "iconH1",
-        hotkey: window.siyuan.config.keymap.editor.heading.heading1.custom,
-        marker: "# ",
     }, {
         filter: [window.siyuan.languages.heading2, "heading2", "h2", "二级标题", "erjibiaoti", "ejbt"],
         id: "heading2",
@@ -472,11 +467,6 @@ export const getBuiltinSlashMenuItems = (protyle: IProtyle): IHintData[] => {
         value: '<iframe sandbox="allow-forms allow-presentation allow-same-origin allow-scripts allow-modals allow-popups allow-storage-access-by-user-activation" src="" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>',
         icon: "iconGlobe",
     }]), {
-        filter: [window.siyuan.languages.insertImgURL, "insert image link", "image", "img", "插入图片链接", "charutupianlianjie", "crtplj"],
-        id: "insertImgURL",
-        value: "![]()",
-        icon: "iconImage",
-    }, {
         filter: [window.siyuan.languages.insertVideoURL, "insert video link", "插入视频链接", "charushipinlianjie", "crsplj"],
         id: "insertVideoURL",
         value: '<video controls="controls" src=""></video>',
@@ -555,6 +545,20 @@ export const getBuiltinSlashMenuItems = (protyle: IProtyle): IHintData[] => {
         id: "clearFontStyle",
         value: `style${Constants.ZWSP}`,
         graphic: '<div class="color__square color__square--list">A</div>',
+    }, {
+        value: "",
+        id: "separator_style",
+        html: "separator",
+    }, {
+        filter: [window.siyuan.languages.insertImgURL, "insert image link", "image", "img", "插入图片链接", "charutupianlianjie", "crtplj"],
+        id: "insertImgURL",
+        value: "![]()",
+        icon: "iconImage",
+    }, {
+        filter: [window.siyuan.languages.template, "template", "模板", "moban", "muban", "mb"],
+        id: "template",
+        value: Constants.ZWSP,
+        icon: "iconMarkdown",
     }, {
         value: "",
         id: "separator_6",

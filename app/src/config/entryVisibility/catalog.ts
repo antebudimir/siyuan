@@ -538,7 +538,7 @@ const mobileToolbarContexts = (children: IEntryCatalogNode[]) => MOBILE_TOOLBAR_
 
 const slashMenuBuiltinChildren = [
     node("frequent", lang("slashMenuFrequent"), false),
-    node("template", lang("template")),
+    node("heading1", lang("heading1")),
     node("widget", lang("widget")),
     node("assets", lang("assets")),
     node("ref", lang("ref")),
@@ -548,7 +548,6 @@ const slashMenuBuiltinChildren = [
     node("newFileRef", lang("newFileRef")),
     node("newSubDocRef", lang("newSubDocRef")),
     separator("separator_1"),
-    node("heading1", lang("heading1")),
     node("heading2", lang("heading2")),
     node("heading3", lang("heading3")),
     node("heading4", lang("heading4")),
@@ -596,7 +595,6 @@ const slashMenuBuiltinChildren = [
     node("insertAsset", lang("insertAsset")),
     node("insertHTMLFile", lang("insertHTMLFile")),
     node("insertIframeURL", lang("insertIframeURL")),
-    node("insertImgURL", lang("insertImgURL")),
     node("insertVideoURL", lang("insertVideoURL")),
     node("insertAudioURL", lang("insertAudioURL")),
     separator("separator_4"),
@@ -612,6 +610,9 @@ const slashMenuBuiltinChildren = [
     node("warningStyle", lang("warningStyle")),
     node("errorStyle", lang("errorStyle")),
     node("clearFontStyle", lang("clearFontStyle")),
+    separator("separator_style"),
+    node("insertImgURL", lang("insertImgURL")),
+    node("template", lang("template")),
 ];
 
 const slashMenuRoot = {

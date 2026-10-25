@@ -117,7 +117,7 @@ test("embedded heading levels follow display modes and expose all levels in Simp
 });
 
 const slashMenuBuiltinOrder = [
-    "template",
+    "heading1",
     "widget",
     "assets",
     "ref",
@@ -127,7 +127,6 @@ const slashMenuBuiltinOrder = [
     "newFileRef",
     "newSubDocRef",
     "separator_1",
-    "heading1",
     "heading2",
     "heading3",
     "heading4",
@@ -175,7 +174,6 @@ const slashMenuBuiltinOrder = [
     "insertAsset",
     "insertHTMLFile",
     "insertIframeURL",
-    "insertImgURL",
     "insertVideoURL",
     "insertAudioURL",
     "separator_4",
@@ -191,6 +189,9 @@ const slashMenuBuiltinOrder = [
     "warningStyle",
     "errorStyle",
     "clearFontStyle",
+    "separator_style",
+    "insertImgURL",
+    "template",
 ];
 
 test("definition conversion retains parent paths and registers original block choices", () => {
@@ -575,7 +576,7 @@ test("slash menu catalog follows the built-in hint order", () => {
     const children = getEntryCatalogChildren(SLASH_MENU_ROOT_PATH);
     assert.deepEqual(children.map((item) => item.key), ["frequent", ...slashMenuBuiltinOrder]);
     assert.equal(children.filter((item) => item.type === "entry").length, 70);
-    assert.equal(children.filter((item) => item.type === "separator").length, 5);
+    assert.equal(children.filter((item) => item.type === "separator").length, 6);
     assert.equal(children.filter(item => item.key !== "frequent").every((item) => item.simple), true);
 });
 

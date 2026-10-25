@@ -2,7 +2,7 @@ import type {App} from "../../index";
 import {Constants} from "../../constants";
 import {isDisabledFeature, setStorageVal} from "../../protyle/util/compatibility";
 import {escapeAttr, escapeHtml} from "../../util/escape";
-import {newFile} from "../../util/newFile";
+import {getBlockRefAnchorText, newFile, newFileInProtyle} from "../../util/newFile";
 import {openCard} from "../../card/openCard";
 import {commandPanel} from "../../boot/globalEvent/command/panel";
 import {popSearch} from "../menu/search";
@@ -11,6 +11,7 @@ import {openDock} from "../dock/util";
 import {closePanel} from "./closePanel";
 import {activeBlur} from "./keyboardToolbar";
 import {isMobileBlockSelecting} from "./mobileBars";
+import {insertHTML} from "../../protyle/util/insertHTML";
 import {newDailyNote, newDailyNoteFromLastNotebook} from "../../util/mount";
 import {
     getMobilePluginDockEntries,
@@ -44,6 +45,8 @@ const getActionLabel = (action: MobileBottomBarBuiltInAction) => {
             return window.siyuan.languages.search;
         case "newDoc":
             return window.siyuan.languages.newFile;
+        case "newFileRef":
+            return window.siyuan.languages.newFileRef;
         case "tabs":
             return window.siyuan.languages.mobileTabs;
         case "recent":
@@ -82,12 +85,14 @@ const resolveBottomBarConfig = (
     const unavailableActions = new Set<MobileBottomBarAction>();
     if (window.siyuan.config.readonly) {
         unavailableActions.add("newDoc");
+        unavailableActions.add("newFileRef");
         unavailableActions.add("dailyNote");
         unavailableActions.add("newDailyNote");
         unavailableActions.add("agent");
         unavailableActions.add("spacedRepetition");
     } else if (window.siyuan.isPublish) {
         unavailableActions.add("newDoc");
+        unavailableActions.add("newFileRef");
         unavailableActions.add("dailyNote");
         unavailableActions.add("newDailyNote");
         unavailableActions.add("agent");
@@ -164,7 +169,7 @@ export const renderMobileBottomBar = () => {
     });
     updateActionLabel(moreElement, window.siyuan.languages.more);
     bottomBarElement.setAttribute("aria-label", window.siyuan.languages.mobileBottomBar);
-    ["mobileBottomBarNewDoc", "mobileBottomBarDailyNote", "mobileBottomBarNewDailyNote"].forEach((id) => {
+    ["mobileBottomBarNewDoc", "mobileBottomBarNewFileRef", "mobileBottomBarDailyNote", "mobileBottomBarNewDailyNote"].forEach((id) => {
         (document.getElementById(id) as HTMLButtonElement).disabled =
             window.siyuan.config.readonly || window.siyuan.isPublish;
     });
@@ -229,6 +234,20 @@ export const initMobileBottomBar = (app: App) => {
         activeBlur();
         newFile(app);
         closePanel();
+    });
+    bindBottomBarAction("mobileBottomBarNewFileRef", () => {
+        if (isMobileBlockSelecting()) {
+            return;
+        }
+        const protyle = window.siyuan.mobile.editor?.protyle;
+        if (!protyle) {
+            return;
+        }
+        activeBlur();
+        newFileInProtyle(protyle, (createDocId, createDocTitle) => {
+            insertHTML(`<span data-type="block-ref" data-id="${createDocId}" data-subtype="d">${getBlockRefAnchorText(createDocTitle)}</span>`, protyle);
+        });
+        closePanel({preserveKeyboard: true});
     });
     bindBottomBarAction("mobileBottomBarRecent", () => {
         if (isMobileBlockSelecting()) {

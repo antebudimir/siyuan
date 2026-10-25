@@ -8,6 +8,7 @@ export const MOBILE_BOTTOM_BAR_ACTIONS = [
     "documents",
     "search",
     "newDoc",
+    "newFileRef",
     "tabs",
     "recent",
     "outline",
