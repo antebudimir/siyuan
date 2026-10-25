@@ -56,7 +56,15 @@
     --protyle-ref-line-color: var(--b3-protyle-inline-fileref-color);
   }
 
-  span[data-type~="block-ref"]:not(.av__celltext),
+  span[data-type~="block-ref"]:not(.av__celltext) {
+    // 以按钮描边的样式呈现块引用，换行后每段文字保留完整边框。
+    border: 1px solid var(--b3-protyle-inline-blockref-color);
+    border-radius: 4px;
+    padding: 0 4px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
   span[data-type~="file-annotation-ref"] {
     // 按固定长度绘制虚线，并在换行后的每段文字下方重复显示。
     padding-bottom: 2px;
@@ -72,7 +80,7 @@
   span[data-type~="block-ref"]:not(.av__celltext):hover,
   span[data-type~="file-annotation-ref"]:hover {
     background-color: var(--b3-list-hover);
-    border-radius: 2px;
+    border-radius: 4px;
   }
 
   span[data-type~="block-ref"],
