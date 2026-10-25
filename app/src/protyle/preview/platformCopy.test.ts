@@ -3,11 +3,10 @@ import {before, describe, it} from "node:test";
 
 let buildExpandedTableGrid: typeof import("./platformCopy").buildExpandedTableGrid;
 let getPlatformListMarker: typeof import("./platformCopy").getPlatformListMarker;
-let getWechatCodeLines: typeof import("./platformCopy").getWechatCodeLines;
 
 before(async () => {
     Object.assign(globalThis, {NODE_ENV: "test", SIYUAN_VERSION: "test"});
-    ({buildExpandedTableGrid, getPlatformListMarker, getWechatCodeLines} = await import("./platformCopy"));
+    ({buildExpandedTableGrid, getPlatformListMarker} = await import("./platformCopy"));
 });
 
 interface ITestCell {
@@ -36,21 +35,6 @@ describe("getPlatformListMarker", () => {
     it("uses the task state instead of the list marker", () => {
         assert.equal(getPlatformListMarker(false, 1, 0, "checked"), "✅ ");
         assert.equal(getPlatformListMarker(true, 1, 0, "unchecked"), "▢ ");
-    });
-});
-
-describe("getWechatCodeLines", () => {
-    it("preserves indentation, repeated spaces, tabs and trailing lines", () => {
-        const nbsp = "\u00A0";
-        assert.deepEqual(getWechatCodeLines("  a b  \n\tc\n"), [
-            `${nbsp}${nbsp}a b${nbsp}${nbsp}`,
-            `${nbsp}${nbsp}${nbsp}${nbsp}c`,
-            "",
-        ]);
-    });
-
-    it("keeps single spaces inside a line breakable", () => {
-        assert.deepEqual(getWechatCodeLines("const value = 1;"), ["const value = 1;"]);
     });
 });
 

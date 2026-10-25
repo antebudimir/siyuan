@@ -71,8 +71,6 @@ const preserveSpaces = (line: string) => line
     .replace(/\t/g, NBSP.repeat(4))
     .replace(/^ +| +$| {2,}/g, spaces => NBSP.repeat(spaces.length));
 
-export const getWechatCodeLines = (text: string) => text.split(/\r\n|\r|\n/).map(preserveSpaces);
-
 export const buildExpandedTableGrid = <T extends ITableGridCell>(rows: T[][]) => {
     const grid: Array<Array<T | undefined>> = rows.map((): Array<T | undefined> => []);
     let columnCount = 0;
@@ -127,7 +125,7 @@ const getListItemValue = (item: HTMLLIElement, fallback: number) => {
     return Number.isNaN(parsed) ? fallback : parsed;
 };
 
-const listItemNeedsFlattening = (item: HTMLLIElement, platform: "mp-wechat" | "zhihu") => {
+const listItemNeedsFlattening = (item: HTMLLIElement, platform: "zhihu") => {
     const nestedLists = getDirectNestedLists(item);
     const contentElements = Array.from(item.children).filter(element =>
         !isListElement(element) && !(element.tagName === "INPUT" && element.getAttribute("type") === "checkbox"));
@@ -255,7 +253,7 @@ const flattenList = (list: HTMLOListElement | HTMLUListElement, depth: number, f
     });
 };
 
-const flattenUnsupportedLists = (root: HTMLElement, platform: "mp-wechat" | "zhihu") => {
+const flattenUnsupportedLists = (root: HTMLElement, platform: "zhihu") => {
     const roots = new Set<HTMLOListElement | HTMLUListElement>();
     root.querySelectorAll<HTMLOListElement | HTMLUListElement>("ol, ul").forEach(list => {
         if (getDirectListItems(list).some(item => listItemNeedsFlattening(item, platform))) {
@@ -269,104 +267,6 @@ const flattenUnsupportedLists = (root: HTMLElement, platform: "mp-wechat" | "zhi
         const fragment = list.ownerDocument.createDocumentFragment();
         flattenList(list, 0, fragment);
         list.replaceWith(fragment);
-    });
-};
-
-const preserveWechatCodeWhitespace = (root: HTMLElement) => {
-    root.querySelectorAll("pre.code-block code").forEach(code => {
-        const walker = code.ownerDocument.createTreeWalker(code, NodeFilter.SHOW_TEXT);
-        const textNodes: Text[] = [];
-        let node = walker.nextNode();
-        while (node) {
-            textNodes.push(node as Text);
-            node = walker.nextNode();
-        }
-        textNodes.forEach(textNode => {
-            const lines = getWechatCodeLines(textNode.data);
-            if (lines.length === 1 && lines[0] === textNode.data) {
-                return;
-            }
-            const fragment = code.ownerDocument.createDocumentFragment();
-            lines.forEach((line, index) => {
-                if (line) {
-                    fragment.appendChild(code.ownerDocument.createTextNode(line));
-                }
-                if (index < lines.length - 1) {
-                    fragment.appendChild(code.ownerDocument.createElement("br"));
-                }
-            });
-            textNode.replaceWith(fragment);
-        });
-    });
-};
-
-const copyComputedStyles = (source: HTMLElement, target: HTMLElement) => {
-    const view = source.ownerDocument.defaultView;
-    if (!view) {
-        return;
-    }
-    const computedStyle = view.getComputedStyle(source);
-    [
-        "margin", "padding", "background-color", "background-image", "color", "font-size", "font-weight",
-        "border-radius", "line-height", "display", "flex-direction", "box-sizing",
-    ].forEach(property => target.style.setProperty(property, computedStyle.getPropertyValue(property)));
-    const markerStyle = view.getComputedStyle(source, "::before");
-    const markerColor = markerStyle.getPropertyValue("background-color");
-    const markerWidth = markerStyle.getPropertyValue("width");
-    if (markerColor && markerColor !== "rgba(0, 0, 0, 0)" && markerWidth && markerWidth !== "auto") {
-        const borderProperty = computedStyle.direction === "rtl" ? "border-right" : "border-left";
-        target.style.setProperty(borderProperty, `${markerWidth} solid ${markerColor}`);
-    }
-};
-
-const convertWechatBlockquotes = (root: HTMLElement, sourceRoot?: HTMLElement) => {
-    const sourceBlockquotes = sourceRoot ? Array.from(sourceRoot.querySelectorAll<HTMLElement>("blockquote")) : [];
-    Array.from(root.querySelectorAll<HTMLElement>("blockquote")).forEach((blockquote, index) => {
-        const section = blockquote.ownerDocument.createElement("section");
-        Array.from(blockquote.attributes).forEach(attribute => section.setAttribute(attribute.name, attribute.value));
-        const source = sourceBlockquotes[index];
-        if (source) {
-            copyComputedStyles(source, section);
-        }
-        section.append(...Array.from(blockquote.childNodes));
-        blockquote.replaceWith(section);
-    });
-};
-
-const getListDepth = (list: Element) => {
-    let depth = 0;
-    let parent = list.parentElement;
-    while (parent) {
-        if (isListElement(parent)) {
-            depth++;
-        }
-        parent = parent.parentElement;
-    }
-    return depth;
-};
-
-const normalizeWechatLists = (root: HTMLElement) => {
-    const lists = Array.from(root.querySelectorAll<HTMLOListElement | HTMLUListElement>("ol, ul"))
-        .sort((first, second) => getListDepth(second) - getListDepth(first));
-    lists.forEach(list => {
-        if (list.tagName === "OL") {
-            const start = getListStart(list);
-            list.classList.add(`list-paddingleft-${Math.min(start.toString().length, 3)}`);
-            list.style.listStyleType = "decimal";
-        }
-        getDirectListItems(list).forEach(item => {
-            getDirectNestedLists(item).reverse().forEach(nestedList => {
-                item.parentNode?.insertBefore(nestedList, item.nextSibling);
-            });
-        });
-    });
-    root.querySelectorAll<HTMLElement>("li.protyle-task").forEach(item => {
-        const checkbox = hasOwnTaskMarker(item as HTMLLIElement);
-        if (!checkbox) {
-            return;
-        }
-        checkbox.style.opacity = "0";
-        item.style.setProperty("list-style-type", checkbox.checked ? "'✅'" : "'▢'", "important");
     });
 };
 
@@ -541,14 +441,6 @@ const normalizeZhihuTables = (root: HTMLElement) => {
         body.prepend(...Array.from(head.rows));
         head.remove();
     });
-};
-
-export const prepareWechatCopy = (root: HTMLElement, sourceRoot?: HTMLElement) => {
-    transformSemanticInlineMarkers(root, "remove");
-    convertWechatBlockquotes(root, sourceRoot);
-    preserveWechatCodeWhitespace(root);
-    flattenUnsupportedLists(root, "mp-wechat");
-    normalizeWechatLists(root);
 };
 
 export const prepareZhihuCopy = (root: HTMLElement) => {

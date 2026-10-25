@@ -39,7 +39,7 @@ const setup = (mobile = false, readonly = false, encrypted = false) => {
             record("copySubMenu")(...args); return [{id: "copyID"}];
         }, exportMd: () => ({id: "export"}), movePathToMenu: (...args: unknown[]) => {
             record("move")(...args); return {id: "move"};
-        }, openFileAttr: record("attr"), openFileWechatNotify: record("wechatReminder")},
+        }, openFileAttr: record("attr")},
         "../../editor/deleteFile": {deleteFile: record("delete")},
         "../util/compatibility": {updateHotkeyTip: () => "", writeClipboardData: async (...args: unknown[]) => {
             record("clipboard")(...args); return {status: "success"};
@@ -148,8 +148,6 @@ test("graph document actions target the selected document without opening an edi
     assert.equal(database.args[2], menu.options.position);
     await menu.click("delete");
     assert.deepEqual(menu.calls.find(call => call.name === "delete").args, ["notebook", "/parent/document.sy"]);
-    await menu.click("wechatReminder");
-    assert.deepEqual(menu.calls.find(call => call.name === "wechatReminder").args, [menu.options.id, "notebook"]);
     await menu.click("transferBlockRef");
     assert.deepEqual(menu.calls.find(call => call.name === "transferBlockRef").args, [menu.options.id]);
     assert.ok(!menu.calls.some(call => call.name === "open"));
@@ -213,7 +211,7 @@ test("locked graph documents retain viewing history while respecting editor muta
 test("workspace readonly and encrypted documents preserve existing history and notebook-boundary rules", () => {
     const readonly = setup(false, true);
     readonly.open();
-    assert.ok(!readonly.items.some(item => ["fileHistory", "wechatReminder", "riffCard", "delete"].includes(item.id)));
+    assert.ok(!readonly.items.some(item => ["fileHistory", "riffCard", "delete"].includes(item.id)));
     const encrypted = setup(false, false, true);
     encrypted.open();
     assert.equal(JSON.stringify(encrypted.calls.find(call => call.name === "move").args[1]), '["notebook"]');

@@ -2,7 +2,7 @@ import type {DocInfo} from "../../types/api";
 import type {App} from "../../index";
 import {fetchPost, fetchSyncPost} from "../../util/fetch";
 import {MenuItem} from "../../menus/Menu";
-import {copySubMenu, exportMd, movePathToMenu, openFileAttr, openFileWechatNotify,} from "../../menus/commonMenuItem";
+import {copySubMenu, exportMd, movePathToMenu, openFileAttr,} from "../../menus/commonMenuItem";
 import {deleteFile} from "../../editor/deleteFile";
 import {updateHotkeyTip, writeClipboardData} from "../util/compatibility";
 /// #if !MOBILE
@@ -211,16 +211,6 @@ export const openDocumentMenu = (options: {
         }
     }).element);
     if (!window.siyuan.config.readonly) {
-        if (window.siyuan.config.cloudRegion === 0) {
-            window.siyuan.menus.menu.append(new MenuItem({
-                id: "wechatReminder",
-                label: window.siyuan.languages.wechatReminder,
-                icon: "iconMp",
-                click() {
-                    openFileWechatNotify(id, notebookId);
-                }
-            }).element);
-        }
         const isCardMade = (docInfo.ial[Constants.CUSTOM_RIFF_DECKS] || "").includes(Constants.QUICK_DECK_ID);
         if (!isEncryptedBox(notebookId)) {
             const riffCardMenu: IMenu[] = [{

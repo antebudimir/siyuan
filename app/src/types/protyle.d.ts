@@ -445,7 +445,7 @@ interface IPreview {
     transform?(html: string): string;
 }
 
-type IPreviewAction = "desktop" | "tablet" | "mobile" | "mp-wechat" | "zhihu" | "yuque";
+type IPreviewAction = "desktop" | "tablet" | "mobile" | "zhihu" | "yuque";
 
 interface IPreviewActionCustom {
     /** 键名 */

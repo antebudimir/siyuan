@@ -493,7 +493,6 @@ const gutterSingle = () => [
     gutterWidth(),
     gutterHeight(),
     separator("separator_4"),
-    node("wechatReminder", lang("wechatReminder"), false),
     node("quickMakeCard", lang("quickMakeCard"), false),
     node("removeCard", lang("removeCard"), false),
     node("addToDeck", lang("addToDeck"), false),
@@ -838,7 +837,6 @@ export const entryCatalog: IEntryCatalogSection[] = [
             node("graphView", lang("graphView")),
             separator("separator_2"),
             node("attr", lang("attr")),
-            node("wechatReminder", lang("wechatReminder"), false),
             node("riffCard", lang("riffCard"), false, [
                 node("spaceRepetition", lang("spaceRepetition"), false),
                 node("manage", lang("manage"), false),

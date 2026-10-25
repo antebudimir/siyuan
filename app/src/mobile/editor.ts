@@ -226,7 +226,7 @@ export const loadMobileFileById = (app: App, id: string, action: TProtyleAction[
             },
             typewriterMode: true,
             preview: {
-                actions: ["mp-wechat", "zhihu", "yuque"]
+                actions: ["zhihu", "yuque"]
             },
             after: (editor) => {
                 if (!isValid()) {

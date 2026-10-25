@@ -1390,7 +1390,6 @@ test("simple profile follows the reviewed defaults", () => {
         "gutter.single.addToDatabase",
         "gutter.single.enterBack",
         "gutter.single.jumpTo",
-        "gutter.single.wechatReminder",
         "document.more.netAssets2LocalAssets",
         "document.more.fullWidth",
         "docTree.notebook.sort.fileNameASC",

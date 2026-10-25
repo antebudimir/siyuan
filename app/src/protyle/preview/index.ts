@@ -26,8 +26,7 @@ import {speechRender} from "../render/speechRender";
 import {avRender} from "../render/av/render";
 import {getPadding} from "../ui/initUI";
 import {hasTopClosestByAttribute} from "../util/hasClosest";
-import {prepareWechatCopy, prepareZhihuCopy} from "./platformCopy";
-import {renderWechatMath} from "./wechatMath";
+import {prepareZhihuCopy} from "./platformCopy";
 import {getHostCapabilities} from "../../util/hostCapabilities";
 import {destroyAutoDirection, setAutoDirection} from "../render/autoDirection";
 
@@ -69,9 +68,6 @@ export class Preview {
                     break;
                 case "mobile":
                     actionHtml.push(`<button type="button" data-type="mobile">${window.siyuan.languages.mobile}</button>`);
-                    break;
-                case "mp-wechat":
-                    actionHtml.push(`<button type="button" data-type="mp-wechat" class="b3-tooltips b3-tooltips__w" aria-label="${window.siyuan.languages.copyToWechatMP}"><svg><use xlink:href="#iconMp"></use></svg></button>`);
                     break;
                 case "zhihu":
                     actionHtml.push(`<button type="button" data-type="zhihu" class="b3-tooltips b3-tooltips__w" aria-label="${window.siyuan.languages.copyToZhihu}"><svg><use xlink:href="#iconZhihu"></use></svg></button>`);
@@ -169,7 +165,7 @@ export class Preview {
                     break;
                 } else if (target.tagName === "BUTTON") {
                     const type = target.getAttribute("data-type");
-                    if (type !== "mp-wechat" && type !== "zhihu" && type !== "yuque") {
+                    if (type !== "zhihu" && type !== "yuque") {
                         actionElement.querySelectorAll("button").forEach((item) => {
                             item.classList.remove("protyle-preview__action--current");
                         });
@@ -181,7 +177,7 @@ export class Preview {
                     const actionCustom = actions.find((w: IPreviewActionCustom) => w?.key === type) as IPreviewActionCustom;
                     if (actionCustom) {
                         actionCustom.click(type);
-                    } else if ((type === "mp-wechat" || type === "zhihu" || type === "yuque")) {
+                    } else if ((type === "zhihu" || type === "yuque")) {
                         const tempElement = document.createElement("div");
                         tempElement.appendChild(this.element.lastElementChild.cloneNode(true));
                         this.copyToX(tempElement, protyle, type);
@@ -309,11 +305,7 @@ export class Preview {
     }
 
     private async copyToX(copyElement: HTMLElement, protyle: IProtyle, type?: string) {
-        if (type === "mp-wechat") {
-            this.link2online(copyElement);
-            await renderWechatMath(copyElement);
-            prepareWechatCopy(copyElement, this.previewElement);
-        } else if (type === "zhihu") {
+        if (type === "zhihu") {
             this.link2online(copyElement);
             copyElement.querySelectorAll('[data-subtype="math"]').forEach((item: HTMLElement) => {
                 // https://github.com/siyuan-note/siyuan/issues/10015
@@ -374,7 +366,7 @@ export class Preview {
         this.element.lastElementChild.remove();
         focusByRange(cloneRange);
         if (type) {
-            showMessage(`${type === "zhihu" ? window.siyuan.languages.pasteToZhihu : window.siyuan.languages.pasteToWechatMP}`);
+            showMessage(`${type === "zhihu" ? window.siyuan.languages.pasteToZhihu : window.siyuan.languages.pasteToYuque}`);
         }
     }
 

@@ -20,7 +20,7 @@ test("reading mode opens PlantUML only on double click and keeps ordinary image 
             ...Object.fromEntries(["../util/compatibility", "../util/selectionOffsets", "../../editor/openLink",
                 "../../dialog/message", "../../util/needSubscribe", "../util/richClipboard", "../../layout/getAll",
                 "../../util/fetch", "../util/processCode", "../render/tabsRender", "../render/highlightRender",
-                "../render/speechRender", "../render/av/render", "../ui/initUI", "./platformCopy", "./wechatMath",
+                "../render/speechRender", "../render/av/render", "../ui/initUI", "./platformCopy",
                 "../../util/hostCapabilities", "../render/autoDirection"].map(name => [name, {}])),
             "./diagram": {
                 getDiagramBlock: (element: unknown) => element,

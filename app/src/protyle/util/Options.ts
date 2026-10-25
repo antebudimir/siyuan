@@ -82,7 +82,7 @@ export class Options {
             }],
         },
         preview: {
-            actions: ["desktop", "tablet", "mobile", "mp-wechat", "zhihu", "yuque"],
+            actions: ["desktop", "tablet", "mobile", "zhihu", "yuque"],
             delay: 0,
             markdown: {
                 paragraphBeginningSpace: window.siyuan.config.export.paragraphBeginningSpace,
