@@ -986,7 +986,7 @@ const hotKey2Electron = (key) => {
 const getFeedbackUrl = (lang) => {
     return "zh-CN" === lang
         ? "https://ld246.com/article/1649901726096"
-        : "https://liuyun.io/article/1686530886208";
+        : "https://github.com/antebudimir/siyuan/issues";
 };
 
 const withHotkey = (hotkey, overrideRoleDefault = false) => {

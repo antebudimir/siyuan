@@ -82,7 +82,7 @@ export const initStatus = (isWindow = false) => {
                                 if ("zh-CN" === window.siyuan.config.lang) {
                                     openLink(window.siyuan.ws.app, "https://ld246.com/article/1649901726096");
                                 } else {
-                                    openLink(window.siyuan.ws.app, "https://liuyun.io/article/1686530886208");
+                                    openLink(window.siyuan.ws.app, "https://github.com/antebudimir/siyuan/issues");
                                 }
                             }
                         }).element);

@@ -250,7 +250,7 @@ export const MOBILE_MAIN_MENU_GROUPS: IMobileMainMenuGroup[] = [{
         icon: "iconFeedback",
         label: lang("feedback"),
         href: () => "zh-CN" === window.siyuan.config.lang ?
-            "https://ld246.com/article/1649901726096" : "https://liuyun.io/article/1686530886208",
+            "https://ld246.com/article/1649901726096" : "https://github.com/antebudimir/siyuan/issues",
     }],
 }];
 

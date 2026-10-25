@@ -486,7 +486,7 @@ export const workspaceMenu = async (app: App, rect: DOMRect, openOnly = false, t
                         if ("zh-CN" === window.siyuan.config.lang) {
                             openLink(app, "https://ld246.com/article/1649901726096");
                         } else {
-                            openLink(app, "https://liuyun.io/article/1686530886208");
+                            openLink(app, "https://github.com/antebudimir/siyuan/issues");
                         }
                     }
                 }).element);
