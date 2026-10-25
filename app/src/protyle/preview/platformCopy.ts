@@ -1,7 +1,6 @@
 import {transformSemanticInlineMarkers} from "../util/inlineElementMarker";
 import {getImageTitle} from "../render/imageTitle";
 
-const NBSP = "\u00A0";
 const ZERO_WIDTH_REGEXP = /\u200B|\u200C|\u200D|\uFEFF/g;
 const UNORDERED_LIST_MARKERS = ["•", "◦", "▪", "▫"];
 const INLINE_LIST_ELEMENTS = new Set([
@@ -66,10 +65,6 @@ export const getPlatformListMarker = (ordered: boolean, number: number, depth: n
             return `${number}. `;
     }
 };
-
-const preserveSpaces = (line: string) => line
-    .replace(/\t/g, NBSP.repeat(4))
-    .replace(/^ +| +$| {2,}/g, spaces => NBSP.repeat(spaces.length));
 
 export const buildExpandedTableGrid = <T extends ITableGridCell>(rows: T[][]) => {
     const grid: Array<Array<T | undefined>> = rows.map((): Array<T | undefined> => []);

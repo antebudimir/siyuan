@@ -293,10 +293,6 @@ export const initMobileBottomBar = (app: App) => {
             openDock("backlink");
         }
     });
-    bindBottomBarAction("mobileBottomBarInbox", () => {
-        if (!isMobileBlockSelecting()) {
-        }
-    });
     bindBottomBarAction("mobileBottomBarAgent", () => {
         if (isMobileBlockSelecting()) {
             return;
