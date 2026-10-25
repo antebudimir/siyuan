@@ -2148,7 +2148,6 @@
 	"rollback": "Reverter",
 	"custom": "Personalizado",
 	"feedback": "Feedback",
-	"inbox": "Caixa de Entrada",
 	"turnToStatic": "Texto âncora estático",
 	"turnToDynamic": "Texto âncora dinâmico",
 	"sizeLimit": "Limite",

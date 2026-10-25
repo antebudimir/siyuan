@@ -2148,7 +2148,6 @@
 	"rollback": "롤백",
 	"custom": "사용자 지정",
 	"feedback": "피드백",
-	"inbox": "수집함",
 	"turnToStatic": "정적 앵커 텍스트",
 	"turnToDynamic": "동적 앵커 텍스트",
 	"sizeLimit": "제한",

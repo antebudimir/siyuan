@@ -2148,7 +2148,6 @@
 	"rollback": "Rollback",
 	"custom": "Personalizado",
 	"feedback": "Comentarios",
-	"inbox": "Bandeja de entrada",
 	"turnToStatic": "Texto de anclaje estático",
 	"turnToDynamic": "Texto de anclaje dinámico",
 	"sizeLimit": "Límite",

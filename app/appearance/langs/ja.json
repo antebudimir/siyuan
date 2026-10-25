@@ -2148,7 +2148,6 @@
 	"rollback": "ロールバック",
 	"custom": "カスタム",
 	"feedback": "フィードバック",
-	"inbox": "受信トレイ",
 	"turnToStatic": "静的アンカーテキスト",
 	"turnToDynamic": "動的アンカーテキスト",
 	"sizeLimit": "制限",

@@ -2148,7 +2148,6 @@
 	"rollback": "Rollback",
 	"custom": "Benutzerdefiniert",
 	"feedback": "Feedback",
-	"inbox": "Posteingang",
 	"turnToStatic": "Statischer Ankertext",
 	"turnToDynamic": "Dynamischer Ankertext",
 	"sizeLimit": "Limit",

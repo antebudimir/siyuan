@@ -2148,7 +2148,6 @@
 	"rollback": "回滚",
 	"custom": "自定义",
 	"feedback": "问题反馈",
-	"inbox": "收集箱",
 	"turnToStatic": "静态锚文本",
 	"turnToDynamic": "动态锚文本",
 	"sizeLimit": "上限",
