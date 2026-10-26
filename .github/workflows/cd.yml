@@ -59,25 +59,23 @@ jobs:
           echo "value=$(jq .version ${{ env.package_json }} -r)" >> $GITHUB_OUTPUT
 
       - name: Resolve siyuan-android ref
-        # 优先检出与 package.json 版本一致的 tag；上游 main 领先时直接用 main 会因版本校验失败而中断。
+        # Android 包始终取自 fork 维护的 siyuan-android：versionCode 独立递增，
+        # 升级安装时 Android 按 versionCode 变化重新解包 APK 内的前端资源。
         id: android_ref_resolve
         run: |
-          if git ls-remote --exit-code --tags https://github.com/siyuan-note/siyuan-android "refs/tags/v${{ steps.version.outputs.value }}" >/dev/null 2>&1; then
-            echo "ref=refs/tags/v${{ steps.version.outputs.value }}" >> "$GITHUB_OUTPUT"
-          else
-            echo "ref=main" >> "$GITHUB_OUTPUT"
-          fi
+          echo "ref=main" >> "$GITHUB_OUTPUT"
 
       - name: Checkout siyuan-android
         uses: actions/checkout@v6
         with:
-          repository: siyuan-note/siyuan-android
+          repository: antebudimir/siyuan-android
           ref: ${{ steps.android_ref_resolve.outputs.ref }}
           path: ${{ github.workspace }}/siyuan-android
 
       - name: Verify siyuan-android version
         id: android_version
-        # Android 的 siyuanVersionName 必须与 package.json 版本一致，否则在打包前终止整个流程。
+        # Android 的 siyuanVersionName 必须为 “<package.json 版本>-fork.N” 形式（前缀含末尾点号严格匹配），
+        # 否则在打包前终止整个流程。
         run: |
           ANDROID_VERSION=$(sed -nE 's/^[[:space:]]*siyuanVersionName[[:space:]]*=[[:space:]]*"([^"]+)"[[:space:]]*$/\1/p' build.gradle)
           VERSION="${{ steps.version.outputs.value }}"
@@ -85,8 +83,8 @@ jobs:
             echo "Unable to read siyuanVersionName from siyuan-android/build.gradle, stopping"
             exit 1
           fi
-          if [ "$ANDROID_VERSION" != "$VERSION" ]; then
-            echo "siyuan-android version ($ANDROID_VERSION) does not match package.json version ($VERSION), stopping"
+          if [[ "$ANDROID_VERSION" != "$VERSION"-fork.* ]]; then
+            echo "siyuan-android version ($ANDROID_VERSION) does not match package.json version ($VERSION) with a -fork.N suffix, stopping"
             exit 1
           fi
           echo "siyuan-android version matches: $ANDROID_VERSION"
