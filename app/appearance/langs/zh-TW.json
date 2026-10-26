@@ -1,4 +1,5 @@
 {
+	"docMenu": "文件選單",
 	"customBackground": "背景顏色",
 	"customBackgroundTip": "自訂介面背景顏色，編輯器、側邊欄和空白區域都會跟隨",
 	"customBackgroundTheme": "跟隨主題",

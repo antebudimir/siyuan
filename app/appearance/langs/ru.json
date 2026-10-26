@@ -1,4 +1,5 @@
 {
+	"docMenu": "Меню документа",
 	"customBackground": "Цвет фона",
 	"customBackgroundTip": "Настройте цвет фона интерфейса; редактор, боковые панели и пустые области следуют ему",
 	"customBackgroundTheme": "Как в теме",

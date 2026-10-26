@@ -1,4 +1,5 @@
 {
+	"docMenu": "Menu dokumentu",
 	"customBackground": "Kolor tła",
 	"customBackgroundTip": "Dostosuj kolor tła interfejsu; edytor, panele boczne i puste obszary będą go stosować",
 	"customBackgroundTheme": "Zgodnie z motywem",

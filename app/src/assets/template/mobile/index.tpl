@@ -103,8 +103,8 @@
     <button id="mobileBottomBarNewFileRef" class="mobile-bottom-bar__item fn__none" data-action="newFileRef" type="button">
         <svg><use xlink:href="#iconFile"></use></svg>
     </button>
-    <button id="mobileBottomBarDocInfo" class="mobile-bottom-bar__item fn__none" data-action="docInfo" type="button">
-        <svg><use xlink:href="#iconAttr"></use></svg>
+    <button id="mobileBottomBarDocMenu" class="mobile-bottom-bar__item fn__none" data-action="docMenu" type="button">
+        <svg><use xlink:href="#iconFile"></use></svg>
     </button>
     <button id="toolbarTabs" class="mobile-bottom-bar__item" data-action="tabs" type="button">
         <span class="toolbar__tabs-count">0</span>

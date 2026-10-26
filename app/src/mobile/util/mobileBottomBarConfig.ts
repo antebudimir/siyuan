@@ -20,7 +20,7 @@ export const MOBILE_BOTTOM_BAR_ACTIONS = [
     "dailyNote",
     "newDailyNote",
     "command",
-    "docInfo",
+    "docMenu",
 ] as const;
 
 export type MobileBottomBarBuiltInAction = typeof MOBILE_BOTTOM_BAR_ACTIONS[number];
@@ -59,6 +59,10 @@ const LEGACY_DEFAULT_MOBILE_BOTTOM_BAR_ACTIONS = ["documents", "search", "newDoc
 
 const mobileBottomBarActionSet = new Set<string>(MOBILE_BOTTOM_BAR_ACTIONS);
 
+// 旧版属性面板动作已替换为文档菜单，读取历史配置时迁移持久化的动作键。
+const normalizeMobileBottomBarAction = (action: unknown) =>
+    action === "docInfo" ? "docMenu" : action;
+
 export const isMobileBottomBarBuiltInAction = (value: unknown): value is MobileBottomBarBuiltInAction => {
     return typeof value === "string" && mobileBottomBarActionSet.has(value);
 };
@@ -76,7 +80,7 @@ const normalizeMobileBottomBarActions = (storedActions: unknown[]): MobileBottom
     const usedActions = new Set<MobileBottomBarAction>();
 
     for (let slot = 0; slot < actions.length; slot++) {
-        const action = storedActions[slot];
+        const action = normalizeMobileBottomBarAction(storedActions[slot]);
         if (isMobileBottomBarAction(action) && !usedActions.has(action)) {
             actions[slot] = action;
             usedActions.add(action);

@@ -1,4 +1,5 @@
 {
+	"docMenu": "ドキュメントメニュー",
 	"customBackground": "背景色",
 	"customBackgroundTip": "インターフェースの背景色をカスタマイズします。エディター、サイドパネル、空白領域がすべて従います",
 	"customBackgroundTheme": "テーマに従う",

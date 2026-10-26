@@ -12,8 +12,7 @@ import {closePanel} from "./closePanel";
 import {activeBlur} from "./keyboardToolbar";
 import {isMobileBlockSelecting} from "./mobileBars";
 import {insertHTML} from "../../protyle/util/insertHTML";
-import {openFileAttr} from "../../menus/commonMenuItem";
-import {fetchPost} from "../../util/fetch";
+import {openTitleMenu} from "../../protyle/header/openTitleMenu";
 import {newDailyNote, newDailyNoteFromLastNotebook} from "../../util/mount";
 import {
     getMobilePluginDockEntries,
@@ -71,8 +70,8 @@ const getActionLabel = (action: MobileBottomBarBuiltInAction) => {
             return window.siyuan.languages.fileTree11;
         case "command":
             return window.siyuan.languages.commandPanel;
-        case "docInfo":
-            return window.siyuan.languages.attr;
+        case "docMenu":
+            return window.siyuan.languages.docMenu;
     }
 };
 
@@ -253,7 +252,7 @@ export const initMobileBottomBar = (app: App) => {
         });
         closePanel({preserveKeyboard: true});
     });
-    bindBottomBarAction("mobileBottomBarDocInfo", () => {
+    bindBottomBarAction("mobileBottomBarDocMenu", () => {
         if (isMobileBlockSelecting()) {
             return;
         }
@@ -262,9 +261,15 @@ export const initMobileBottomBar = (app: App) => {
             return;
         }
         activeBlur();
-        fetchPost("/api/block/getDocInfo", {id: editor.protyle.block.rootID}, (response) => {
-            openFileAttr(response.data.ial, "bookmark", editor.protyle);
-        });
+        const buttonElement = document.getElementById("mobileBottomBarDocMenu");
+        const rect = buttonElement?.getBoundingClientRect();
+        openTitleMenu(editor.protyle, {
+            target: buttonElement ?? undefined,
+            x: rect?.left ?? 0,
+            y: rect?.top ?? 0,
+            h: rect?.height ?? 0,
+            isLeft: false,
+        }, Constants.MENU_FROM_TITLE_BREADCRUMB);
     });
     bindBottomBarAction("mobileBottomBarRecent", () => {
         if (isMobileBlockSelecting()) {

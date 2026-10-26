@@ -1,4 +1,5 @@
 {
+	"docMenu": "Documentmenu",
 	"customBackground": "Achtergrondkleur",
 	"customBackgroundTip": "Pas de achtergrondkleur van de interface aan; de editor, zijpanelen en lege gebieden nemen deze over",
 	"customBackgroundTheme": "Thema volgen",

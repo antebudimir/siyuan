@@ -1,4 +1,5 @@
 {
+	"docMenu": "Menú del documento",
 	"customBackground": "Color de fondo",
 	"customBackgroundTip": "Personaliza el color de fondo de la interfaz; el editor, los paneles laterales y las zonas vacías lo siguen",
 	"customBackgroundTheme": "Seguir el tema",
