@@ -45,6 +45,10 @@ jobs:
       - id: thisLatestRelease
         run: |
           LATEST=$(gh api "repos/${{ github.repository }}/releases/latest" --jq '.tag_name' 2>/dev/null || echo "")
+          # 仓库尚无 release 时 gh 会把 404 响应体输出到 stdout 且退出码为 0，需校验取值合法性。
+          if [[ ! "$LATEST" =~ ^v[0-9] ]]; then
+            LATEST=""
+          fi
           echo "release=$LATEST" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
