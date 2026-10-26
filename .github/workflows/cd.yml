@@ -54,11 +54,21 @@ jobs:
         run: |
           echo "value=$(jq .version ${{ env.package_json }} -r)" >> $GITHUB_OUTPUT
 
+      - name: Resolve siyuan-android ref
+        # 优先检出与 package.json 版本一致的 tag；上游 main 领先时直接用 main 会因版本校验失败而中断。
+        id: android_ref_resolve
+        run: |
+          if git ls-remote --exit-code --tags https://github.com/siyuan-note/siyuan-android "refs/tags/v${{ steps.version.outputs.value }}" >/dev/null 2>&1; then
+            echo "ref=refs/tags/v${{ steps.version.outputs.value }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "ref=main" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout siyuan-android
         uses: actions/checkout@v6
         with:
           repository: siyuan-note/siyuan-android
-          ref: main
+          ref: ${{ steps.android_ref_resolve.outputs.ref }}
           path: ${{ github.workspace }}/siyuan-android
 
       - name: Verify siyuan-android version
