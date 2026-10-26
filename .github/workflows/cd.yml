@@ -496,6 +496,23 @@ jobs:
           needs.build.result == 'success' &&
           needs.build_android.result == 'success' }}
     steps:
+      - name: Draft existing release
+        # 复用同一 tag 重复部署时，已发布的 release 会保持发布状态，导致后续的
+        # 草稿校验失败；先转回草稿并清理已停产的 tar.gz 与 deb 资产，待新资产
+        # 校验通过后再统一发布。首次创建时 release 尚不存在，此处直接跳过。
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          if gh release view "${{ github.ref_name }}" --json isDraft > /dev/null 2>&1; then
+            gh release edit "${{ github.ref_name }}" --draft=true
+            VERSION="${{ needs.prepare.outputs.version }}"
+            for asset in "siyuan-${VERSION}-linux.tar.gz" "siyuan-${VERSION}-linux.deb"; do
+              gh release delete-asset "${{ github.ref_name }}" "$asset" --yes 2>/dev/null \
+                || echo "Stale asset $asset not present, skipping"
+            done
+          fi
+
       - name: Download release artifacts
         uses: actions/download-artifact@v8
         with:
