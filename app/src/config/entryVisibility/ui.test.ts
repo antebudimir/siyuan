@@ -3,7 +3,7 @@ import {readFileSync} from "node:fs";
 import {resolve} from "node:path";
 import {test} from "node:test";
 import {runInNewContext} from "node:vm";
-import {ModuleKind, transpileModule} from "typescript";
+import {ModuleKind, ScriptTarget, transpileModule} from "typescript";
 import {entryCatalog, TOP_BAR_ROOT_PATH} from "./catalog";
 import {MOBILE_TOOLBAR_NAMES, TOOLBAR_ENTRY_ROOT_PATH} from "../../protyle/toolbar/defaults";
 import * as dockOrder from "./dockOrder";
@@ -175,4 +175,67 @@ test("closing an entry editor flushes deferred settings once, after the view is 
     assert.equal(dispatched, 1);
     timeout();
     assert.equal(dispatched, 1);
+});
+
+test("mobile entry export writes to the kernel export dir and uses the native lease", async () => {
+    const code = transpileModule(readFileSync("src/config/entryVisibility/ui.ts", "utf8") +
+        "\nexports.downloadJSON = downloadJSON;", {
+        compilerOptions: {module: ModuleKind.CommonJS, target: ScriptTarget.ES2019},
+    }).outputText;
+    const puts: Array<{url: string; path: string; file: File}> = [];
+    const saves: string[] = [];
+    const importExport = {enabled: true};
+    const modules: Record<string, unknown> = {
+        "../../util/hostCapabilities": {getHostCapabilities: () => ({importExport: importExport.enabled})},
+        "../../protyle/util/compatibility": {
+            isInMobileApp: () => true,
+            saveExportFile: async (uri: string) => {
+                saves.push(uri);
+                return {status: "success"};
+            },
+        },
+        "../../util/fetch": {
+            fetchSyncPost: async (url: string, data: FormData): Promise<{code: number; msg: string; data: null}> => {
+                puts.push({url, path: data.get("path") as string, file: data.get("file") as File});
+                return {code: 0, msg: "", data: null};
+            },
+        },
+        "../../dialog/message": {showMessage: () => ""},
+        "./dockOrder": {DOCK_ORDER_SCOPES_BY_SIDE: {}},
+        "../../constants": {Constants: {SIYUAN_APPID: "test-app"}},
+        "../../util/contractFormData": {
+            ContractFormData: class extends FormData {
+                public apiRequest: Record<string, string | Blob>;
+                constructor(request: Record<string, string | Blob>) {
+                    super();
+                    this.apiRequest = request;
+                    Object.entries(request).forEach(([name, value]) => this.append(name, value));
+                }
+            },
+        },
+    };
+    const exports = {} as {downloadJSON: (name: string, data: unknown) => void};
+    runInNewContext(code, {
+        exports,
+        require: (path: string) => modules[path] ?? {},
+        FormData, File, URL,
+    });
+    const payload = {type: "siyuan-entry-profile", version: 1, profile: {name: "Work"}};
+    exports.downloadJSON("Work (副本).siyuan-entry.json", payload);
+    for (let i = 0; i < 50 && saves.length === 0; i++) {
+        await new Promise((resolveTick) => setImmediate(resolveTick));
+    }
+    assert.equal(puts.length, 1);
+    assert.equal(puts[0].url, "/api/file/putFile");
+    assert.equal(puts[0].path, "temp/export/Work 副本.siyuan-entry.json");
+    assert.equal(await puts[0].file.text(), JSON.stringify(payload, undefined, 2));
+    assert.deepEqual(saves, ["/export/Work%20%E5%89%AF%E6%9C%AC.siyuan-entry.json"]);
+    // 导出能力关闭时不应产生内核写入或原生保存调用
+    importExport.enabled = false;
+    puts.length = 0;
+    saves.length = 0;
+    exports.downloadJSON("Work (副本).siyuan-entry.json", payload);
+    await new Promise((resolveTick) => setImmediate(resolveTick));
+    assert.equal(puts.length, 0);
+    assert.equal(saves.length, 0);
 });

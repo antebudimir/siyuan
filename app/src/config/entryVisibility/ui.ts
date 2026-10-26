@@ -45,11 +45,14 @@ import {
 } from "./profile";
 import {getHostCapabilities} from "../../util/hostCapabilities";
 import {isMobile} from "../../util/functions";
-import {isInMobileApp} from "../../protyle/util/compatibility";
+import {fetchSyncPost} from "../../util/fetch";
+import {isInMobileApp, saveExportFile} from "../../protyle/util/compatibility";
 import {bindTouchOrder} from "./touchOrder";
 import {TOOLBAR_ENTRY_ROOT_PATH} from "../../protyle/toolbar/defaults";
 import {MOBILE_TOOLBAR_CONTEXT_KEYS} from "./mobileToolbarContext";
 import {getSettingsOwnerApp} from "../setting/windowContext";
+import {Constants} from "../../constants";
+import {ContractFormData} from "../../util/contractFormData";
 /// #if !MOBILE
 import {getSettingsWindowHost, isSettingsWindow} from "../setting/windowContext";
 import {getEditorToolbarCatalogSnapshot} from "../../protyle/toolbar/catalogSnapshot";
@@ -102,8 +105,64 @@ const uniqueName = (name: string, profiles = window.siyuan.config.appearance.ent
     return `${normalized} (${index})`;
 };
 
+const filterUploadFileName = (name: string) => {
+    // 对齐内核 util.FilterUploadFileName 的清洗规则，保证 /api/file/putFile 接受生成的文件名
+    return name
+        .replace(/[\\/:*?"'<>|]/g, "_")
+        .replace(/[~[\]()!`&{}=#%;]/g, "")
+        .replace(/\u00a0/g, " ")
+        .replace(/[\p{Cc}\p{Cf}\p{Cs}]/gu, "")
+        .slice(0, 40)
+        .trim()
+        .replace(/\.+$/, "");
+};
+
+const toKernelUploadFileName = (fileName: string) => {
+    const dotIndex = fileName.lastIndexOf(".");
+    if (dotIndex <= 0) {
+        return filterUploadFileName(fileName) || "export";
+    }
+    return `${filterUploadFileName(fileName.slice(0, dotIndex)) || "export"}${fileName.slice(dotIndex)}`;
+};
+
+let exportJSONBusy = false;
+
+// 移动端 WebView 不支持 Blob 锚点下载，先把 JSON 写入内核临时导出目录，再通过原生导出租约保存
+const exportJSONViaKernel = async (name: string, data: unknown) => {
+    if (exportJSONBusy) {
+        return;
+    }
+    exportJSONBusy = true;
+    try {
+        const fileName = toKernelUploadFileName(name);
+        const formData = new ContractFormData({
+            path: `temp/export/${fileName}`,
+            file: new File([JSON.stringify(data, undefined, 2)], fileName, {type: "application/json"}),
+            isDir: "false",
+            app: Constants.SIYUAN_APPID,
+        });
+        const response = await fetchSyncPost("/api/file/putFile", formData);
+        if (response.code !== 0) {
+            throw new Error(response.msg);
+        }
+        const result = await saveExportFile(`/export/${encodeURIComponent(fileName)}`);
+        if (result.status === "error") {
+            showMessage(window.siyuan.languages.exportFileSaveFailed, 6000, "error");
+        }
+    } catch (e) {
+        console.error("export entry visibility profile failed", e);
+        showMessage(window.siyuan.languages.exportFileSaveFailed, 6000, "error");
+    } finally {
+        exportJSONBusy = false;
+    }
+};
+
 const downloadJSON = (name: string, data: unknown) => {
     if (!getHostCapabilities().importExport) {
+        return;
+    }
+    if (isInMobileApp()) {
+        void exportJSONViaKernel(name, data);
         return;
     }
     const blob = new Blob([JSON.stringify(data, undefined, 2)], {type: "application/json"});

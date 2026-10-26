@@ -56,6 +56,11 @@ const browserCases = async (sources: Record<string, string>, languages: Record<s
             const mocks: Record<string, unknown> = {
                 "util/functions": {isMobile: () => mobile},
                 "util/hostCapabilities": {getHostCapabilities: () => ({importExport: false})},
+                "util/fetch": {fetchSyncPost: () => Promise.resolve({code: -1, msg: "", data: null})},
+                "util/contractFormData": {ContractFormData: class {
+                    constructor(request: Record<string, unknown>) { Object.assign(this, request); }
+                }},
+                "constants": {Constants: {SIYUAN_APPID: ""}},
                 "util/genID": {genUUID: () => "new"},
                 "dialog/confirmDialog": {confirmDialog: (_title: string, _text: string, callback: () => void) => callback()},
                 "dialog/message": {showMessage: noop},
