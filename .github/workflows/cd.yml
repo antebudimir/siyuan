@@ -116,7 +116,7 @@ jobs:
         id: release_info
         run: |
           echo "release_title=v${{ steps.version.outputs.value }}" >> $GITHUB_OUTPUT
-          changelog_header=$(python scripts/parse-changelog-HEAD.py -t ${{ github.ref }} -b ${{ steps.thisLatestRelease.outputs.release }} -e ${{ steps.electronVersion.outputs.value }} ${{ github.repository }})
+          changelog_header=$(python scripts/parse-changelog-HEAD.py -t ${{ github.ref }} -b "${{ steps.thisLatestRelease.outputs.release }}" -e ${{ steps.electronVersion.outputs.value }} ${{ github.repository }})
           changelog=$(python scripts/parse-changelog.py -t ${{ github.ref }} ${{ github.repository }})
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "release_body<<$EOF" >> $GITHUB_OUTPUT
