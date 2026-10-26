@@ -740,16 +740,16 @@ jobs:
         run: |
           echo "sdk.dir=$ANDROID_HOME" > local.properties
           chmod +x ./gradlew
-          ./gradlew assembleOfficialRelease
-          cd app/build/outputs/apk/official/release
-          mv siyuan-*-official-release.apk siyuan-${{ needs.prepare.outputs.version }}.apk
+          ./gradlew assembleForkRelease
+          cd app/build/outputs/apk/fork/release
+          mv siyuan-*-fork-release.apk siyuan-${{ needs.prepare.outputs.version }}.apk
         working-directory: ${{ github.workspace }}/siyuan-android
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v7
         with:
           name: siyuan-android
-          path: ${{ github.workspace }}/siyuan-android/app/build/outputs/apk/official/release/siyuan-${{ needs.prepare.outputs.version }}.apk
+          path: ${{ github.workspace }}/siyuan-android/app/build/outputs/apk/fork/release/siyuan-${{ needs.prepare.outputs.version }}.apk
 
   create_release:
     name: Create Release
