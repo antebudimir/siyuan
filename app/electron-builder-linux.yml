@@ -39,9 +39,10 @@ linux:
     - from: "kernel-linux"
       to: "kernel"
   target:
-    - target: "tar.gz"
+    # tar.gz 与 deb 暂停产出，需要时取消注释即可恢复。
+    # - target: "tar.gz"
     - target: "AppImage"
-    - target: "deb"
+    # - target: "deb"
     - target: "rpm"
 
 appImage:

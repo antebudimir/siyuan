@@ -417,10 +417,9 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: siyuan-linux
+          # tar.gz 与 deb 已在 electron-builder-linux.yml 中暂停产出。
           path: |
             ${{ github.workspace }}/go/src/github.com/${{ github.repository }}/app/build/siyuan-*-linux.AppImage
-            ${{ github.workspace }}/go/src/github.com/${{ github.repository }}/app/build/siyuan-*-linux.tar.gz
-            ${{ github.workspace }}/go/src/github.com/${{ github.repository }}/app/build/siyuan-*-linux.deb
             ${{ github.workspace }}/go/src/github.com/${{ github.repository }}/app/build/siyuan-*-linux.rpm
 
       - name: Report non-blocking step outcomes

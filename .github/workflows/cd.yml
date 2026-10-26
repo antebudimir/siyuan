@@ -508,15 +508,16 @@ jobs:
           VERSION="${{ needs.prepare.outputs.version }}"
           mkdir -p release-assets
           cp "siyuan-linux/siyuan-${VERSION}-linux.AppImage" release-assets/
-          cp "siyuan-linux/siyuan-${VERSION}-linux.tar.gz" release-assets/
-          cp "siyuan-linux/siyuan-${VERSION}-linux.deb" release-assets/
+          # tar.gz 与 deb 已在 electron-builder-linux.yml 中暂停产出。
+          # cp "siyuan-linux/siyuan-${VERSION}-linux.tar.gz" release-assets/
+          # cp "siyuan-linux/siyuan-${VERSION}-linux.deb" release-assets/
           cp "siyuan-linux/siyuan-${VERSION}-linux.rpm" release-assets/
           cp "siyuan-android/siyuan-${VERSION}.apk" release-assets/
 
           EXPECTED_ASSETS=(
             "siyuan-${VERSION}-linux.AppImage"
-            "siyuan-${VERSION}-linux.tar.gz"
-            "siyuan-${VERSION}-linux.deb"
+            # "siyuan-${VERSION}-linux.tar.gz"
+            # "siyuan-${VERSION}-linux.deb"
             "siyuan-${VERSION}-linux.rpm"
             "siyuan-${VERSION}.apk"
           )
@@ -567,8 +568,8 @@ jobs:
           RELEASE_ID="$(gh release view "${TAG}" --json databaseId --jq '.databaseId')"
           EXPECTED_ASSETS=(
             "siyuan-${VERSION}-linux.AppImage"
-            "siyuan-${VERSION}-linux.tar.gz"
-            "siyuan-${VERSION}-linux.deb"
+            # "siyuan-${VERSION}-linux.tar.gz"
+            # "siyuan-${VERSION}-linux.deb"
             "siyuan-${VERSION}-linux.rpm"
             "siyuan-${VERSION}.apk"
             "SHA256SUMS.txt"

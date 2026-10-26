@@ -248,10 +248,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: desktop-linux
+          # tar.gz 与 deb 已在 electron-builder-linux.yml 中暂停产出。
           path: |
             app/build/siyuan-*-linux.AppImage
-            app/build/siyuan-*-linux.tar.gz
-            app/build/siyuan-*-linux.deb
             app/build/siyuan-*-linux.rpm
           if-no-files-found: error
 
@@ -279,9 +278,10 @@ jobs:
 
       - name: Rename desktop installers
         # 安装包文件名带 package.json 版本，重命名以携带 fork 标签，保持发布资产命名一致。
+        # tar.gz 与 deb 已在 electron-builder-linux.yml 中暂停产出，glob 未命中时跳过。
         run: |
           TAG="${{ github.ref_name }}"
-          for f in dist/siyuan-*-linux.AppImage dist/siyuan-*-linux.tar.gz dist/siyuan-*-linux.deb dist/siyuan-*-linux.rpm; do
+          for f in dist/siyuan-*-linux.AppImage dist/siyuan-*-linux.rpm; do
             [ -e "$f" ] || continue
             base="$(basename "$f")"
             mv "$f" "siyuan-fork-${TAG}-${base#siyuan-}"
@@ -297,6 +297,7 @@ jobs:
           tag: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
           generateReleaseNotes: true
-          artifacts: "siyuan-fork-*.zip,siyuan-fork-*-linux.AppImage,siyuan-fork-*-linux.tar.gz,siyuan-fork-*-linux.deb,siyuan-fork-*-linux.rpm,SHA256SUMS.txt"
+          # tar.gz 与 deb 已在 electron-builder-linux.yml 中暂停产出。
+          artifacts: "siyuan-fork-*.zip,siyuan-fork-*-linux.AppImage,siyuan-fork-*-linux.rpm,SHA256SUMS.txt"
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
