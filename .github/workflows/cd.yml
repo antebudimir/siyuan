@@ -483,6 +483,9 @@ jobs:
   create_release:
     name: Create Release
     runs-on: ubuntu-24.04
+    # 仓库默认 GITHUB_TOKEN 权限为只读，发布必须显式授予写内容权限。
+    permissions:
+      contents: write
     needs: [prepare, kernel-tests-linux, frontend-tests, build, build_android]
     # 等待全部内核与前端检查结束；测试步骤的软失败不阻塞发布。
     # 检查的硬失败、构建失败或取消仍会阻止发布。
