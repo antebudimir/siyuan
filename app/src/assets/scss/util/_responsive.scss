@@ -98,6 +98,25 @@
       }
     }
 
+    // 块引用样式行的控件嵌套在子容器内，窄屏时与其它设置行一致按行堆叠
+    &-item .config-blockref-style {
+      flex-wrap: wrap;
+
+      & > .fn__space {
+        display: none;
+      }
+
+      & > label {
+        flex: 1 1 100%;
+      }
+
+      & > .b3-select,
+      & > .b3-slider {
+        flex: 1 1 auto;
+        width: auto;
+      }
+    }
+
     // 输入框和单位保持同行，单位前的间距不被隐藏
     &-item > .config-item__number {
       flex-wrap: nowrap;
