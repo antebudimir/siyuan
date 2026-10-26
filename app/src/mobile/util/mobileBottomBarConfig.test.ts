@@ -25,11 +25,11 @@ describe("mobile bottom bar config", () => {
         });
     });
 
-    it("uses back, forward, documents, tabs, and search by default", () => {
-        assert.deepEqual(DEFAULT_MOBILE_BOTTOM_BAR_ACTIONS, ["back", "forward", "documents", "tabs", "search"]);
+    it("uses back, forward, documents, tabs, search, and newDoc by default", () => {
+        assert.deepEqual(DEFAULT_MOBILE_BOTTOM_BAR_ACTIONS, ["back", "forward", "documents", "tabs", "search", "newDoc"]);
     });
 
-    it("migrates the legacy default to the new five-slot default", () => {
+    it("migrates the legacy default to the new six-slot default", () => {
         const config = normalizeMobileBottomBarConfig({
             version: 1,
             actions: ["documents", "search", "newDoc", "tabs"],
@@ -38,14 +38,24 @@ describe("mobile bottom bar config", () => {
         assert.deepEqual(config, createDefaultMobileBottomBarConfig());
     });
 
-    it("migrates version 2 configs without changing their slots", () => {
+    it("migrates version 2 configs and backfills the added slot", () => {
         const config = normalizeMobileBottomBarConfig({
             version: 2,
             actions: ["recent", "outline", "bookmark", "tag", "back"],
         });
 
         assert.equal(config.version, MOBILE_BOTTOM_BAR_CONFIG_VERSION);
-        assert.deepEqual(config.actions, ["recent", "outline", "bookmark", "tag", "back"]);
+        assert.deepEqual(config.actions, ["recent", "outline", "bookmark", "tag", "back", "forward"]);
+    });
+
+    it("backfills a stored five-action config with the new default slot without a version bump", () => {
+        const config = normalizeMobileBottomBarConfig({
+            version: MOBILE_BOTTOM_BAR_CONFIG_VERSION,
+            actions: ["back", "forward", "documents", "tabs", "search"],
+        });
+
+        assert.equal(config.version, MOBILE_BOTTOM_BAR_CONFIG_VERSION);
+        assert.deepEqual(config.actions, ["back", "forward", "documents", "tabs", "search", "newDoc"]);
     });
 
     it("preserves customized legacy slots and appends back", () => {
@@ -54,7 +64,7 @@ describe("mobile bottom bar config", () => {
             actions: ["recent", "outline", "bookmark", "tag"],
         });
 
-        assert.deepEqual(config.actions, ["recent", "outline", "bookmark", "tag", "back"]);
+        assert.deepEqual(config.actions, ["recent", "outline", "bookmark", "tag", "back", "forward"]);
     });
 
     it("accepts serialized config and fills invalid or duplicate slots in order", () => {
@@ -63,9 +73,9 @@ describe("mobile bottom bar config", () => {
             actions: ["recent", "recent", "unknown", "tag"],
         }));
 
-        assert.deepEqual(config.actions, ["recent", "back", "forward", "tag", "documents"]);
-        assert.equal(config.actions.length, 5);
-        assert.equal(new Set(config.actions).size, 5);
+        assert.deepEqual(config.actions, ["recent", "back", "forward", "tag", "documents", "tabs"]);
+        assert.equal(config.actions.length, 6);
+        assert.equal(new Set(config.actions).size, 6);
         assert.equal(config.actions.every(isMobileBottomBarBuiltInAction), true);
     });
 
@@ -76,7 +86,17 @@ describe("mobile bottom bar config", () => {
             action: "tabs",
         });
 
-        assert.deepEqual(config.actions, ["tabs", "forward", "documents", "back", "search"]);
+        assert.deepEqual(config.actions, ["tabs", "forward", "documents", "back", "search", "newDoc"]);
+    });
+
+    it("swaps the sixth slot when selecting an action already in the bottom bar", () => {
+        const config = reduceMobileBottomBarConfig(createDefaultMobileBottomBarConfig(), {
+            type: "select-action",
+            slot: 5,
+            action: "search",
+        });
+
+        assert.deepEqual(config.actions, ["back", "forward", "documents", "tabs", "newDoc", "search"]);
     });
 
     it("supports bookmarks, backlinks, the agent, spaced repetition, and forward as configurable actions", () => {
@@ -85,7 +105,7 @@ describe("mobile bottom bar config", () => {
             actions: ["bookmark", "backlink", "agent", "spacedRepetition", "forward"],
         });
 
-        assert.deepEqual(config.actions, ["bookmark", "backlink", "agent", "spacedRepetition", "forward"]);
+        assert.deepEqual(config.actions, ["bookmark", "backlink", "agent", "spacedRepetition", "forward", "back"]);
     });
 
     it("supports selecting and quickly creating daily notes", () => {
@@ -94,7 +114,7 @@ describe("mobile bottom bar config", () => {
             actions: ["dailyNote", "newDailyNote", "documents", "tabs", "back"],
         });
 
-        assert.deepEqual(config.actions, ["dailyNote", "newDailyNote", "documents", "tabs", "back"]);
+        assert.deepEqual(config.actions, ["dailyNote", "newDailyNote", "documents", "tabs", "back", "forward"]);
     });
 
     it("replaces a slot when selecting an unused action", () => {
@@ -104,7 +124,7 @@ describe("mobile bottom bar config", () => {
             action: "outline",
         });
 
-        assert.deepEqual(config.actions, ["back", "outline", "documents", "tabs", "search"]);
+        assert.deepEqual(config.actions, ["back", "outline", "documents", "tabs", "search", "newDoc"]);
     });
 
     it("resets customized actions to a fresh default config", () => {
@@ -125,7 +145,7 @@ describe("mobile bottom bar config", () => {
             actions: ["back", "forward", "documents", "newDoc", "tabs"],
         }, ["newDoc"]);
 
-        assert.deepEqual(config.actions, ["back", "forward", "documents", "search", "tabs"]);
+        assert.deepEqual(config.actions, ["back", "forward", "documents", "newFileRef", "tabs", "search"]);
         assert.equal(config.actions.includes("newDoc"), false);
     });
 
@@ -135,7 +155,7 @@ describe("mobile bottom bar config", () => {
             actions: ["documents", "agent", "newDoc", "tabs", "back"],
         }, ["agent"]);
 
-        assert.deepEqual(config.actions, ["documents", "forward", "newDoc", "tabs", "back"]);
+        assert.deepEqual(config.actions, ["documents", "search", "newDoc", "tabs", "back", "forward"]);
     });
 
     it("replaces spaced repetition in read-only mode", () => {
@@ -144,7 +164,7 @@ describe("mobile bottom bar config", () => {
             actions: ["documents", "spacedRepetition", "search", "tabs", "back"],
         }, ["spacedRepetition"]);
 
-        assert.deepEqual(config.actions, ["documents", "forward", "search", "tabs", "back"]);
+        assert.deepEqual(config.actions, ["documents", "newDoc", "search", "tabs", "back", "forward"]);
     });
 
     it("replaces daily note actions when document creation is unavailable", () => {
@@ -153,7 +173,7 @@ describe("mobile bottom bar config", () => {
             actions: ["dailyNote", "newDailyNote", "documents", "tabs", "back"],
         }, ["dailyNote", "newDailyNote"]);
 
-        assert.deepEqual(config.actions, ["forward", "search", "documents", "tabs", "back"]);
+        assert.deepEqual(config.actions, ["search", "newDoc", "documents", "tabs", "back", "forward"]);
     });
 
     it("accepts stable plugin dock keys and rejects malformed keys", () => {
@@ -163,7 +183,7 @@ describe("mobile bottom bar config", () => {
             actions: [pluginAction, "plugin::dock", "plugin:name:", "plugin:name:dock:extra", "search"],
         });
 
-        assert.deepEqual(config.actions, [pluginAction, "back", "forward", "documents", "search"]);
+        assert.deepEqual(config.actions, [pluginAction, "back", "forward", "documents", "search", "tabs"]);
     });
 
     it("swaps stable plugin dock actions between slots", () => {
@@ -178,7 +198,7 @@ describe("mobile bottom bar config", () => {
             action: pluginAction,
         });
 
-        assert.deepEqual(config.actions, ["tabs", "forward", "documents", pluginAction, "search"]);
+        assert.deepEqual(config.actions, ["tabs", "forward", "documents", pluginAction, "search", "back"]);
     });
 
     it("temporarily replaces a missing plugin without changing the stored config", () => {
@@ -189,7 +209,7 @@ describe("mobile bottom bar config", () => {
         });
         const resolvedConfig = resolveMobileBottomBarAvailability(storedConfig, [pluginAction]);
 
-        assert.deepEqual(resolvedConfig.actions, ["back", "forward", "documents", "tabs", "search"]);
+        assert.deepEqual(resolvedConfig.actions, ["newDoc", "forward", "documents", "tabs", "search", "back"]);
         assert.equal(storedConfig.actions[0], pluginAction);
         assert.deepEqual(resolveMobileBottomBarAvailability(storedConfig, []).actions, storedConfig.actions);
     });
@@ -206,6 +226,6 @@ describe("mobile bottom bar config", () => {
             action: "outline",
         });
 
-        assert.deepEqual(config.actions, [pluginAction, "outline", "documents", "tabs", "search"]);
+        assert.deepEqual(config.actions, [pluginAction, "outline", "documents", "tabs", "search", "back"]);
     });
 });

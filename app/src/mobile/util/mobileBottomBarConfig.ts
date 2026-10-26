@@ -1,6 +1,7 @@
 import {isPluginDockEntryKey, type PluginDockEntryKey} from "../../plugin/dockKey";
 
 export const MOBILE_BOTTOM_BAR_CONFIG_VERSION = 3 as const;
+export const MOBILE_BOTTOM_BAR_SLOT_COUNT = 6 as const;
 
 export const MOBILE_BOTTOM_BAR_ACTIONS = [
     "back",
@@ -25,8 +26,9 @@ export const MOBILE_BOTTOM_BAR_ACTIONS = [
 
 export type MobileBottomBarBuiltInAction = typeof MOBILE_BOTTOM_BAR_ACTIONS[number];
 export type MobileBottomBarAction = MobileBottomBarBuiltInAction | PluginDockEntryKey;
-export type MobileBottomBarSlot = 0 | 1 | 2 | 3 | 4;
+export type MobileBottomBarSlot = 0 | 1 | 2 | 3 | 4 | 5;
 export type MobileBottomBarSlots = readonly [
+    MobileBottomBarAction,
     MobileBottomBarAction,
     MobileBottomBarAction,
     MobileBottomBarAction,
@@ -53,6 +55,7 @@ export const DEFAULT_MOBILE_BOTTOM_BAR_ACTIONS = [
     "documents",
     "tabs",
     "search",
+    "newDoc",
 ] as const satisfies MobileBottomBarSlots;
 
 const LEGACY_DEFAULT_MOBILE_BOTTOM_BAR_ACTIONS = ["documents", "search", "newDoc", "tabs"];
@@ -71,15 +74,20 @@ export const isMobileBottomBarAction = (value: unknown): value is MobileBottomBa
     return isMobileBottomBarBuiltInAction(value) || isPluginDockEntryKey(value);
 };
 
-const toMobileBottomBarSlots = (actions: MobileBottomBarAction[]): MobileBottomBarSlots => {
-    return [actions[0], actions[1], actions[2], actions[3], actions[4]];
-};
+const toMobileBottomBarSlots = (actions: MobileBottomBarAction[]): MobileBottomBarSlots => [
+    actions[0],
+    actions[1],
+    actions[2],
+    actions[3],
+    actions[4],
+    actions[5],
+];
 
 const normalizeMobileBottomBarActions = (storedActions: unknown[]): MobileBottomBarSlots => {
-    const actions = new Array<MobileBottomBarAction>(5);
+    const actions = new Array<MobileBottomBarAction>(MOBILE_BOTTOM_BAR_SLOT_COUNT);
     const usedActions = new Set<MobileBottomBarAction>();
 
-    for (let slot = 0; slot < actions.length; slot++) {
+    for (let slot = 0; slot < MOBILE_BOTTOM_BAR_SLOT_COUNT; slot++) {
         const action = normalizeMobileBottomBarAction(storedActions[slot]);
         if (isMobileBottomBarAction(action) && !usedActions.has(action)) {
             actions[slot] = action;

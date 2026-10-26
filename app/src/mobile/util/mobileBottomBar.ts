@@ -23,6 +23,7 @@ import {
     isMobileBottomBarAction,
     isMobileBottomBarBuiltInAction,
     MOBILE_BOTTOM_BAR_ACTIONS,
+    MOBILE_BOTTOM_BAR_SLOT_COUNT,
     normalizeMobileBottomBarConfig,
     reduceMobileBottomBarConfig,
     resolveMobileBottomBarAvailability,
@@ -350,7 +351,7 @@ export const genMobileBottomBarSettingHTML = () => {
     const title = window.siyuan.languages.mobileBottomBar;
     const disabled = window.siyuan.config.readonly || window.siyuan.isPublish ? " disabled" : "";
     const options = genBottomBarOptions(getMobilePluginDockEntries());
-    const selects = [0, 1, 2, 3, 4].map((slot) => `<label class="mobile-bottom-bar-setting__slot">
+    const selects = Array.from({length: MOBILE_BOTTOM_BAR_SLOT_COUNT}, (_, slot) => `<label class="mobile-bottom-bar-setting__slot">
         <span>${slot + 1}</span>
         <select class="b3-select fn__flex-1" data-bottom-bar-slot="${slot}" aria-label="${escapeAttr(`${title} ${slot + 1}`)}"${disabled}>${options}</select>
     </label>`).join("");
@@ -391,7 +392,7 @@ export const mountMobileBottomBarSetting = (root: HTMLElement) => {
         const slot = Number(selectElement.dataset.bottomBarSlot);
         const action = selectElement.value;
         const pluginDockKeys = new Set(pluginDockEntries.map(entry => entry.key));
-        if (![0, 1, 2, 3, 4].includes(slot) || !isMobileBottomBarAction(action) ||
+        if (slot < 0 || slot >= MOBILE_BOTTOM_BAR_SLOT_COUNT || !isMobileBottomBarAction(action) ||
             (!isMobileBottomBarBuiltInAction(action) && !pluginDockKeys.has(action))) {
             syncSelects();
             return;
