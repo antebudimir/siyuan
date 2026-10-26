@@ -33,7 +33,6 @@
             <svg data-type="sidebar-file-tab" class="toolbar__icon toolbar__icon--active"><use xlink:href="#iconFiles"></use></svg>
             <svg data-type="sidebar-bookmark-tab" class="toolbar__icon"><use xlink:href="#iconBookmark"></use></svg>
             <svg data-type="sidebar-tag-tab" class="toolbar__icon"><use xlink:href="#iconTag"></use></svg>
-            <svg data-type="sidebar-inbox-tab" class="toolbar__icon"><use xlink:href="#iconInbox"></use></svg>
         </div>
         <svg class="toolbar__icon"><use xlink:href="#iconRight"></use></svg>
     </div>
@@ -41,7 +40,6 @@
         <div class="fn__flex-column" data-type="sidebar-file"></div>
         <div class="fn__flex-column fn__none" data-type="sidebar-bookmark"></div>
         <div class="fn__flex-column fn__none" data-type="sidebar-tag"></div>
-        <div class="fn__flex-column fn__none" data-type="sidebar-inbox"></div>
     </div>
 </div>
 <div id="sidebarRight" class="side-panel side-panel--right fn__flex-column">
@@ -104,7 +102,7 @@
         <svg><use xlink:href="#iconFile"></use></svg>
     </button>
     <button id="mobileBottomBarDocMenu" class="mobile-bottom-bar__item fn__none" data-action="docMenu" type="button">
-        <svg><use xlink:href="#iconFile"></use></svg>
+        <svg><use xlink:href="#iconInfo"></use></svg>
     </button>
     <button id="toolbarTabs" class="mobile-bottom-bar__item" data-action="tabs" type="button">
         <span class="toolbar__tabs-count">0</span>
@@ -123,9 +121,6 @@
     </button>
     <button id="mobileBottomBarBacklink" class="mobile-bottom-bar__item fn__none" data-action="backlink" type="button">
         <svg><use xlink:href="#iconLink"></use></svg>
-    </button>
-    <button id="mobileBottomBarInbox" class="mobile-bottom-bar__item fn__none" data-action="inbox" type="button">
-        <svg><use xlink:href="#iconInbox"></use></svg>
     </button>
     <button id="mobileBottomBarAgent" class="mobile-bottom-bar__item fn__none" data-action="agent" type="button">
         <svg><use xlink:href="#iconSparkles"></use></svg>

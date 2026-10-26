@@ -50,7 +50,6 @@ const getBuiltInDockIcon = (dockId: MobileSidePanelBuiltInDockId) => {
             return "iconTag";
         case "backlink":
             return "iconLink";
-            return "iconInbox";
         case "agent":
             return "iconSparkles";
     }
