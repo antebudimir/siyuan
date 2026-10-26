@@ -370,8 +370,9 @@ export const globalCommand = (command: string, app: App, range?: Range, openOnly
             return true;
         }
 
+        // 固定页签不响应此快捷键，需手动取消固定后关闭，避免误关闭
         const tab = getActiveTab();
-        if (tab) {
+        if (tab && !tab.headElement.classList.contains("item--pin")) {
             tab.parent.removeTab(tab.id);
             return true;
         }
@@ -381,7 +382,7 @@ export const globalCommand = (command: string, app: App, range?: Range, openOnly
             return true;
         }
         const noFocusTab = getActiveTab(false);
-        if (noFocusTab) {
+        if (noFocusTab && !noFocusTab.headElement.classList.contains("item--pin")) {
             noFocusTab.parent.removeTab(noFocusTab.id);
             return true;
         }
