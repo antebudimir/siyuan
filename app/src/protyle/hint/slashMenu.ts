@@ -47,7 +47,7 @@ const getSlashMatchRank = (item: TSlashMenuItem, key: string) => {
 
 // 精简模式仅保留不依赖持久化文档上下文的内置项。
 const LITE_SLASH_IDS = new Set([
-    "assets", "ref", "heading1", "heading2", "heading3", "heading4", "heading5", "heading6",
+    "newSubDocRef", "blockEmbed", "assets", "ref", "heading1", "heading2", "heading3", "heading4", "heading5", "heading6",
     "list", "orderedList", "check", "quote", "horizontalSuperBlock", "verticalSuperBlock", "tabs", "calloutNote", "calloutTip", "calloutImportant",
     "calloutWarning", "calloutCaution", "code", "table", "line", "math", "html",
     "emoji", "link", "bold", "italic", "underline", "strike", "mark", "sup", "sub", "inlineCode",
