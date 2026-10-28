@@ -2123,8 +2123,3 @@ body.mobile-topbar--merged {
   }
 }
 
-// 窄屏上块引用换行后按整体绘制描边，避免每行出现独立边框被误读为多个引用
-.protyle-wysiwyg span[data-type~="block-ref"]:not(.av__celltext) {
-  -webkit-box-decoration-break: slice;
-  box-decoration-break: slice;
-}
