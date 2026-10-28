@@ -59,26 +59,17 @@
   span[data-type~="block-ref"]:not(.av__celltext) {
     // 以按钮描边的样式呈现块引用，换行后按整体绘制描边，避免被误读为多个引用；具体尺寸由外观偏好写入的变量控制。
     // 上下内边距加入运行时测量的墨迹偏移，抵消字体度量差异，让文字在边框内视觉垂直居中。
-    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    white-space: normal;
     border: var(--b3-protyle-inline-blockref-border-width, 1px) solid var(--b3-protyle-inline-blockref-color);
     border-radius: var(--b3-protyle-inline-blockref-radius, 4px);
-    padding-top: calc(var(--b3-protyle-inline-blockref-padding-y, 0px) + var(--b3-protyle-inline-blockref-padding-shift, 0em));
+    padding-top: max(0px, calc(var(--b3-protyle-inline-blockref-padding-y, 0px) + var(--b3-protyle-inline-blockref-padding-shift, 0em)));
     padding-right: var(--b3-protyle-inline-blockref-padding-x, 4px);
-    padding-bottom: calc(var(--b3-protyle-inline-blockref-padding-y, 0px) - var(--b3-protyle-inline-blockref-padding-shift, 0em));
+    padding-bottom: max(0px, calc(var(--b3-protyle-inline-blockref-padding-y, 0px) - var(--b3-protyle-inline-blockref-padding-shift, 0em)));
     padding-left: var(--b3-protyle-inline-blockref-padding-x, 4px);
     -webkit-box-decoration-break: slice;
     box-decoration-break: slice;
-
-    // 扩大热区：行内元素的上下内边距不参与行高，边框附近的空隙点击会落空，
-    // 用伪元素向外延伸一小段，让整块描边区域附近都能命中引用。
-    &::after {
-      content: "";
-      position: absolute;
-      top: calc(-1 * var(--b3-protyle-inline-blockref-padding-y, 0px) - 2px);
-      right: calc(-1 * var(--b3-protyle-inline-blockref-padding-x, 0px) - 2px);
-      bottom: calc(-1 * var(--b3-protyle-inline-blockref-padding-y, 0px) - 2px);
-      left: calc(-1 * var(--b3-protyle-inline-blockref-padding-x, 0px) - 2px);
-    }
   }
 
   span[data-type~="file-annotation-ref"] {
