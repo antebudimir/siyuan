@@ -1,9 +1,12 @@
+// SiYuan - https://github.com/siyuan-note/siyuan
+// Copyright (c) 2020-present, b3log.org
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 package apicontract
 
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
 	"mime/multipart"
 	"reflect"
@@ -297,6 +300,7 @@ type BazaarPackage struct {
 	Modes                 *[]string `json:"modes,omitempty"`                 // 主题：支持的模式列表
 }
 type BazaarAppearance struct {
+	LockScreenWallpaper      bool                     `json:"lockScreenWallpaper"`
 	CompactMode              bool                     `json:"compactMode"`              // 桌面端紧凑模式，默认关闭
 	MenuMouseScroll          bool                     `json:"menuMouseScroll"`          // 桌面端菜单鼠标滚动，新工作空间默认启用
 	PDFTheme                 *BazaarPDFTheme          `json:"pdfTheme"`                 // PDF 阅读主题与标注颜色，响应保留空值
@@ -496,19 +500,6 @@ func bazaarPayloadSchema(b *schemaBuilder, t reflect.Type, input bool) (*Schema,
 	return &Schema{Ref: "#/$defs/" + t.Name()}, nil
 }
 
-func bazaarString(fields map[string]json.RawMessage, key string, required, trim bool) (string, error) {
-	value, err := legacyField[string](fields, key, "String", required)
-	if err != nil {
-		return "", err
-	}
-	if trim && len(fields[key]) > 0 && string(fields[key]) != "null" {
-		value = strings.TrimSpace(value)
-		if value == "" {
-			return "", fmt.Errorf("Field [%s] must not be empty", key)
-		}
-	}
-	return value, nil
-}
 func init() {
 	InstallLocalBazaarPackage.decodeFailure = func(err error) Response[BazaarLocalInstallResult] {
 		return Failure[BazaarLocalInstallResult](1, "Marketplace package file is required")
@@ -518,7 +509,7 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Frontend, err = bazaarString(fields, "frontend", true, true); err != nil {
+		if request.Frontend, err = requestFieldString(fields, "frontend", true, true); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -528,7 +519,7 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Frontend, err = bazaarString(fields, "frontend", true, true); err != nil {
+		if request.Frontend, err = requestFieldString(fields, "frontend", true, true); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -538,16 +529,16 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.PackageType, err = bazaarString(fields, "packageType", true, true); err != nil {
+		if request.PackageType, err = requestFieldString(fields, "packageType", true, true); err != nil {
 			return request, err
 		}
-		if request.PackageName, err = bazaarString(fields, "packageName", true, true); err != nil {
+		if request.PackageName, err = requestFieldString(fields, "packageName", true, true); err != nil {
 			return request, err
 		}
-		if request.Frontend, err = bazaarString(fields, "frontend", true, true); err != nil {
+		if request.Frontend, err = requestFieldString(fields, "frontend", true, true); err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -557,10 +548,10 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.PackageType, err = bazaarString(fields, "packageType", true, true); err != nil {
+		if request.PackageType, err = requestFieldString(fields, "packageType", true, true); err != nil {
 			return request, err
 		}
-		if request.PackageName, err = bazaarString(fields, "packageName", true, true); err != nil {
+		if request.PackageName, err = requestFieldString(fields, "packageName", true, true); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -570,13 +561,13 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.PackageType, err = bazaarString(fields, "packageType", true, true); err != nil {
+		if request.PackageType, err = requestFieldString(fields, "packageType", true, true); err != nil {
 			return request, err
 		}
-		if request.PackageName, err = bazaarString(fields, "packageName", true, true); err != nil {
+		if request.PackageName, err = requestFieldString(fields, "packageName", true, true); err != nil {
 			return request, err
 		}
-		if request.Frontend, err = bazaarString(fields, "frontend", false, true); err != nil {
+		if request.Frontend, err = requestFieldString(fields, "frontend", false, true); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -586,7 +577,7 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.PackageType, err = bazaarString(fields, "packageType", true, true); err != nil {
+		if request.PackageType, err = requestFieldString(fields, "packageType", true, true); err != nil {
 			return request, err
 		}
 		items, parseErr := legacyField[[]json.RawMessage](fields, "packageNames", "Array", true)
@@ -609,7 +600,7 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.PackageType, err = bazaarString(fields, "packageType", true, true); err != nil {
+		if request.PackageType, err = requestFieldString(fields, "packageType", true, true); err != nil {
 			return request, err
 		}
 		items, parseErr := legacyField[[]json.RawMessage](fields, "packageNames", "Array", true)
@@ -632,10 +623,10 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.PackageType, err = bazaarString(fields, "packageType", true, true); err != nil {
+		if request.PackageType, err = requestFieldString(fields, "packageType", true, true); err != nil {
 			return request, err
 		}
-		if request.PackageName, err = bazaarString(fields, "packageName", true, true); err != nil {
+		if request.PackageName, err = requestFieldString(fields, "packageName", true, true); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -645,10 +636,10 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.PackageType, err = bazaarString(fields, "packageType", true, true); err != nil {
+		if request.PackageType, err = requestFieldString(fields, "packageType", true, true); err != nil {
 			return request, err
 		}
-		if request.PackageName, err = bazaarString(fields, "packageName", true, true); err != nil {
+		if request.PackageName, err = requestFieldString(fields, "packageName", true, true); err != nil {
 			return request, err
 		}
 		if request.Rating, err = legacyField[float64](fields, "rating", "Number", true); err != nil {
@@ -661,13 +652,13 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.RepoURL, err = bazaarString(fields, "repoURL", true, true); err != nil {
+		if request.RepoURL, err = requestFieldString(fields, "repoURL", true, true); err != nil {
 			return request, err
 		}
-		if request.RepoHash, err = bazaarString(fields, "repoHash", true, true); err != nil {
+		if request.RepoHash, err = requestFieldString(fields, "repoHash", true, true); err != nil {
 			return request, err
 		}
-		if request.PackageType, err = bazaarString(fields, "packageType", true, true); err != nil {
+		if request.PackageType, err = requestFieldString(fields, "packageType", true, true); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -677,10 +668,10 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Frontend, err = bazaarString(fields, "frontend", true, true); err != nil {
+		if request.Frontend, err = requestFieldString(fields, "frontend", true, true); err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -690,10 +681,10 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Frontend, err = bazaarString(fields, "frontend", true, true); err != nil {
+		if request.Frontend, err = requestFieldString(fields, "frontend", true, true); err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -703,22 +694,22 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Frontend, err = bazaarString(fields, "frontend", true, true); err != nil {
+		if request.Frontend, err = requestFieldString(fields, "frontend", true, true); err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
-		if request.RepoURL, err = bazaarString(fields, "repoURL", true, true); err != nil {
+		if request.RepoURL, err = requestFieldString(fields, "repoURL", true, true); err != nil {
 			return request, err
 		}
-		if request.RepoHash, err = bazaarString(fields, "repoHash", true, true); err != nil {
+		if request.RepoHash, err = requestFieldString(fields, "repoHash", true, true); err != nil {
 			return request, err
 		}
-		if request.RepoRef, err = bazaarString(fields, "repoRef", false, false); err != nil {
+		if request.RepoRef, err = requestFieldString(fields, "repoRef", false, false); err != nil {
 			return request, err
 		}
-		if request.PackageName, err = bazaarString(fields, "packageName", true, true); err != nil {
+		if request.PackageName, err = requestFieldString(fields, "packageName", true, true); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -728,13 +719,13 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Frontend, err = bazaarString(fields, "frontend", false, false); err != nil {
+		if request.Frontend, err = requestFieldString(fields, "frontend", false, false); err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
-		if request.PackageName, err = bazaarString(fields, "packageName", true, true); err != nil {
+		if request.PackageName, err = requestFieldString(fields, "packageName", true, true); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -744,7 +735,7 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -754,7 +745,7 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -764,19 +755,19 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
-		if request.RepoURL, err = bazaarString(fields, "repoURL", true, true); err != nil {
+		if request.RepoURL, err = requestFieldString(fields, "repoURL", true, true); err != nil {
 			return request, err
 		}
-		if request.RepoHash, err = bazaarString(fields, "repoHash", true, true); err != nil {
+		if request.RepoHash, err = requestFieldString(fields, "repoHash", true, true); err != nil {
 			return request, err
 		}
-		if request.RepoRef, err = bazaarString(fields, "repoRef", false, false); err != nil {
+		if request.RepoRef, err = requestFieldString(fields, "repoRef", false, false); err != nil {
 			return request, err
 		}
-		if request.PackageName, err = bazaarString(fields, "packageName", true, true); err != nil {
+		if request.PackageName, err = requestFieldString(fields, "packageName", true, true); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -786,10 +777,10 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
-		if request.PackageName, err = bazaarString(fields, "packageName", true, true); err != nil {
+		if request.PackageName, err = requestFieldString(fields, "packageName", true, true); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -799,7 +790,7 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -809,7 +800,7 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -819,19 +810,19 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
-		if request.RepoURL, err = bazaarString(fields, "repoURL", true, true); err != nil {
+		if request.RepoURL, err = requestFieldString(fields, "repoURL", true, true); err != nil {
 			return request, err
 		}
-		if request.RepoHash, err = bazaarString(fields, "repoHash", true, true); err != nil {
+		if request.RepoHash, err = requestFieldString(fields, "repoHash", true, true); err != nil {
 			return request, err
 		}
-		if request.RepoRef, err = bazaarString(fields, "repoRef", false, false); err != nil {
+		if request.RepoRef, err = requestFieldString(fields, "repoRef", false, false); err != nil {
 			return request, err
 		}
-		if request.PackageName, err = bazaarString(fields, "packageName", true, true); err != nil {
+		if request.PackageName, err = requestFieldString(fields, "packageName", true, true); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -841,10 +832,10 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
-		if request.PackageName, err = bazaarString(fields, "packageName", true, true); err != nil {
+		if request.PackageName, err = requestFieldString(fields, "packageName", true, true); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -854,7 +845,7 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -864,7 +855,7 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -874,19 +865,19 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
-		if request.RepoURL, err = bazaarString(fields, "repoURL", true, true); err != nil {
+		if request.RepoURL, err = requestFieldString(fields, "repoURL", true, true); err != nil {
 			return request, err
 		}
-		if request.RepoHash, err = bazaarString(fields, "repoHash", true, true); err != nil {
+		if request.RepoHash, err = requestFieldString(fields, "repoHash", true, true); err != nil {
 			return request, err
 		}
-		if request.RepoRef, err = bazaarString(fields, "repoRef", false, false); err != nil {
+		if request.RepoRef, err = requestFieldString(fields, "repoRef", false, false); err != nil {
 			return request, err
 		}
-		if request.PackageName, err = bazaarString(fields, "packageName", true, true); err != nil {
+		if request.PackageName, err = requestFieldString(fields, "packageName", true, true); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -896,10 +887,10 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
-		if request.PackageName, err = bazaarString(fields, "packageName", true, true); err != nil {
+		if request.PackageName, err = requestFieldString(fields, "packageName", true, true); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -909,10 +900,10 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Frontend, err = bazaarString(fields, "frontend", false, false); err != nil {
+		if request.Frontend, err = requestFieldString(fields, "frontend", false, false); err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -922,10 +913,10 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Frontend, err = bazaarString(fields, "frontend", false, false); err != nil {
+		if request.Frontend, err = requestFieldString(fields, "frontend", false, false); err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
 		return request, nil
@@ -935,22 +926,22 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Frontend, err = bazaarString(fields, "frontend", false, false); err != nil {
+		if request.Frontend, err = requestFieldString(fields, "frontend", false, false); err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
-		if request.RepoURL, err = bazaarString(fields, "repoURL", true, true); err != nil {
+		if request.RepoURL, err = requestFieldString(fields, "repoURL", true, true); err != nil {
 			return request, err
 		}
-		if request.RepoHash, err = bazaarString(fields, "repoHash", true, true); err != nil {
+		if request.RepoHash, err = requestFieldString(fields, "repoHash", true, true); err != nil {
 			return request, err
 		}
-		if request.RepoRef, err = bazaarString(fields, "repoRef", false, false); err != nil {
+		if request.RepoRef, err = requestFieldString(fields, "repoRef", false, false); err != nil {
 			return request, err
 		}
-		if request.PackageName, err = bazaarString(fields, "packageName", true, true); err != nil {
+		if request.PackageName, err = requestFieldString(fields, "packageName", true, true); err != nil {
 			return request, err
 		}
 		_, hasMode := fields["mode"]
@@ -980,13 +971,13 @@ func init() {
 		if err != nil {
 			return request, err
 		}
-		if request.Frontend, err = bazaarString(fields, "frontend", false, false); err != nil {
+		if request.Frontend, err = requestFieldString(fields, "frontend", false, false); err != nil {
 			return request, err
 		}
-		if request.Keyword, err = bazaarString(fields, "keyword", false, false); err != nil {
+		if request.Keyword, err = requestFieldString(fields, "keyword", false, false); err != nil {
 			return request, err
 		}
-		if request.PackageName, err = bazaarString(fields, "packageName", true, true); err != nil {
+		if request.PackageName, err = requestFieldString(fields, "packageName", true, true); err != nil {
 			return request, err
 		}
 		return request, nil
