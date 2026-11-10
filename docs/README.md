@@ -2,24 +2,27 @@
 
 ## Documentation index
 
-| Document |
-|---|
-| [Kernel API type contracts](API-CONTRACTS.md) |
-| [Theme and icon synchronization](APPEARANCE-SYNC.md) |
-| [On-demand asset downloads](ASSET-DOWNLOAD.md) |
-| [Encrypted notebooks](ENCRYPTED-NOTEBOOK.md) |
-| [Document titles and addressing (design draft)](DOCUMENT-ADDRESSING.md) |
-| [Pinned documents](PINNED-DOCUMENTS.md) |
-| [Tab blocks](TAB-BLOCK.md) |
-| [Template manager](TEMPLATE-MANAGER.md) |
-| [`.sy` file structure](SY-FORMAT.md) |
-| [Workspace file layout](WORKSPACE.md) |
+| Document | Link |
+|---|---|
+| Kernel API type contracts | [API-CONTRACTS.md](API-CONTRACTS.md) |
+| Theme and icon synchronization | [APPEARANCE-SYNC.md](APPEARANCE-SYNC.md) |
+| On-demand asset downloads | [ASSET-DOWNLOAD.md](ASSET-DOWNLOAD.md) |
+| Encrypted notebooks | [ENCRYPTED-NOTEBOOK.md](ENCRYPTED-NOTEBOOK.md) |
+| Document titles and addressing (design draft) | [DOCUMENT-ADDRESSING.md](DOCUMENT-ADDRESSING.md) |
+| Database sub-items (design draft) | [DATABASE-SUBITEMS.md](DATABASE-SUBITEMS.md) |
+| Long-term memory (design draft) | [LONG-TERM-MEMORY.md](LONG-TERM-MEMORY.md) |
+| Pinned documents | [PINNED-DOCUMENTS.md](PINNED-DOCUMENTS.md) |
+| Performance measurement | [PERFORMANCE.md](PERFORMANCE.md) |
+| Tab blocks | [TAB-BLOCK.md](TAB-BLOCK.md) |
+| Template manager | [TEMPLATE-MANAGER.md](TEMPLATE-MANAGER.md) |
+| `.sy` file structure | [SY-FORMAT.md](SY-FORMAT.md) |
+| Workspace file layout | [WORKSPACE.md](WORKSPACE.md) |
 
-Public API documentation: [English](API.md).
+Public API documentation is maintained in English: [API.md](API.md).
 
 ## Documentation conventions
 
-This fork keeps English documentation only. Do not add translated editions of `docs/` files.
+This fork keeps documentation in English only. Maintain a single English `NAME.md` file per topic; do not add localized editions or relative language links below titles. Use corresponding section order and matching interfaces, paths, fields, compatibility requirements, and verification scope when changing an existing document.
 
 ## Feature design structure
 
@@ -40,6 +43,6 @@ API contract maintenance, file formats, and workspace layout are maintenance spe
 
 Describe existing behavior objectively. Use “must” and “must not” for requirements, distinguishing supported behavior, limitations, and verification requirements. Avoid review history, staged progress reports, promotional conclusions, and repeated emphasis. State the scope of counts, versions, and performance values; refer to source code for API coverage that it determines directly.
 
-Use code formatting for identifiers, fields, paths, and commands; tables for operation comparisons; and numbered lists for ordered steps. Separate UI navigation levels with ` - `. Use punctuation appropriate to each language. Keep each paragraph or list item on a single line without manual wrapping.
+Use code formatting for identifiers, fields, paths, and commands; tables for operation comparisons; and numbered lists for ordered steps. Separate UI navigation levels with ` - `. Use English punctuation. Keep each paragraph or list item on a single line without manual wrapping.
 
-Editorial changes must not reduce authenticated-read or recovery guarantees for existing data. For encryption formats, keys, history, and backups, documentation must preserve the compatibility baseline, failure handling, and recovery-material requirements.
+Editorial changes must not reduce authenticated-read or recovery guarantees for existing data. For encryption formats, keys, history, and backups, the documentation must preserve the compatibility baseline, failure handling, and recovery-material requirements.

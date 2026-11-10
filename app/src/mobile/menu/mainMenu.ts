@@ -118,7 +118,7 @@ export const MOBILE_MAIN_MENU_GROUPS: IMobileMainMenuGroup[] = [{
         },
         {
             id: "menuTemplateManager",
-            icon: "iconMarkdown",
+            icon: "iconLayoutGrid",
             label: lang("templateManager"),
             hidden: () => isReadonly() || !getHostCapabilities().importExport,
             click() {
