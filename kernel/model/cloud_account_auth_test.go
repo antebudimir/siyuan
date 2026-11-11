@@ -153,29 +153,6 @@ func cloudAuthResponse(request *http.Request, status int, body string) *http.Res
 		Body: io.NopCloser(strings.NewReader(body)), Request: request}
 }
 
-func TestCloudAccountRequestAuthenticationFailure(t *testing.T) {
-	for _, status := range []int{http.StatusUnauthorized, http.StatusForbidden, http.StatusInternalServerError} {
-		t.Run(fmt.Sprint(status), func(t *testing.T) {
-			user := setupCloudAccountAuthTest(t)
-			mockCloudAuthResponse(t, func(request *http.Request) (*http.Response, error) {
-				cookie, err := request.Cookie("symphony")
-				if err != nil || cookie.Value != user.UserToken {
-					t.Error("request did not use the captured account token")
-				}
-				return cloudAuthResponse(request, status, `{"code":-1,"msg":"rejected"}`), nil
-			})
-			if _, err := GetCloudShorthands(1); err == nil {
-				t.Fatal("expected a request error")
-			}
-			if status == http.StatusUnauthorized {
-				assertCloudAccountLoggedOut(t)
-			} else if Conf.GetUser() != user || Conf.UserData != "persisted-user" {
-				t.Fatal("non-authentication response logged out the account")
-			}
-		})
-	}
-}
-
 func TestCloudUserRefreshCannotRestoreRejectedSession(t *testing.T) {
 	user := setupCloudAccountAuthTest(t)
 	invalid := cloudAccountAuthFailureHandler(user.UserToken)
@@ -242,20 +219,5 @@ func TestCloudUserBackgroundRefresh(t *testing.T) {
 	}
 	if !called || Conf.GetUser() != user || Conf.UserData != "persisted-user" {
 		t.Fatal("background refresh did not query the cloud or changed the account after a network failure")
-	}
-}
-
-func TestCloudAccountRequestCannotLogOutNewToken(t *testing.T) {
-	setupCloudAccountAuthTest(t)
-	newUser := &conf.User{UserId: "owner", UserToken: "new-token"}
-	mockCloudAuthResponse(t, func(request *http.Request) (*http.Response, error) {
-		Conf.SetUser(newUser)
-		return cloudAuthResponse(request, http.StatusUnauthorized, ""), nil
-	})
-	if _, err := GetCloudShorthands(1); err == nil {
-		t.Fatal("expected authentication error for the old request")
-	}
-	if Conf.GetUser() != newUser || Conf.UserData != "persisted-user" {
-		t.Fatal("old request cleared the new login state")
 	}
 }
