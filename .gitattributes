@@ -9,3 +9,7 @@ app/stage/protyle/** linguist-vendored
 *.go   text eol=lf
 /kernel/memory/testdata/*.md text eol=lf
 /scripts/docker-onnx-build.sh text eol=lf
+
+# Fork-owned files: never take upstream's side on conflict.
+AGENTS.md merge=ours
+FORK.md merge=ours

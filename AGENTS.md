@@ -1,3 +1,16 @@
+<!-- Fork pointer — invariants live in .clinerules/, not here. -->
+# Fork Note (antebudimir/siyuan)
+
+This repository is a fork of `siyuan-note/siyuan`. Fork-specific invariants,
+per-area conflict resolution, and the merge/release playbook live in
+`.clinerules/` (`fork-core.md`, `fork-conflicts.md`, `fork-playbook.md`); verify
+them with `scripts/fork-check.sh`. Fresh clones must run
+`git remote add upstream https://github.com/siyuan-note/siyuan.git` before the
+drift check can work. This pointer is the only fork context non-Cline agents
+receive — keep it at the top and do not grow it into a second copy of the rules.
+
+---
+
 # AGENTS.md
 
 SiYuan repository guide. Module path `github.com/siyuan-note/siyuan`, license AGPL-3.0.
