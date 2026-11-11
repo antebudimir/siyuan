@@ -2382,6 +2382,17 @@ func removeDoc(box *Box, p string, luteEngine *lute.Lute) (ret *parse.Tree, err 
 		removeTrees = append(removeTrees, removeTree)
 		collectDeletedAttributeViewBlocks(removeTree.Root, true, deletedBindings)
 	}
+	removedBlockIDs := make([]string, 0, 256)
+	removedRootIDs := make([]string, 0, len(removeTrees))
+	for _, removeTree := range removeTrees {
+		removedRootIDs = append(removedRootIDs, removeTree.ID)
+		ast.Walk(removeTree.Root, func(n *ast.Node, entering bool) ast.WalkStatus {
+			if entering && n.IsBlock() && "" != n.ID {
+				removedBlockIDs = append(removedBlockIDs, n.ID)
+			}
+			return ast.WalkContinue
+		})
+	}
 	boundDeletion := &Transaction{}
 	defer func() { boundDeletion.finishAttributeViewMutation(err != nil) }()
 	avBoxID := ""
@@ -2453,6 +2464,9 @@ func removeDoc(box *Box, p string, luteEngine *lute.Lute) (ret *parse.Tree, err 
 	treenode.RemoveBlockTreesByPathPrefix(box.ID, childrenDir)
 	diagnostic.Stage("queue database index deletion")
 	sql.RemoveTreePathQueue(ret.Box, childrenDir)
+
+	diagnostic.Stage("cleanup dangling references")
+	removeDanglingBlockRefs(removedBlockIDs, removedRootIDs, box.ID, p, childrenDir)
 
 	diagnostic.Stage("notify document deletion")
 	evt := util.NewCmdResult("removeDoc", 0, util.PushModeBroadcast)

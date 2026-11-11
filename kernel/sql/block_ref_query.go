@@ -580,6 +580,60 @@ func QueryRefIDsByDefID(defID string, containChildren bool) (refIDs []string) {
 	return
 }
 
+// QueryRefSourcesByDefIDs 返回引用了给定定义块/定义文档的来源块，用于在定义块被删除后
+// 清理其他文档中残留的引用。结果按 (box, root_id, block_id) 去重，同时检索全局库与
+// 已打开的加密库。返回的 Ref 只填充 BlockID/RootID/Box/Path 字段。
+func QueryRefSourcesByDefIDs(defBlockIDs, defRootIDs []string) (ret []*Ref) {
+	defBlockIDs = FilterNonEmptyRefCheckIDs(defBlockIDs)
+	defRootIDs = FilterNonEmptyRefCheckIDs(defRootIDs)
+	if 1 > len(defBlockIDs) && 1 > len(defRootIDs) {
+		return
+	}
+	seen := map[string]struct{}{}
+	boxIDs := append([]string{""}, GetEncryptedBoxIDs()...)
+	for _, boxID := range boxIDs {
+		queryRefSourcesInto(boxID, "def_block_id", defBlockIDs, seen, &ret)
+		queryRefSourcesInto(boxID, "def_block_root_id", defRootIDs, seen, &ret)
+	}
+	return
+}
+
+func queryRefSourcesInto(boxID, column string, ids []string, seen map[string]struct{}, ret *[]*Ref) {
+	const batchSize = 900
+	for start := 0; start < len(ids); start += batchSize {
+		end := min(len(ids), start+batchSize)
+		batch := ids[start:end]
+		placeholders := strings.TrimSuffix(strings.Repeat("?,", len(batch)), ",")
+		args := make([]any, 0, len(batch))
+		for _, id := range batch {
+			args = append(args, id)
+		}
+		rows, err := queryForBox(boxID, "SELECT DISTINCT block_id, root_id, box, path FROM refs WHERE "+column+" IN ("+placeholders+")", args...)
+		if err != nil {
+			logging.LogErrorf("query ref sources [box=%s, column=%s] failed: %s", boxID, column, err)
+			return
+		}
+		for rows.Next() {
+			var blockID, rootID, refBox, refPath string
+			if scanErr := rows.Scan(&blockID, &rootID, &refBox, &refPath); scanErr != nil {
+				logging.LogErrorf("query ref sources scan failed: %s", scanErr)
+				rows.Close()
+				return
+			}
+			if "" == strings.TrimSpace(blockID) || "" == strings.TrimSpace(rootID) {
+				continue
+			}
+			key := refBox + "\x00" + rootID + "\x00" + blockID
+			if _, ok := seen[key]; ok {
+				continue
+			}
+			seen[key] = struct{}{}
+			*ret = append(*ret, &Ref{BlockID: blockID, RootID: rootID, Box: refBox, Path: refPath})
+		}
+		rows.Close()
+	}
+}
+
 func QueryRefsByDefID(defBlockID string, containChildren bool) (ret []*Ref) {
 	var rows *sql.Rows
 	var err error
