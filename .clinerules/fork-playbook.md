@@ -101,6 +101,25 @@ Android SDK is at `~/Android/Sdk`; Java 21 is installed. A full
 Release order: push the release tag to the core repo first, then the same tag to
 the Android repo.
 
+### Changelog entries
+
+User-visible changes ship with an entry in the current version's changelog, which
+the app serves at Settings - About - Changelog (`/api/system/getChangelog`):
+
+- File: `app/changelogs/v<package.json version>/v<version>.md`. English only —
+  the fork's localized-docs policy applies, so do not add `.zh-CN.md`/`.zh-TW.md`
+  counterparts.
+- Sections, in this order: `### Enhancement`, `### Bugfix`, `### Refactor`,
+  `### Development`. Add a section only when you have an entry for it.
+- Entry shape: `* [Sentence-case description](https://github.com/antebudimir/siyuan/commit/<sha>)`.
+  Link the fork commit — fork work has no upstream issue or PR to point at.
+- Reuse the commit subject as the description; list items take no terminal period.
+- `scripts/fork-check.sh` warns when `app/src` or `kernel` changed after the
+  changelog file was last touched.
+
+Upstream's `scripts/parse-changelog.py` generates lists from GitHub issues by
+milestone and only prints to stdout, so it is not applicable to fork work.
+
 ## Known pitfalls
 
 - `refs/tags/fork` makes `git push origin fork`, `git branch ... fork` and

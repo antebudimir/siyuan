@@ -99,6 +99,9 @@ not wire the tools back in.
 ./scripts/fork-check.sh          # assert these invariants; must exit 0
 ```
 
+User-visible changes also need a changelog entry in the current version's file —
+see `fork-playbook.md` (Changelog entries).
+
 See `fork-conflicts.md` for per-area conflict resolution and cross-layer
 settings, and `fork-playbook.md` for the merge procedure, build/validation
 commands, release flow and CI differences.

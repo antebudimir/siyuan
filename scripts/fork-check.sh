@@ -96,6 +96,24 @@ if ! grep -qE 'Provider:[[:space:]]+ProviderWebDAV' kernel/conf/sync.go 2>/dev/n
   fail=1
 fi
 
+# --- Changelog nag: WARN (never fail) when code changed after the changelog ---
+# The in-app changelog is served from app/changelogs/v<ver>/v<ver>.md, where <ver>
+# is the version in app/package.json. A stale entry is invisible, not broken.
+ver=$(sed -nE 's/^[[:space:]]*"version":[[:space:]]*"([^"]+)".*/\1/p' app/package.json 2>/dev/null | head -1)
+changelog="app/changelogs/v${ver}/v${ver}.md"
+if [[ -n ${ver:-} && -f $changelog ]]; then
+  last=$(git log -1 --format=%H -- "$changelog" 2>/dev/null || true)
+  if [[ -n ${last:-} ]]; then
+    range=("$last..HEAD")
+    # Only fork work needs a fork entry; upstream commits arrive with their own changelog.
+    git rev-parse --verify -q upstream/master >/dev/null 2>&1 && range+=(--not upstream/master)
+    pending=$(git rev-list --count --no-merges "${range[@]}" -- app/src kernel 2>/dev/null || echo 0)
+    if [[ ${pending:-0} -gt 0 ]]; then
+      echo "WARN: $pending fork commit(s) touching app/src or kernel after $changelog was last updated — add a changelog entry"
+    fi
+  fi
+fi
+
 # --- Drift nag: WARN (never fail) when upstream edits AGENTS.md ------------
 # merge=ours freezes AGENTS.md, so upstream updates become invisible until a
 # manual resync. A permanently red check would be ignored, so this only warns.
