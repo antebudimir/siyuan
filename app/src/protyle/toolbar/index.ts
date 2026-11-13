@@ -4,7 +4,7 @@ import {BlockType, updateBlockTypeButton} from "./BlockType";
 import {prepareInlineElementBoundaryMutation} from "../util/inlineElementBoundary";
 import {renderMultiSelectToolbar, updateMultiSelectToolbar} from "../../mobile/util/multiSelectToolbar";
 import {selectAllLoadedBlocks} from "../wysiwyg/blockSelection";
-import {showSelectAllIncompleteTip} from "../util/selectAllTip";
+import {loadAllAndSelectBlocks} from "../util/selectAllBlocks";
 import {ContractFormData} from "../../util/contractFormData";
 import {Font, hasSameTextStyle, setFontStyle} from "./Font";
 import {
@@ -2128,7 +2128,7 @@ export class Toolbar {
             activeBlur();
             const elements = selectAllLoadedBlocks(protyle.wysiwyg.element);
             updateMultiSelectToolbar(this.subElement, elements.length);
-            showSelectAllIncompleteTip(protyle);
+            void loadAllAndSelectBlocks(protyle);
         });
         this.subElement.style.zIndex = (++window.siyuan.zIndex).toString();
         this.subElement.classList.remove("fn__none");

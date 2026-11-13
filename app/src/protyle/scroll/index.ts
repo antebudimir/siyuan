@@ -231,7 +231,8 @@ export class Scroll {
     }
 
     // 传入 messageId 时复用调用方的通知，由调用方负责关闭或恢复，避免覆盖后续提示。
-    public async loadAll(protyle: IProtyle, options?: { messageId?: string }) {
+    // progressDelay 延迟显示加载通知，耗时短的加载不显示提示。
+    public async loadAll(protyle: IProtyle, options?: { messageId?: string; progressDelay?: number }) {
         const rootID = protyle.block.rootID;
         if (this.loadingAll || !rootID || protyle.block.showAll || !protyle.block.scroll) {
             return false;
@@ -239,7 +240,17 @@ export class Scroll {
 
         this.loadingAll = true;
         this.invalidateDynamicLoad(protyle);
-        const messageID = showMessage(window.siyuan.languages.loading, -1, "info", options?.messageId);
+        let messageID = options?.messageId;
+        let progressTimer: number | undefined;
+        if (messageID) {
+            showMessage(window.siyuan.languages.loading, -1, "info", messageID);
+        } else if (options?.progressDelay) {
+            progressTimer = window.setTimeout(() => {
+                messageID = showMessage(window.siyuan.languages.loading, -1, "info");
+            }, options.progressDelay);
+        } else {
+            messageID = showMessage(window.siyuan.languages.loading, -1, "info");
+        }
         const size = Math.max(
             window.siyuan.config.editor.dynamicLoadBlocks,
             protyle.block.blockCount || 0
@@ -255,6 +266,9 @@ export class Scroll {
             return true;
         } finally {
             this.loadingAll = false;
+            if (progressTimer) {
+                window.clearTimeout(progressTimer);
+            }
             if (messageID && !options?.messageId) {
                 hideMessage(messageID);
             }

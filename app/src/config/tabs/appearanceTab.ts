@@ -1241,14 +1241,15 @@ const mountAppearanceSetStatusBar = (root: HTMLElement) => {
 const NOTIFICATIONS_ITEMS: {
     field: keyof Config.IAppearanceNotifications;
     labelKey: "msgDocTreeMaxList" | "msgTagMaxList" | "msgWorkspaceNotSSD" | "msgBrowserCompatibility" |
-        "msgSelectAllTip" | "msgSelectAllIncompleteTip" | "msgFormatPainterTip";
+        "msgSelectAllTip" | "loadAllContent" | "msgFormatPainterTip";
 }[] = [
     {field: "docTreeMaxList", labelKey: "msgDocTreeMaxList"},
     {field: "tagMaxList", labelKey: "msgTagMaxList"},
     {field: "workspaceNotSSD", labelKey: "msgWorkspaceNotSSD"},
     {field: "browserCompatibility", labelKey: "msgBrowserCompatibility"},
     {field: "selectAllTip", labelKey: "msgSelectAllTip"},
-    {field: "selectAllIncompleteTip", labelKey: "msgSelectAllIncompleteTip"},
+    // 全选时自动加载全文，关闭后只全选已加载的块。
+    {field: "selectAllIncompleteTip", labelKey: "loadAllContent"},
     {field: "formatPainterTip", labelKey: "msgFormatPainterTip"},
 ];
 

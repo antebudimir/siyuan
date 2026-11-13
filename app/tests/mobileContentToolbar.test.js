@@ -291,7 +291,7 @@ const runElectron = async () => {
             'const Constants = {ZWSP: "\\u200b"};',
             "const countSelectWord = () => {}; const countBlockWord = () => {};",
             "const revealTabsForTarget = () => {}; const getAtomicVerticalNavigationOwner = () => undefined;",
-            "const activeBlur = () => {}; const showMessage = () => {}; const showSelectAllIncompleteTip = () => {};",
+            "const activeBlur = () => {}; const showMessage = () => {}; const loadAllAndSelectBlocks = () => {};",
             "const setPosition = () => {}; const getSelectionPosition = (_node, range) => range.getBoundingClientRect();",
             "const stripSemanticMarkersFromRangeText = range => range.toString();",
             "const getAVTemplateInteractiveElement = () => undefined; const getDiagramBlock = () => undefined;",

@@ -33,7 +33,7 @@ import {
     moveCaretForSemanticDelete,
     removeEmptySemanticInlineElement
 } from "../util/inlineElementMarker";
-import {showSelectAllIncompleteTip} from "../util/selectAllTip";
+import {loadAllAndSelectBlocks} from "../util/selectAllBlocks";
 import {endTrackedRangeInsertion, prepareTrackedRangeInsertion} from "../util/trackedRange";
 import {
     hasClosestBlock,
@@ -1777,7 +1777,7 @@ export const keydown = (protyle: IProtyle, editorElement: HTMLElement) => {
                 !nodeElement.classList.contains("code-block") && !isMobile()) {
                 showSelectAllTip();
             } else if (!selectedCurrentContent) {
-                showSelectAllIncompleteTip(protyle);
+                void loadAllAndSelectBlocks(protyle);
             }
             return true;
         }
