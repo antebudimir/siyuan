@@ -51,3 +51,7 @@ When touching these, update Go structs, TS types, i18n keys and UI together:
 - **Fork feedback URL**: `https://github.com/antebudimir/siyuan/issues`
   (electron `appMenu.ts`, `static/window-languages.json`, `static/error.html`;
   kernel sync message `_kernel.125` is upstream-owned and may stay)
+- **Select-all auto-load**: `notifications.selectAllIncompleteTip`
+  (`kernel/util/appearance.go`) gates loading the whole document before selecting
+  all; its switch label reuses i18n `loadAllContent`, and the toast module
+  `app/src/protyle/util/selectAllTip.ts` must not reappear

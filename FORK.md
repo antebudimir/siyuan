@@ -15,6 +15,8 @@ cloud-only and telemetry features, and keep the app fully usable self-hosted.
   install telemetry are gone.
 - **Cleaner UI**: "Account & Sync" is just "Sync"; subscription prompts and the
   trial crown are hidden; the in-app updater points at this fork's releases.
+- **Select-all loads the whole document**: pressing Ctrl+A again loads the
+  remaining blocks and selects everything, with no blocking confirmation.
 - **Self-hosted focus**: fully local AI/OCR configuration, optional OIDC auth.
 - **Linux-focused desktop builds** (AppImage + rpm) and a Docker image built
   from `Dockerfile.fork`.

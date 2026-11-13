@@ -147,4 +147,4 @@ milestone and only prints to stdout, so it is not applicable to fork work.
   `60bb27ebae` (custom background), `20c59ea690` (block ref style),
   `ff71e8c6b1` (remove inbox), `8b659af3ca` (remove WeChat),
   `688a5eb8c5` (remove bazaar telemetry), `56cef0110f` (English-only docs),
-  `b4bae2aa97`/`17f32bfc24` (fork CI)
+  `b4bae2aa97`/`17f32bfc24` (fork CI), `3ba7dbeb85` (select-all auto-load)

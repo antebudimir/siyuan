@@ -55,6 +55,8 @@ These files are fork-authored or fork-modified. `AGENTS.md` and `FORK.md` carry
 - `app/src/mobile/util/mobileBottomBar*.ts` — 6 configurable slots, `newDoc` default
 - `app/src/protyle/hint/slashMenu.ts` — lite mode deliberately includes
   `newSubDocRef` and `blockEmbed`
+- `app/src/protyle/util/selectAllBlocks.ts` — select-all loads the rest of the
+  document (progress notice only after 300 ms) and then selects every block
 
 ## Deliberately removed — keep removed after every merge
 
@@ -68,6 +70,7 @@ deletions and in-place strips below.
   `kernel/apicontract/inbox.go`, `kernel/cli/cmd/inbox.go`,
   `kernel/mcp/tools/inbox.go`, `inbox_test.go`
 - WeChat preview: `app/src/protyle/preview/wechatMath.ts`, `wechatMath.test.ts`
+- Select-all toast: `app/src/protyle/util/selectAllTip.ts`, `app/tests/selectAllTip.test.js`
 - Localized docs: `README.ja.md`, `README.tr.md`, `README.zh-CN.md`,
   `docs/*.zh-CN.md`, `docs/API.ja.md`, `.github/CONTRIBUTING.zh-CN.md`,
   `docs/DOCUMENT-HPATH.md`, `docs/LIST-MINDMAP.md`

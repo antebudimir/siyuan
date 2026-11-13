@@ -19,6 +19,8 @@ MUST_BE_ABSENT=(
   app/src/layout/dock/Inbox.test.ts
   app/src/protyle/preview/wechatMath.ts
   app/src/protyle/preview/wechatMath.test.ts
+  app/src/protyle/util/selectAllTip.ts
+  app/tests/selectAllTip.test.js
   kernel/api/inbox.go
   kernel/api/contract_inbox.go
   kernel/api/contract_inbox_test.go
@@ -63,6 +65,7 @@ MUST_EXIST=(
   Dockerfile.fork
   FORK.md
   scripts/fork-check.sh
+  app/src/protyle/util/selectAllBlocks.ts
   .clinerules/fork-core.md
   .clinerules/fork-conflicts.md
   .clinerules/fork-playbook.md
