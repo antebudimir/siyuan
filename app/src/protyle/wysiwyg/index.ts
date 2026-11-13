@@ -4307,16 +4307,17 @@ export class WYSIWYG {
             // 但搜狗输入法选中后继续输入不走 keydown，isComposition 阻止了 keyup 记录，因此需在此记录。
             const range = getEditorRange(protyle.wysiwyg.element);
             const nodeElement = hasClosestBlock(range.startContainer);
-            let pendingDeletion = false;
+            let pendingCompositionInput = false;
             this.pendingInputTimeouts.forEach((task, timeout) => {
                 if (range.collapsed && nodeElement && task.compositionBlock === nodeElement) {
-                    // 原生补全先删词再组合输入，将删除并入本次组合，保留删除前快照并停用旧选区。
+                    // 原生补全先删除前缀或提交分隔文本（如自动空格），再组合输入。未执行的输入需并入本次组合，
+                    // 否则它会在组合期间重绘块并恢复旧光标；保留输入前快照以支持取消组合时撤销。
                     clearTimeout(timeout);
                     this.pendingInputTimeouts.delete(timeout);
                     if (this.inputTimeout === timeout) {
                         this.inputTimeout = undefined;
                     }
-                    pendingDeletion = true;
+                    pendingCompositionInput = true;
                 }
             });
             const selectionModeElement = getBlockSelectionModeElement(protyle.wysiwyg.element);
@@ -4345,7 +4346,7 @@ export class WYSIWYG {
                 crossBlockComposition = prepareCrossBlockComposition(
                     protyle, range, nodeElement, endElement);
             }
-            if ((selectionModeElement || !isMac()) && nodeElement && !crossBlockComposition && !pendingDeletion) {
+            if ((selectionModeElement || !isMac()) && nodeElement && !crossBlockComposition && !pendingCompositionInput) {
                 setInsertWbrHTML(nodeElement, range, protyle);
             }
             if (nodeElement && !crossBlockComposition) {
@@ -4658,20 +4659,24 @@ export class WYSIWYG {
             // 原生输入结束后立即恢复各段折行，避免延迟解析前绘制出临时的整段换行。
             normalizeInlineElementBoundaries(this.element);
             renderLongTextRuns(this.element);
+            // 原生补全可能先提交分隔文本（如自动空格）再开始组合输入，需让组合开始事件合并该输入，
+            // 避免未执行的输入在组合期间重绘块并恢复旧光标。
+            const pendingCompositionBlock = event.inputType === "deleteContentBackward" ||
+                isCommittedTextInput(event) ? blockElement : undefined;
             if ((/^\d{1}$/.test(event.data) || event.data === "‘" || event.data === "“" ||
                 // 百度输入法中文反双引号 https://github.com/siyuan-note/siyuan/issues/9686
                 event.data === "”" ||
                 event.data === "「")) {
                 // 搜狗拼音数字后面句号变为点；Mac 反向双引号无法输入
-                this.scheduleInput(() => input(protyle, blockElement, range, true));
+                this.scheduleInput(() => input(protyle, blockElement, range, true), 0, true,
+                    pendingCompositionBlock);
             } else {
                 if (isMac() && event.data === "【】") {
                     this.scheduleInput(() => input(protyle, blockElement, range, true, event),
                         Constants.TIMEOUT_INPUT, false);
                 } else {
                     this.scheduleInput(() => input(protyle, blockElement, range, true, event,
-                        inputOperations), 0, true,
-                    event.inputType === "deleteContentBackward" ? blockElement : undefined);
+                        inputOperations), 0, true, pendingCompositionBlock);
                 }
             }
             event.stopPropagation();

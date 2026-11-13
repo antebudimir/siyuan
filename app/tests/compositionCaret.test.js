@@ -589,8 +589,8 @@ const runCases = async () => {
     const lute = window.Lute.New();
     ["SetTextMark", "SetHTMLTag2TextMark", "SetBlockRef", "SetSpin", "SetProtyleWYSIWYG", "SetKramdownIAL"]
         .forEach(method => lute[method](true));
-    const nativeFixture = markdown => {
-        const f = setup(lute.Md2BlockDOM(markdown), profiles[4]);
+    const nativeFixture = (markdown, profile = profiles[4]) => {
+        const f = setup(lute.Md2BlockDOM(markdown), profile);
         f.protyle.lute = lute;
         f.protyle.nativeInput = true;
         f.protyle.hint.render = () => {};
@@ -745,6 +745,40 @@ const runCases = async () => {
         assert.ok(f.protyle.transactions.some(saved => saved.doOperations[0].data.includes("this is a")));
         cases++;
     }
+    // 输入法自动空格先提交分隔文本，随后立即开始下一段组合输入；未执行的空格输入需并入组合，避免组合期间重绘块并恢复旧光标。
+    {
+        const f = nativeFixture("hello", profiles[5]);
+        const editable = f.element.firstElementChild.querySelector('[contenteditable="true"]');
+        const node = editable.firstChild;
+        f.start(node, node.length);
+        f.element.dispatchEvent(new InputEvent("input", {
+            bubbles: true, inputType: "insertCompositionText", data: "hello", isComposing: true,
+        }));
+        await f.finish("hello");
+        await f.protyle.wysiwyg.flushPendingInput();
+        await new Promise(resolve => setTimeout(resolve, 10));
+        assert.equal(f.protyle.inputs, 1, "the first word must parse once");
+        node.appendData(" ");
+        f.setRange(node, node.length);
+        f.element.dispatchEvent(new InputEvent("input", {
+            bubbles: true, inputType: "insertText", data: " ", isComposing: false,
+        }));
+        f.element.dispatchEvent(new CompositionEvent("compositionstart", {bubbles: true, data: ""}));
+        await new Promise(resolve => setTimeout(resolve, 10));
+        assert.equal(f.protyle.inputs, 1, "pending space input must be folded into the composition");
+        node.appendData("world");
+        f.setRange(node, node.length);
+        f.element.dispatchEvent(new InputEvent("input", {
+            bubbles: true, inputType: "insertCompositionText", data: "world", isComposing: true,
+        }));
+        await f.finish("world");
+        await f.protyle.wysiwyg.flushPendingInput();
+        await new Promise(resolve => setTimeout(resolve, 10));
+        assertText(f, "hello world");
+        assertCaretPrefix(f, "hello world");
+        assert.equal(f.protyle.inputs, 2, "the completion must parse once");
+        cases++;
+    }
     await new Promise(resolve => setTimeout(resolve, 0));
     window.removeEventListener("error", onError);
     window.removeEventListener("unhandledrejection", onError);
@@ -791,7 +825,7 @@ if (process.versions.electron && process.type === "browser") {
         try {
             const {stdout} = await require("node:util").promisify(require("node:child_process").execFile)(
                 require("electron"), [__filename, profile], {env, windowsHide: true, timeout: 40000});
-            assert.match(stdout, /Composition caret: 107 Electron cases passed/);
+            assert.match(stdout, /Composition caret: 108 Electron cases passed/);
         } finally {
             assert.equal(path.dirname(path.resolve(profile)), path.resolve(os.tmpdir()));
             assert.ok(path.basename(profile).startsWith("siyuan-composition-caret-"));
