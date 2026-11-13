@@ -82,6 +82,7 @@ NOT_CONTAIN=(
   'app/src/menus/commonMenuItem.ts::wechatTip'
   'kernel/bazaar/install.go::incPackageDownloads'
   'kernel/bazaar/install.go::addBazaarPackageDownloadCount'
+  'app/src/config/tabs/appearanceTab.ts::{field: "selectAllIncompleteTip", labelKey:'
 )
 for entry in "${NOT_CONTAIN[@]}"; do
   f=${entry%%::*}

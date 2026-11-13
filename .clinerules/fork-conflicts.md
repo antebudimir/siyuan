@@ -53,5 +53,6 @@ When touching these, update Go structs, TS types, i18n keys and UI together:
   kernel sync message `_kernel.125` is upstream-owned and may stay)
 - **Select-all auto-load**: `notifications.selectAllIncompleteTip`
   (`kernel/util/appearance.go`) gates loading the whole document before selecting
-  all; its switch label reuses i18n `loadAllContent`, and the toast module
+  all; the switch is hidden from Settings - Appearance - Notifications and the
+  field remains in `conf.json` as an opt-out, and the toast module
   `app/src/protyle/util/selectAllTip.ts` must not reappear
