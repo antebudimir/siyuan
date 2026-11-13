@@ -1241,15 +1241,13 @@ const mountAppearanceSetStatusBar = (root: HTMLElement) => {
 const NOTIFICATIONS_ITEMS: {
     field: keyof Config.IAppearanceNotifications;
     labelKey: "msgDocTreeMaxList" | "msgTagMaxList" | "msgWorkspaceNotSSD" | "msgBrowserCompatibility" |
-        "msgSelectAllTip" | "loadAllContent" | "msgFormatPainterTip";
+        "msgSelectAllTip" | "msgFormatPainterTip";
 }[] = [
     {field: "docTreeMaxList", labelKey: "msgDocTreeMaxList"},
     {field: "tagMaxList", labelKey: "msgTagMaxList"},
     {field: "workspaceNotSSD", labelKey: "msgWorkspaceNotSSD"},
     {field: "browserCompatibility", labelKey: "msgBrowserCompatibility"},
     {field: "selectAllTip", labelKey: "msgSelectAllTip"},
-    // 全选时自动加载全文，关闭后只全选已加载的块。
-    {field: "selectAllIncompleteTip", labelKey: "loadAllContent"},
     {field: "formatPainterTip", labelKey: "msgFormatPainterTip"},
 ];
 
@@ -1274,7 +1272,8 @@ const readNotificationsFromDialog = (root: HTMLElement): Config.IAppearanceNotif
         workspaceNotSSD: (root.querySelector("#workspaceNotSSD") as HTMLInputElement).checked,
         browserCompatibility: (root.querySelector("#browserCompatibility") as HTMLInputElement).checked,
         selectAllTip: (root.querySelector("#selectAllTip") as HTMLInputElement).checked,
-        selectAllIncompleteTip: (root.querySelector("#selectAllIncompleteTip") as HTMLInputElement).checked,
+        // 开关已从界面隐藏，保留已存值，避免保存其他通知时被重置。
+        selectAllIncompleteTip: window.siyuan.config.appearance.notifications?.selectAllIncompleteTip,
         formatPainterTip: (root.querySelector("#formatPainterTip") as HTMLInputElement).checked,
     };
 };
