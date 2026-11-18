@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "حجم المستند تنازليا",
 	"subDocCountASC": "عدد المستندات الفرعية تصاعديا",
 	"subDocCountDESC": "عدد المستندات الفرعية تنازليا",
+	"sortRecursively": "فرز الكل بشكل متكرر",
 	"sort": "فرز",
 	"enterFullscreen": "تفعيل وضع ملء الشاشة",
 	"exitFullscreen": "إنهاء وضع ملء الشاشة",

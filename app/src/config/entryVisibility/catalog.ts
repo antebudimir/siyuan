@@ -106,6 +106,27 @@ const sortChildren = (inheritKey?: "sortByFiletree" | "sortByParent") => [
     separator("separator_5"),
     node("customSort", lang("customSort")),
     ...(inheritKey ? [node(inheritKey, lang(inheritKey))] : []),
+    separator("separator_6"),
+    node("sortRecursively", lang("sortRecursively"), false, [
+        node("fileNameASCRecursive", lang("fileNameASC"), false),
+        node("fileNameDESCRecursive", lang("fileNameDESC"), false),
+        node("fileNameNatASCRecursive", lang("fileNameNatASC")),
+        node("fileNameNatDESCRecursive", lang("fileNameNatDESC")),
+        separator("separator_recursive_1"),
+        node("createdASCRecursive", lang("createdASC")),
+        node("createdDESCRecursive", lang("createdDESC")),
+        node("modifiedASCRecursive", lang("modifiedASC")),
+        node("modifiedDESCRecursive", lang("modifiedDESC")),
+        separator("separator_recursive_2"),
+        node("refCountASCRecursive", lang("refCountASC")),
+        node("refCountDESCRecursive", lang("refCountDESC")),
+        separator("separator_recursive_3"),
+        node("docSizeASCRecursive", lang("docSizeASC")),
+        node("docSizeDESCRecursive", lang("docSizeDESC")),
+        separator("separator_recursive_4"),
+        node("subDocCountASCRecursive", lang("subDocCountASC")),
+        node("subDocCountDESCRecursive", lang("subDocCountDESC")),
+    ]),
 ];
 
 const exportChildren = () => [

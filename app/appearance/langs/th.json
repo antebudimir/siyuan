@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "ขนาด DESC",
 	"subDocCountASC": "ย่อย ASC",
 	"subDocCountDESC": "ย่อย DESC",
+	"sortRecursively": "เรียงลำดับทั้งหมดแบบเรียกซ้ำ",
 	"sort": "เรียงลำดับ",
 	"enterFullscreen": "เต็มหน้าจอ",
 	"exitFullscreen": "ออกเต็ม",

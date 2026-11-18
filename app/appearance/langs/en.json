@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "Document Size DESC",
 	"subDocCountASC": "Sub-docs Count ASC ",
 	"subDocCountDESC": "Sub-docs Count DESC",
+	"sortRecursively": "Sort all recursively",
 	"sort": "Sort",
 	"enterFullscreen": "Enter Full Screen",
 	"exitFullscreen": "Exit Full Screen",

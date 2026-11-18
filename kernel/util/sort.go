@@ -109,6 +109,23 @@ const (
 	SortModeSubDocCountASC         // 13：子文档数升序
 	SortModeSubDocCountDESC        // 14：子文档数降序
 	SortModeFileTree               // 15：使用文档树排序规则
+	// Recursive sort modes (16-29) - applies sorting to all descendants
+	SortModeNameASCRecursive       // 16：文件名字母升序（递归）
+	SortModeNameDESCRecursive      // 17：文件名字母降序（递归）
+	SortModeUpdatedASCRecursive    // 18：文件更新时间升序（递归）
+	SortModeUpdatedDESCRecursive   // 19：文件更新时间降序（递归）
+	SortModeAlphanumASCRecursive   // 20：文件名自然数升序（递归）
+	SortModeAlphanumDESCRecursive  // 21：文件名自然数降序（递归）
+	SortModeRefCountASCRecursive   // 22：引用数升序（递归）
+	SortModeRefCountDESCRecursive  // 23：引用数降序（递归）
+	SortModeCreatedASCRecursive    // 24：文件创建时间升序（递归）
+	SortModeCreatedDESCRecursive   // 25：文件创建时间降序（递归）
+	SortModeSizeASCRecursive       // 26：文件大小升序（递归）
+	SortModeSizeDESCRecursive      // 27：文件大小降序（递归）
+	SortModeSubDocCountASCRecursive // 28：子文档数升序（递归）
+	SortModeSubDocCountDESCRecursive // 29：子文档数降序（递归）
+
+
 
 	SortModeUnassigned = 256 // 256：未指定排序规则，按照笔记本优先于文档树获取排序规则
 )

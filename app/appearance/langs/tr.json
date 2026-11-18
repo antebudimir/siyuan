@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "Belge boyutuna göre azalan",
 	"subDocCountASC": "Alt belge sayısına göre artan",
 	"subDocCountDESC": "Alt belge sayısına göre azalan",
+	"sortRecursively": "Tümünü özyinelemeli sırala",
 	"sort": "Sırala",
 	"enterFullscreen": "Tam ekrana geç",
 	"exitFullscreen": "Tam ekrandan çık",

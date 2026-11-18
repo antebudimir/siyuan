@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "גודל מסמך יורד",
 	"subDocCountASC": "ספירת מסמכים משניים עולה",
 	"subDocCountDESC": "ספירת מסמכים משניים יורדת",
+	"sortRecursively": "מיין הכל באופן רקורסיבי",
 	"sort": "מיין",
 	"enterFullscreen": "היכנס למסך מלא",
 	"exitFullscreen": "צא ממסך מלא",

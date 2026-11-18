@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "ドキュメントサイズ (降順)",
 	"subDocCountASC": "サブドキュメント数 (昇順)",
 	"subDocCountDESC": "サブドキュメント数 (降順)",
+	"sortRecursively": "すべて再帰的に並べ替え",
 	"sort": "並べ替え",
 	"enterFullscreen": "全画面表示",
 	"exitFullscreen": "全画面表示を終了",

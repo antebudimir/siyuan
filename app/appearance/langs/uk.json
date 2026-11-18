@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "Розмір документа DESC",
 	"subDocCountASC": "Кількість піддокументів ASC ",
 	"subDocCountDESC": "Кількість піддокументів DESC",
+	"sortRecursively": "Сортувати всі рекурсивно",
 	"sort": "Сортування",
 	"enterFullscreen": "Увійти в повноекранний режим",
 	"exitFullscreen": "Вийти з повноекранного режиму",

@@ -1040,6 +1040,40 @@ export const initDocumentMenu = (app: App, options: {
             type: "submenu",
             submenu: sortSubMenu,
         }).element);
+        const sortRecursiveSubMenu = sortMenu("document", null, (sortMode) => {
+            const recursiveSortMode = sortMode + 16; // Convert to recursive mode
+            fetchPost("/api/filetree/setDocTreeSortRecursive", {
+                boxId: notebookId,
+                path: pathString,
+                sortMode: recursiveSortMode,
+            }, (response) => {
+                if (response.code !== 0) {
+                    return;
+                }
+
+                let files;
+                /// #if MOBILE
+                files = window.siyuan.mobile?.docks?.file;
+                /// #else
+                files = (getDockByType("file")?.data["file"] as Files);
+                /// #endif
+                files?.onDocSortModeChanged({
+                    scope: "document",
+                    box: notebookId,
+                    id,
+                    path: pathString,
+                    sortMode: recursiveSortMode,
+                });
+            });
+        });
+        window.siyuan.menus.menu.append(new MenuItem({
+            id: "sortRecursively",
+            ignore: isBoxDoc,
+            icon: "iconSort",
+            label: window.siyuan.languages.sortRecursively,
+            type: "submenu",
+            submenu: sortRecursiveSubMenu,
+        }).element);
         if (!window.siyuan.config.readonly && !isEncryptedBox(notebookId)) {
             const riffCardMenu = [{
                 id: "spaceRepetition",

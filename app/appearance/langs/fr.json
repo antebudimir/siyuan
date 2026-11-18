@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "Taille du document décroissante",
 	"subDocCountASC": "Nombre de sous-documents ASC ",
 	"subDocCountDESC": "Nombre de sous-documents DESC",
+	"sortRecursively": "Trier tous récursivement",
 	"sort": "Tri",
 	"enterFullscreen": "plein écran",
 	"exitFullscreen": "Quitter le plein écran",

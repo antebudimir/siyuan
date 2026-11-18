@@ -1030,6 +1030,21 @@ func setDocSortModeContract(c *gin.Context, request apicontract.FileTreeSortMode
 	return apicontract.Success(data)
 }
 
+var setDocTreeSortRecursive = contractHandler(apicontract.SetDocTreeSortRecursive, setDocTreeSortRecursiveContract)
+
+func setDocTreeSortRecursiveContract(c *gin.Context, request apicontract.FileTreeSortRecursiveRequest) apicontract.Response[apicontract.Null] {
+	if err := util.ValidateID(request.BoxID); err != nil {
+		return apicontract.FailureFrom[apicontract.Null](err)
+	}
+	if request.Path == "" {
+		return apicontract.Failure[apicontract.Null](-1, "path is required")
+	}
+	if err := model.SetDocTreeSortRecursive(request.BoxID, request.Path, request.SortMode); err != nil {
+		return apicontract.Failure[apicontract.Null](-1, err.Error())
+	}
+	return apicontract.Success(apicontract.Null{})
+}
+
 func parseSortItems(field string, items []*sortRequestItem) (retItems []*model.SortItem, err error) {
 	ids := map[string]struct{}{}
 	for i, item := range items {

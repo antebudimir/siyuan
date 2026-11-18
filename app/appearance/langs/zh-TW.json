@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "文件大小降序",
 	"subDocCountASC": "子文件數升序",
 	"subDocCountDESC": "子文件數降序",
+	"sortRecursively": "遞迴全部排序",
 	"sort": "排序",
 	"enterFullscreen": "進入全螢幕",
 	"exitFullscreen": "退出全螢幕",

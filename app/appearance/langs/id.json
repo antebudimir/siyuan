@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "Ukuran Dokumen DESC",
 	"subDocCountASC": "Jumlah Sub-dokumen ASC",
 	"subDocCountDESC": "Jumlah Sub-dokumen DESC",
+	"sortRecursively": "Urutkan semua secara rekursif",
 	"sort": "Urutkan",
 	"enterFullscreen": "Masuk Layar Penuh",
 	"exitFullscreen": "Keluar Layar Penuh",

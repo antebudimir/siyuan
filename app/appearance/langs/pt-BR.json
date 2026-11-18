@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "Tamanho do Documento DESC",
 	"subDocCountASC": "Contagem de Sub-documentos ASC",
 	"subDocCountDESC": "Contagem de Sub-documentos DESC",
+	"sortRecursively": "Ordenar todos recursivamente",
 	"sort": "Ordenar",
 	"enterFullscreen": "Entrar em Tela Cheia",
 	"exitFullscreen": "Sair da Tela Cheia",

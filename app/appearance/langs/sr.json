@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "Veličina dokumenta - opadajuće",
 	"subDocCountASC": "Broj poddokumenata rastuće ",
 	"subDocCountDESC": "Broj poddokumenata opadajuće",
+	"sortRecursively": "Rekurzivno sortiraj sve",
 	"sort": "Sortiranje",
 	"enterFullscreen": "Uključi ceo ekran",
 	"exitFullscreen": "Isključi ceo ekran",

@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "Dokumentgröße absteigend",
 	"subDocCountASC": "Anzahl der Unterdokumente aufsteigend",
 	"subDocCountDESC": "Anzahl der Unterdokumente absteigend",
+	"sortRecursively": "Alle rekursiv sortieren",
 	"sort": "Sortieren",
 	"enterFullscreen": "Vollbildmodus aktivieren",
 	"exitFullscreen": "Vollbildmodus beenden",

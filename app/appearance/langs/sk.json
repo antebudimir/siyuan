@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "Veľkosť (zostupne)",
 	"subDocCountASC": "Počet poddok. (vzostupne)",
 	"subDocCountDESC": "Počet poddok. (zostupne)",
+	"sortRecursively": "Zoradiť všetko rekurzívne",
 	"sort": "Zoradiť",
 	"enterFullscreen": "Celá obrazovka",
 	"exitFullscreen": "Ukončiť celú obrazovku",

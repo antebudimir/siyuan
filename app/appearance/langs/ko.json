@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "문서 크기 내림차순",
 	"subDocCountASC": "하위 문서 수 오름차순",
 	"subDocCountDESC": "하위 문서 수 내림차순",
+	"sortRecursively": "모두 재귀적으로 정렬",
 	"sort": "정렬",
 	"enterFullscreen": "전체 화면 시작",
 	"exitFullscreen": "전체 화면 종료",

@@ -241,3 +241,59 @@ func ReorderDocTree(sourceIDs []string, targetID, position string, preview, remo
 	pushFiletreeSortChanged(sortIDs)
 	return ret, nil
 }
+
+// SetDocTreeSortRecursive applies sort mode recursively to all descendants
+func SetDocTreeSortRecursive(boxID, listPath string, sortMode int) error {
+	// Validate sort mode is recursive (16-29)
+	if sortMode < 16 || sortMode > 29 {
+		return fmt.Errorf("invalid recursive sort mode: %d", sortMode)
+	}
+
+	box := Conf.Box(boxID)
+	if box == nil {
+		return fmt.Errorf("box not found: %s", boxID)
+	}
+
+	// Convert recursive mode to base mode
+	baseMode := sortMode - 16
+
+	// Get all documents at current level
+	docs, _, err := ListDocTree(boxID, listPath, baseMode, false, true, int(^uint(0)>>1))
+	if err != nil {
+		return err
+	}
+
+	// Apply sort mode to current level
+	if listPath == "/" {
+		boxConf := box.GetConf()
+		boxConf.SortMode = baseMode
+		if err = box.SaveConf(boxConf); err != nil {
+			return err
+		}
+		PushDocSortModeChanged("notebook", boxID, "", "/", &baseMode)
+	} else {
+		docID := util.GetTreeID(listPath)
+		if _, err = SetDocSortMode(docID, &baseMode); err != nil {
+			return err
+		}
+	}
+
+	// Recursively apply to all child documents
+	for _, doc := range docs {
+		childPath := doc.Path
+		if childPath == "/" {
+			continue
+		}
+
+		// Check if this document has children
+		hasChildren := doc.SubFileCount > 0
+		if hasChildren {
+			// Recursively apply to children
+			if err = SetDocTreeSortRecursive(boxID, childPath, sortMode); err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
+}

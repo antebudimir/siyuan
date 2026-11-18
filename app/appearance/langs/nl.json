@@ -2831,6 +2831,7 @@
 	"docSizeDESC": "Grootte aflopend",
 	"subDocCountASC": "Subdocs oplopend",
 	"subDocCountDESC": "Subdocs aflopend",
+	"sortRecursively": "Alles recursief sorteren",
 	"sort": "Sorteren",
 	"enterFullscreen": "Volledig scherm",
 	"exitFullscreen": "Scherm verlaten",
