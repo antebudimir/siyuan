@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "Applica alle sottocartelle",
+	"recursiveSortConfirmTitle": "Ordina le sottocartelle",
+	"recursiveSortConfirmMessage": "Questo applicherà l'ordinamento a tutte le sottocartelle e potrebbe sovrascrivere il loro ordine personalizzato. Continuare?",
 	"markdownAppearanceSettings": "Impostazioni dell’aspetto",
 	"markdownFontSizeSettings": "Impostazioni della dimensione del carattere",
 	"markdownFontSettings": "Impostazioni dei caratteri",

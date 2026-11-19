@@ -10,8 +10,11 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strconv"
+	"strings"
 	"testing"
 
+	"github.com/88250/lute/parse"
 	"github.com/siyuan-note/siyuan/kernel/filesys"
 	"github.com/siyuan-note/siyuan/kernel/sql"
 	"github.com/siyuan-note/siyuan/kernel/treenode"
@@ -19,16 +22,19 @@ import (
 )
 
 const setDocSortModeTestEnv = "SIYUAN_TEST_SET_DOC_SORT_MODE"
+const setDocTreeSortRecursiveTestEnv = "SIYUAN_TEST_SET_DOC_TREE_SORT_RECURSIVE"
 
-func TestSetDocSortModeValidationAndPersistence(t *testing.T) {
-	if "1" != os.Getenv(setDocSortModeTestEnv) {
-		cmd := exec.Command(os.Args[0], "-test.run=^TestSetDocSortModeValidationAndPersistence$", "-test.v")
-		cmd.Env = append(os.Environ(), setDocSortModeTestEnv+"=1")
+// setupDocSortModeTest 在子进程中初始化 SQL 数据库，避免同进程重复初始化。
+func setupDocSortModeTest(t *testing.T, env, run string) *fileOperationTestFixture {
+	t.Helper()
+	if "1" != os.Getenv(env) {
+		cmd := exec.Command(os.Args[0], "-test.run=^"+run+"$", "-test.v")
+		cmd.Env = append(os.Environ(), env+"=1")
 		output, err := cmd.CombinedOutput()
 		if nil != err {
-			t.Fatalf("set document sort mode subprocess failed: %v\n%s", err, output)
+			t.Fatalf("%s subprocess failed: %v\n%s", run, err, output)
 		}
-		return
+		return nil
 	}
 
 	fixture := setupFileOperationTest(t)
@@ -68,6 +74,14 @@ func TestSetDocSortModeValidationAndPersistence(t *testing.T) {
 		util.HistoryDBPath = originalHistoryDBPath
 		util.AssetContentDBPath = originalAssetContentDBPath
 	})
+	return fixture
+}
+
+func TestSetDocSortModeValidationAndPersistence(t *testing.T) {
+	fixture := setupDocSortModeTest(t, setDocSortModeTestEnv, "TestSetDocSortModeValidationAndPersistence")
+	if nil == fixture {
+		return
+	}
 	if warmed := fixture.box.docIAL(fixture.sourcePath); nil == warmed {
 		t.Fatal("failed to warm source document IAL cache")
 	}
@@ -128,5 +142,58 @@ func TestSetDocSortModeValidationAndPersistence(t *testing.T) {
 	}
 	if "" != tree.Root.IALAttr(DocSortModeAttr) {
 		t.Fatalf("document sort mode was not removed: %q", tree.Root.IALAttr(DocSortModeAttr))
+	}
+}
+
+func TestSetDocTreeSortRecursiveAppliesAndClearsInheritance(t *testing.T) {
+	fixture := setupDocSortModeTest(t, setDocTreeSortRecursiveTestEnv, "TestSetDocTreeSortRecursiveAppliesAndClearsInheritance")
+	if nil == fixture {
+		return
+	}
+	Conf.FileTree.Load().Sort = util.SortModeNameASC
+	parent := treenode.NewTree(fixture.box.ID, "/"+fixture.sourceID+"/20260718000003-parent1.sy", "/Source/Parent", "Parent")
+	child := treenode.NewTree(fixture.box.ID, strings.TrimSuffix(parent.Path, ".sy")+"/20260718000004-child01.sy", "/Source/Parent/Child", "Child")
+	grandchild := treenode.NewTree(fixture.box.ID, strings.TrimSuffix(child.Path, ".sy")+"/20260718000005-grand01.sy", "/Source/Parent/Child/Grandchild", "Grandchild")
+	trees := []*parse.Tree{parent, child, grandchild}
+	for _, tree := range trees {
+		if _, err := filesys.WriteTree(tree); nil != err {
+			t.Fatal(err)
+		}
+		treenode.UpsertBlockTree(tree)
+	}
+	readMode := func(tree *parse.Tree) string {
+		ial, err := filesys.DocIAL(filepath.Join(util.DataDir, fixture.box.ID, tree.Path))
+		if nil != err {
+			t.Fatal(err)
+		}
+		return ial[DocSortModeAttr]
+	}
+
+	recursiveMode := util.SortModeUpdatedDESC + 16
+	if err := SetDocTreeSortRecursive(fixture.box.ID, "/", &recursiveMode); nil != err {
+		t.Fatalf("recursive sort failed: %v", err)
+	}
+	for _, tree := range []*parse.Tree{parent, child} {
+		if got := readMode(tree); got != strconv.Itoa(util.SortModeUpdatedDESC) {
+			t.Fatalf("expected recursive mode on %s, got %q", tree.ID, got)
+		}
+	}
+	if got := readMode(grandchild); "" != got {
+		t.Fatalf("leaf document should not declare a sort mode, got %q", got)
+	}
+	if mode := fixture.box.GetConf().SortMode; util.SortModeUpdatedDESC != mode {
+		t.Fatalf("expected notebook mode %d, got %d", util.SortModeUpdatedDESC, mode)
+	}
+
+	if err := SetDocTreeSortRecursive(fixture.box.ID, "/", nil); nil != err {
+		t.Fatalf("clearing recursive sort failed: %v", err)
+	}
+	for _, tree := range trees {
+		if got := readMode(tree); "" != got {
+			t.Fatalf("expected cleared mode on %s, got %q", tree.ID, got)
+		}
+	}
+	if mode := fixture.box.GetConf().SortMode; util.SortModeFileTree != mode {
+		t.Fatalf("expected notebook inheritance %d, got %d", util.SortModeFileTree, mode)
 	}
 }

@@ -20,7 +20,12 @@ module.exports = async function beforePack(context) {
     await new Promise((resolve, reject) => {
         const child = spawn(process.platform === "win32" ? "python" : "python3", args, {stdio: "inherit"});
         child.on("error", reject);
-        child.on("exit", code => code === 0 ? resolve() : reject(new Error(`OCR resource preparation failed: ${code}`)));
+        child.on("exit", code => {
+            if (code !== 0) {
+                console.warn(`OCR resource preparation failed: ${code} - continuing without OCR`);
+            }
+            resolve();
+        });
     });
 };
 

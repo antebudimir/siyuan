@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "Terapkan ke subfolder",
+	"recursiveSortConfirmTitle": "Urutkan subfolder",
+	"recursiveSortConfirmMessage": "Ini akan menerapkan pengurutan ke semua subfolder dan dapat menimpa urutan kustomnya. Lanjutkan?",
 	"markdownAppearanceSettings": "Pengaturan tampilan",
 	"markdownFontSizeSettings": "Pengaturan ukuran font",
 	"markdownFontSettings": "Pengaturan font",

@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "套用到子資料夾",
+	"recursiveSortConfirmTitle": "排序子資料夾",
+	"recursiveSortConfirmMessage": "這會將排序套用到所有子資料夾，並可能覆寫它們的自訂順序。確定繼續嗎？",
 	"markdownAppearanceSettings": "外觀設定",
 	"markdownFontSizeSettings": "字型大小設定",
 	"markdownFontSettings": "字型設定",

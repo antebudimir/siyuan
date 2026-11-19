@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "Aplicar às subpastas",
+	"recursiveSortConfirmTitle": "Ordenar subpastas",
+	"recursiveSortConfirmMessage": "Isso aplicará a ordenação a todas as subpastas e pode substituir a ordem personalizada delas. Continuar?",
 	"markdownAppearanceSettings": "Configurações de aparência",
 	"markdownFontSizeSettings": "Configurações de tamanho da fonte",
 	"markdownFontSettings": "Configurações de fonte",

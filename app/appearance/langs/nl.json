@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "Toepassen op submappen",
+	"recursiveSortConfirmTitle": "Submappen sorteren",
+	"recursiveSortConfirmMessage": "Hiermee wordt de sortering op alle submappen toegepast en kan de aangepaste volgorde worden overschreven. Doorgaan?",
 	"markdownAppearanceSettings": "Weergave-instellingen",
 	"markdownFontSizeSettings": "Instellingen voor lettergrootte",
 	"markdownFontSettings": "Lettertype-instellingen",

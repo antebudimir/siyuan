@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "Apply to subfolders",
+	"recursiveSortConfirmTitle": "Sort subfolders",
+	"recursiveSortConfirmMessage": "This will apply the sorting to all subfolders and may overwrite their custom order. Continue?",
 	"markdownAppearanceSettings": "Appearance settings",
 	"markdownFontSizeSettings": "Font size settings",
 	"markdownFontSettings": "Font settings",

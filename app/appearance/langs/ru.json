@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "Применить к подпапкам",
+	"recursiveSortConfirmTitle": "Сортировать подпапки",
+	"recursiveSortConfirmMessage": "Сортировка будет применена ко всем подпапкам и может перезаписать их пользовательский порядок. Продолжить?",
 	"markdownAppearanceSettings": "Настройки внешнего вида",
 	"markdownFontSizeSettings": "Настройки размера шрифта",
 	"markdownFontSettings": "Настройки шрифтов",

@@ -40,11 +40,11 @@ import {openEditorTab} from "./util";
 import {makeCard} from "../card/makeCard";
 import {transaction} from "../protyle/wysiwyg/transaction";
 import {emitOpenMenu} from "../plugin/EventBus";
-import {isPhablet, saveExportFile} from "../protyle/util/compatibility";
+import {isPhablet, saveExportFile, setStorageVal} from "../protyle/util/compatibility";
 import {exportMarkdownZip} from "../protyle/export/exportMd";
 import {addBlocksToDatabase} from "../protyle/render/av/addToDatabase";
 import {getDocTreeActionItems, getDocTreeDeleteItems, getDocTreeTopPaths} from "./navigationSelection";
-import {getConfiguredChildrenSortMode} from "../util/fileTreeSort";
+import {getConfiguredChildrenSortMode, SORT_MODE_CUSTOM, SORT_MODE_FILE_TREE} from "../util/fileTreeSort";
 import {getHostCapabilities} from "../util/hostCapabilities";
 /// #if MOBILE
 import {openEmojiPanel, unicode2Emoji} from "../emoji";
@@ -568,9 +568,47 @@ const initNotebookMenu = (app: App, selection: IDocTreeMenuContext, item: IDocTr
                 click: () => { updatePinnedDocs([notebookId], pinned ? "unpin" : "pin"); },
             }).element);
         }
-        const subMenu = sortMenu("notebook", item.notebook?.sortMode, (sort) => {
+        const subMenu = sortMenu("notebook", item.notebook?.sortMode, (sort, recursive) => {
             if (sort === null) {
                 return;
+            }
+            const applyRecursive = () => {
+                const recursiveSortMode = sort === SORT_MODE_FILE_TREE ? null : sort + 16;
+                fetchPost("/api/filetree/setDocTreeSortRecursive", {
+                    boxId: notebookId,
+                    path: "/",
+                    sortMode: recursiveSortMode,
+                }, (response) => {
+                    if (response.code !== 0) {
+                        return;
+                    }
+                    let files;
+                    /// #if MOBILE
+                    files = window.siyuan.mobile?.docks?.file;
+                    /// #else
+                    files = (getDockByType("file")?.data["file"] as Files);
+                    /// #endif
+                    const notebook = window.siyuan.notebooks.find((item) => item.id === notebookId);
+                    if (notebook) {
+                        notebook.sortMode = sort;
+                    }
+                    files?.onDocSortModeChanged({
+                        scope: "notebook",
+                        box: notebookId,
+                        id: "",
+                        path: "/",
+                        sortMode: sort,
+                    });
+                });
+            };
+            if (recursive) {
+                if (sort === SORT_MODE_CUSTOM) {
+                    confirmDialog(window.siyuan.languages.recursiveSortConfirmTitle,
+                        window.siyuan.languages.recursiveSortConfirmMessage, applyRecursive);
+                } else {
+                    applyRecursive();
+                }
+                return true;
             }
             saveNotebookConf(notebookId, {
                 sortMode: sort
@@ -597,7 +635,7 @@ const initNotebookMenu = (app: App, selection: IDocTreeMenuContext, item: IDocTr
                 });
             });
             return true;
-        });
+        }, {recursiveToggle: true});
         window.siyuan.menus.menu.append(new MenuItem({
             id: "sort",
             icon: "iconSort",
@@ -1007,8 +1045,40 @@ export const initDocumentMenu = (app: App, options: {
                 click: () => { updatePinnedDocs([id], pinned ? "unpin" : "pin"); },
             }).element);
         }
-        const configuredSortMode = options.childrenSortMode;
-        const sortSubMenu = sortMenu("document", configuredSortMode, (sortMode) => {
+        const notebookSortMode = isBoxDoc ? window.siyuan.notebooks.find((item) => item.id === notebookId)?.sortMode : undefined;
+        const configuredSortMode = isBoxDoc ?
+            (notebookSortMode === SORT_MODE_FILE_TREE ? null : notebookSortMode ?? null) :
+            options.childrenSortMode;
+        const refreshSortMode = (sortMode: number | null) => {
+            let files;
+            /// #if MOBILE
+            files = window.siyuan.mobile?.docks?.file;
+            /// #else
+            files = (getDockByType("file")?.data["file"] as Files);
+            /// #endif
+            files?.onDocSortModeChanged({
+                scope: isBoxDoc ? "notebook" : "document",
+                box: notebookId,
+                id: isBoxDoc ? "" : id,
+                path: isBoxDoc ? "/" : pathString,
+                sortMode,
+            });
+        };
+        const applySortMode = (sortMode: number | null) => {
+            if (isBoxDoc) {
+                const notebookSortMode = sortMode === null ? SORT_MODE_FILE_TREE : sortMode;
+                saveNotebookConf(notebookId, {sortMode: notebookSortMode}, (response) => {
+                    if (response.code !== 0) {
+                        return;
+                    }
+                    const notebook = window.siyuan.notebooks.find((item) => item.id === notebookId);
+                    if (notebook) {
+                        notebook.sortMode = notebookSortMode;
+                    }
+                    refreshSortMode(notebookSortMode);
+                });
+                return;
+            }
             fetchPost("/api/filetree/setDocSortMode", {
                 id,
                 sortMode,
@@ -1016,25 +1086,38 @@ export const initDocumentMenu = (app: App, options: {
                 if (response.code !== 0) {
                     return;
                 }
-
-                let files;
-                /// #if MOBILE
-                files = window.siyuan.mobile?.docks?.file;
-                /// #else
-                files = (getDockByType("file")?.data["file"] as Files);
-                /// #endif
-                files?.onDocSortModeChanged({
-                    scope: "document",
-                    box: notebookId,
-                    id,
-                    path: pathString,
-                    sortMode,
-                });
+                refreshSortMode(sortMode);
             });
-        });
+        };
+        const applyRecursiveSortMode = (sortMode: number | null) => {
+            const recursiveSortMode = sortMode === null ? null : sortMode + 16;
+            fetchPost("/api/filetree/setDocTreeSortRecursive", {
+                boxId: notebookId,
+                path: isBoxDoc ? "/" : pathString,
+                sortMode: recursiveSortMode,
+            }, (response) => {
+                if (response.code !== 0) {
+                    return;
+                }
+                refreshSortMode(recursiveSortMode);
+            });
+        };
+        const sortSubMenu = sortMenu("document", configuredSortMode, (sortMode, recursive) => {
+            if (!recursive) {
+                applySortMode(sortMode);
+                return;
+            }
+            if (sortMode === SORT_MODE_CUSTOM || sortMode === null) {
+                confirmDialog(window.siyuan.languages.recursiveSortConfirmTitle,
+                    window.siyuan.languages.recursiveSortConfirmMessage, () => {
+                        applyRecursiveSortMode(sortMode);
+                    });
+                return;
+            }
+            applyRecursiveSortMode(sortMode);
+        }, {recursiveToggle: true});
         window.siyuan.menus.menu.append(new MenuItem({
             id: "sort",
-            ignore: isBoxDoc,
             icon: "iconSort",
             label: window.siyuan.languages.sort,
             type: "submenu",
@@ -1242,15 +1325,41 @@ export const genImportMenu = (notebookId: string, pathString: string) => {
     }).element);
 };
 
+const getSortApplyToSubfolders = () => window.siyuan.storage?.[Constants.LOCAL_SORT_APPLY_TO_SUBFOLDERS] === true;
+
+const setSortApplyToSubfolders = (value: boolean) => {
+    if (window.siyuan.storage) {
+        window.siyuan.storage[Constants.LOCAL_SORT_APPLY_TO_SUBFOLDERS] = value;
+    }
+    setStorageVal(Constants.LOCAL_SORT_APPLY_TO_SUBFOLDERS, value);
+};
+
 export const sortMenu = (type: "notebooks" | "notebook" | "document", sortMode: number | null,
-                         clickEvent: (sort: number | null) => void) => {
-    const sortMenu: IMenu[] = [{
+                         clickEvent: (sort: number | null, recursive: boolean) => void,
+                         options: {recursiveToggle?: boolean} = {}) => {
+    const isRecursive = () => options.recursiveToggle === true && getSortApplyToSubfolders();
+    const emit = (sort: number | null) => clickEvent(sort, isRecursive());
+    const sortMenu: IMenu[] = [];
+    if (options.recursiveToggle) {
+        const recursive = getSortApplyToSubfolders();
+        sortMenu.push({
+            id: "applyToSubfolders",
+            checked: recursive,
+            iconHTML: "",
+            label: window.siyuan.languages.applyToSubfolders,
+            click: () => {
+                setSortApplyToSubfolders(!recursive);
+                window.siyuan.menus.menu.remove();
+            }
+        }, {id: "separator_recursive", type: "separator"});
+    }
+    sortMenu.push({
         id: "fileNameASC",
         checked: sortMode === 0,
         iconHTML: "",
         label: window.siyuan.languages.fileNameASC,
         click: () => {
-            clickEvent(0);
+            emit(0);
         }
     }, {
         id: "fileNameDESC",
@@ -1258,7 +1367,7 @@ export const sortMenu = (type: "notebooks" | "notebook" | "document", sortMode: 
         iconHTML: "",
         label: window.siyuan.languages.fileNameDESC,
         click: () => {
-            clickEvent(1);
+            emit(1);
         }
     }, {
         id: "fileNameNatASC",
@@ -1266,7 +1375,7 @@ export const sortMenu = (type: "notebooks" | "notebook" | "document", sortMode: 
         iconHTML: "",
         label: window.siyuan.languages.fileNameNatASC,
         click: () => {
-            clickEvent(4);
+            emit(4);
         }
     }, {
         id: "fileNameNatDESC",
@@ -1274,7 +1383,7 @@ export const sortMenu = (type: "notebooks" | "notebook" | "document", sortMode: 
         iconHTML: "",
         label: window.siyuan.languages.fileNameNatDESC,
         click: () => {
-            clickEvent(5);
+            emit(5);
         }
     }, {id: "separator_1", type: "separator"}, {
         id: "createdASC",
@@ -1282,7 +1391,7 @@ export const sortMenu = (type: "notebooks" | "notebook" | "document", sortMode: 
         iconHTML: "",
         label: window.siyuan.languages.createdASC,
         click: () => {
-            clickEvent(9);
+            emit(9);
         }
     }, {
         id: "createdDESC",
@@ -1290,7 +1399,7 @@ export const sortMenu = (type: "notebooks" | "notebook" | "document", sortMode: 
         iconHTML: "",
         label: window.siyuan.languages.createdDESC,
         click: () => {
-            clickEvent(10);
+            emit(10);
         }
     }, {
         id: "modifiedASC",
@@ -1298,7 +1407,7 @@ export const sortMenu = (type: "notebooks" | "notebook" | "document", sortMode: 
         iconHTML: "",
         label: window.siyuan.languages.modifiedASC,
         click: () => {
-            clickEvent(2);
+            emit(2);
         }
     }, {
         id: "modifiedDESC",
@@ -1306,7 +1415,7 @@ export const sortMenu = (type: "notebooks" | "notebook" | "document", sortMode: 
         iconHTML: "",
         label: window.siyuan.languages.modifiedDESC,
         click: () => {
-            clickEvent(3);
+            emit(3);
         }
     }, {id: "separator_2", type: "separator"}, {
         id: "refCountASC",
@@ -1314,7 +1423,7 @@ export const sortMenu = (type: "notebooks" | "notebook" | "document", sortMode: 
         iconHTML: "",
         label: window.siyuan.languages.refCountASC,
         click: () => {
-            clickEvent(7);
+            emit(7);
         }
     }, {
         id: "refCountDESC",
@@ -1322,7 +1431,7 @@ export const sortMenu = (type: "notebooks" | "notebook" | "document", sortMode: 
         iconHTML: "",
         label: window.siyuan.languages.refCountDESC,
         click: () => {
-            clickEvent(8);
+            emit(8);
         }
     }, {id: "separator_3", type: "separator"}, {
         id: "docSizeASC",
@@ -1330,7 +1439,7 @@ export const sortMenu = (type: "notebooks" | "notebook" | "document", sortMode: 
         iconHTML: "",
         label: window.siyuan.languages.docSizeASC,
         click: () => {
-            clickEvent(11);
+            emit(11);
         }
     }, {
         id: "docSizeDESC",
@@ -1338,7 +1447,7 @@ export const sortMenu = (type: "notebooks" | "notebook" | "document", sortMode: 
         iconHTML: "",
         label: window.siyuan.languages.docSizeDESC,
         click: () => {
-            clickEvent(12);
+            emit(12);
         }
     }, {id: "separator_4", type: "separator"}, {
         id: "subDocCountASC",
@@ -1346,7 +1455,7 @@ export const sortMenu = (type: "notebooks" | "notebook" | "document", sortMode: 
         iconHTML: "",
         label: window.siyuan.languages.subDocCountASC,
         click: () => {
-            clickEvent(13);
+            emit(13);
         }
     }, {
         id: "subDocCountDESC",
@@ -1354,25 +1463,25 @@ export const sortMenu = (type: "notebooks" | "notebook" | "document", sortMode: 
         iconHTML: "",
         label: window.siyuan.languages.subDocCountDESC,
         click: () => {
-            clickEvent(14);
+            emit(14);
         }
     }, {id: "separator_5", type: "separator"}, {
         id: "customSort",
-        checked: sortMode === 6,
+        checked: sortMode === SORT_MODE_CUSTOM,
         iconHTML: "",
         label: window.siyuan.languages.customSort,
         click: () => {
-            clickEvent(6);
+            emit(SORT_MODE_CUSTOM);
         }
-    }];
+    });
     if (type === "notebook") {
         sortMenu.push({
             id: "sortByFiletree",
-            checked: sortMode === 15,
+            checked: sortMode === SORT_MODE_FILE_TREE,
             iconHTML: "",
             label: window.siyuan.languages.sortByFiletree,
             click: () => {
-                clickEvent(15);
+                emit(15);
             }
         });
     } else if (type === "document") {
@@ -1382,7 +1491,7 @@ export const sortMenu = (type: "notebooks" | "notebook" | "document", sortMode: 
             iconHTML: "",
             label: window.siyuan.languages.sortByParent,
             click: () => {
-                clickEvent(null);
+                emit(null);
             }
         });
     }

@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "החל על תיקיות משנה",
+	"recursiveSortConfirmTitle": "מיון תיקיות משנה",
+	"recursiveSortConfirmMessage": "פעולה זו תחיל את המיון על כל תיקיות המשנה ועלולה לדרוס את הסדר המותאם שלהן. להמשיך?",
 	"markdownAppearanceSettings": "הגדרות מראה",
 	"markdownFontSizeSettings": "הגדרות גודל גופן",
 	"markdownFontSettings": "הגדרות גופן",

@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "应用到子文件夹",
+	"recursiveSortConfirmTitle": "排序子文件夹",
+	"recursiveSortConfirmMessage": "这会将排序应用到所有子文件夹，并可能覆盖它们的自定义顺序。确定继续吗？",
 	"markdownAppearanceSettings": "外观设置",
 	"markdownFontSizeSettings": "字号设置",
 	"markdownFontSettings": "字体设置",

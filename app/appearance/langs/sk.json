@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "Použiť na podpriečinky",
+	"recursiveSortConfirmTitle": "Zoradiť podpriečinky",
+	"recursiveSortConfirmMessage": "Týmto sa zoradenie použije na všetky podpriečinky a môže prepísať ich vlastné poradie. Pokračovať?",
 	"markdownAppearanceSettings": "Nastavenia vzhľadu",
 	"markdownFontSizeSettings": "Nastavenia veľkosti písma",
 	"markdownFontSettings": "Nastavenia písma",

@@ -1281,6 +1281,9 @@ var ChangeSort = define[FileTreeChangeSortRequest, Null]("changeSort", "/api/fil
 var ReorderDocs = define[FileTreeReorderRequest, *FileTreeReorderData]("reorderDocs", "/api/filetree/reorderDocs", AuthenticatedAccess|AdminAccess|WritableAccess, StructJSONBody, ResponseOptions{DataOnError: true}, "POST")
 var SetSort = define[FileTreeSetSortRequest, *FileTreeSetSortData]("setSort", "/api/filetree/setSort", AuthenticatedAccess|AdminAccess|WritableAccess, StructJSONBody, ResponseOptions{DataOnError: true}, "POST")
 var SetDocSortMode = define[FileTreeSortModeRequest, *FileTreeSortModeData]("setDocSortMode", "/api/filetree/setDocSortMode", AuthenticatedAccess|AdminAccess|WritableAccess, StructJSONBody, ResponseOptions{DataOnError: true}, "POST")
+var SetDocTreeSortRecursive = define[FileTreeSortRecursiveRequest, Null]("setDocTreeSortRecursive", "/api/filetree/setDocTreeSortRecursive", AuthenticatedAccess|AdminAccess|WritableAccess, StructJSONBody, ResponseOptions{}, "POST")
+
+
 
 // SearchDocs 保留兼容展示 hPath，并单独返回文档或笔记本的纯文本 title；客户端不能从 hPath 拆出标题或层级。
 var SearchDocs = define[FileTreeSearchRequest, []*FileTreeSearchDoc]("searchDocs", "/api/filetree/searchDocs", AuthenticatedAccess, JSONBody, ResponseOptions{}, "POST")

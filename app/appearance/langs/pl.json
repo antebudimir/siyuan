@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "Zastosuj do podfolderów",
+	"recursiveSortConfirmTitle": "Sortuj podfoldery",
+	"recursiveSortConfirmMessage": "Spowoduje to zastosowanie sortowania do wszystkich podfolderów i może nadpisać ich niestandardową kolejność. Kontynuować?",
 	"markdownAppearanceSettings": "Ustawienia wyglądu",
 	"markdownFontSizeSettings": "Ustawienia rozmiaru czcionki",
 	"markdownFontSettings": "Ustawienia czcionek",

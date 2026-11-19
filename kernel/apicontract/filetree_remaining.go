@@ -133,6 +133,11 @@ type FileTreeSortModeRequest struct {
 	SortMode       *int   `json:"sortMode"`
 	sortModeFields fileTreeFields
 }
+type FileTreeSortRecursiveRequest struct {
+	BoxID    string `json:"boxId"`
+	Path     string `json:"path"`
+	SortMode *int   `json:"sortMode"`
+}
 type FileTreeSearchRequest struct {
 	K          string   `json:"k"`
 	Flashcard  bool     `json:"flashcard" api:"optional,nullable"`

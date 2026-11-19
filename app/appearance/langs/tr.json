@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "Alt klasörlere uygula",
+	"recursiveSortConfirmTitle": "Alt klasörleri sırala",
+	"recursiveSortConfirmMessage": "Bu, sıralamayı tüm alt klasörlere uygular ve özel sıralamalarının üzerine yazabilir. Devam edilsin mi?",
 	"markdownAppearanceSettings": "Görünüm ayarları",
 	"markdownFontSizeSettings": "Yazı tipi boyutu ayarları",
 	"markdownFontSettings": "Yazı tipi ayarları",

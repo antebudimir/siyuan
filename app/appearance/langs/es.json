@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "Aplicar a las subcarpetas",
+	"recursiveSortConfirmTitle": "Ordenar subcarpetas",
+	"recursiveSortConfirmMessage": "Esto aplicará el orden a todas las subcarpetas y puede sobrescribir su orden personalizado. ¿Continuar?",
 	"markdownAppearanceSettings": "Ajustes de apariencia",
 	"markdownFontSizeSettings": "Ajustes de tamaño de fuente",
 	"markdownFontSettings": "Ajustes de fuente",

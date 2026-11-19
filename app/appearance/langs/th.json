@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "ใช้กับโฟลเดอร์ย่อย",
+	"recursiveSortConfirmTitle": "เรียงลำดับโฟลเดอร์ย่อย",
+	"recursiveSortConfirmMessage": "การดำเนินการนี้จะใช้การเรียงลำดับกับโฟลเดอร์ย่อยทั้งหมดและอาจเขียนทับลำดับที่กำหนดเอง ต้องการดำเนินการต่อหรือไม่?",
 	"markdownAppearanceSettings": "การตั้งค่ารูปลักษณ์",
 	"markdownFontSizeSettings": "การตั้งค่าขนาดแบบอักษร",
 	"markdownFontSettings": "การตั้งค่าแบบอักษร",

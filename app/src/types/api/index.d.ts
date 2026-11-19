@@ -1356,6 +1356,8 @@ export type FileTreeSortModeData = { "box": string; "effectiveSortMode": number;
 
 export type FileTreeSortModeRequestInput = { "id"?: string | null; "sortMode": number | null; };
 
+export type FileTreeSortRecursiveRequestInput = { "boxId": string; "path": string; "sortMode": number | null; };
+
 export type FileTreeTrimIDRequestInput = { "id": string; };
 
 export type FindAssetReferencesRequestInput = { "path"?: string; "paths"?: Array<string>; };
@@ -6219,6 +6221,13 @@ export interface APIPOSTRoutes {
     "/api/filetree/setDocSortMode": {
         request: FileTreeSortModeRequestInput;
         response: { "code": 0; "data": FileTreeSortModeData | null; "msg": string; } | { "code": -1; "data": { "closeTimeout": number; } | null | FileTreeSortModeData | null; "msg": string; };
+        body: "structJSON";
+        /** 服务器路由要求；资源权限与笔记本租约仍由内核校验 */
+        authorization?: readonly ["authenticated","admin","writable"];
+    };
+    "/api/filetree/setDocTreeSortRecursive": {
+        request: FileTreeSortRecursiveRequestInput;
+        response: { "code": 0; "data": null; "msg": string; } | { "code": -1; "data": { "closeTimeout": number; } | null; "msg": string; };
         body: "structJSON";
         /** 服务器路由要求；资源权限与笔记本租约仍由内核校验 */
         authorization?: readonly ["authenticated","admin","writable"];

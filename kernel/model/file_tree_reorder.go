@@ -241,3 +241,65 @@ func ReorderDocTree(sourceIDs []string, targetID, position string, preview, remo
 	pushFiletreeSortChanged(sortIDs)
 	return ret, nil
 }
+
+// SetDocTreeSortRecursive 递归设置当前目录及所有后代的排序方式。
+// sortMode 为 16-29 时取减去 16 的基础排序方式；为 nil 时清除显式声明并恢复继承。
+func SetDocTreeSortRecursive(boxID, listPath string, sortMode *int) error {
+	var baseMode *int
+	if nil != sortMode {
+		if *sortMode < 16 || *sortMode > 29 {
+			return fmt.Errorf("invalid recursive sort mode: %d", *sortMode)
+		}
+		base := *sortMode - 16
+		baseMode = &base
+	}
+
+	box := Conf.Box(boxID)
+	if box == nil {
+		return fmt.Errorf("box not found: %s", boxID)
+	}
+
+	// 列出当前层文档仅用于遍历后代，排序方式不影响递归结果
+	listMode := util.SortModeNameASC
+	if nil != baseMode {
+		listMode = *baseMode
+	}
+	docs, _, err := ListDocTree(boxID, listPath, listMode, false, true, int(^uint(0)>>1))
+	if err != nil {
+		return err
+	}
+
+	// 应用排序方式到当前层
+	if listPath == "/" {
+		boxConf := box.GetConf()
+		if nil == baseMode {
+			boxConf.SortMode = util.SortModeFileTree
+		} else {
+			boxConf.SortMode = *baseMode
+		}
+		if err = box.SaveConf(boxConf); err != nil {
+			return err
+		}
+		PushDocSortModeChanged("notebook", boxID, "", "/", &boxConf.SortMode)
+	} else {
+		docID := util.GetTreeID(listPath)
+		if _, err = SetDocSortMode(docID, baseMode); err != nil {
+			return err
+		}
+	}
+
+	// 递归应用到所有有子文档的后代
+	for _, doc := range docs {
+		childPath := doc.Path
+		if childPath == "/" {
+			continue
+		}
+		if doc.SubFileCount > 0 {
+			if err = SetDocTreeSortRecursive(boxID, childPath, sortMode); err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
+}

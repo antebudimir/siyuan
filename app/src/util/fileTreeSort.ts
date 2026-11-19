@@ -1,5 +1,8 @@
 import {getDocTreeItem} from "../layout/dock/docTree/rowData";
 
+export const SORT_MODE_CUSTOM = 6;
+export const SORT_MODE_FILE_TREE = 15;
+
 export interface IDocSortModeChanged {
     scope: "document" | "notebook" | "global";
     box: string;
@@ -12,7 +15,7 @@ export const getConfiguredChildrenSortMode = (element: Element) => getDocTreeIte
 
 export const getFileTreeListSortMode = (element: Element) => getDocTreeItem(element)?.effectiveSortMode ?? window.siyuan.config.fileTree.sort;
 
-export const isCustomFileTreeList = (element: Element) => getFileTreeListSortMode(element) === 6;
+export const isCustomFileTreeList = (element: Element) => getFileTreeListSortMode(element) === SORT_MODE_CUSTOM;
 
 export const updateFileTreeSortMode = (data?: IDocSortModeChanged) => {
     const sortMode = data?.sortMode;

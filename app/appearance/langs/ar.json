@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "تطبيق على المجلدات الفرعية",
+	"recursiveSortConfirmTitle": "فرز المجلدات الفرعية",
+	"recursiveSortConfirmMessage": "سيؤدي هذا إلى تطبيق الفرز على جميع المجلدات الفرعية وقد يستبدل ترتيبها المخصص. هل تريد المتابعة؟",
 	"markdownAppearanceSettings": "إعدادات المظهر",
 	"markdownFontSizeSettings": "إعدادات حجم الخط",
 	"markdownFontSettings": "إعدادات الخط",

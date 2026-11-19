@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "Appliquer aux sous-dossiers",
+	"recursiveSortConfirmTitle": "Trier les sous-dossiers",
+	"recursiveSortConfirmMessage": "Cela appliquera le tri à tous les sous-dossiers et peut remplacer leur ordre personnalisé. Continuer ?",
 	"markdownAppearanceSettings": "Paramètres d’apparence",
 	"markdownFontSizeSettings": "Paramètres de taille de police",
 	"markdownFontSettings": "Paramètres de police",

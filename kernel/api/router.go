@@ -312,6 +312,8 @@ func registerFiletreeRoutes(ginServer *gin.Engine) {
 	ginServer.Handle("POST", "/api/filetree/reorderDocs", contractRouteHandlers(apicontract.ReorderDocs, reorderDocs)...)
 	ginServer.Handle("POST", "/api/filetree/setSort", contractRouteHandlers(apicontract.SetSort, setSort)...)
 	ginServer.Handle("POST", "/api/filetree/setDocSortMode", contractRouteHandlers(apicontract.SetDocSortMode, setDocSortMode)...)
+	ginServer.Handle("POST", "/api/filetree/setDocTreeSortRecursive", contractRouteHandlers(apicontract.SetDocTreeSortRecursive, setDocTreeSortRecursive)...)
+
 	ginServer.Handle("POST", "/api/filetree/createDocWithMd", contractRouteHandlers(apicontract.CreateDocWithMd, createDocWithMd)...)
 	ginServer.Handle("POST", "/api/filetree/getDocPaths", contractRouteHandlers(apicontract.GetDocPaths, getDocPaths)...)
 	ginServer.Handle("POST", "/api/filetree/resolveDocPath", contractRouteHandlers(apicontract.ResolveDocPath, resolveDocPath)...)

@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "Primeni na podfoldere",
+	"recursiveSortConfirmTitle": "Sortiraj podfoldere",
+	"recursiveSortConfirmMessage": "Ovo će primeniti sortiranje na sve podfoldere i može prepisati njihov prilagođeni redosled. Nastaviti?",
 	"markdownAppearanceSettings": "Подешавања изгледа",
 	"markdownFontSizeSettings": "Подешавања величине фонта",
 	"markdownFontSettings": "Подешавања фонта",

@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "Auf Unterordner anwenden",
+	"recursiveSortConfirmTitle": "Unterordner sortieren",
+	"recursiveSortConfirmMessage": "Dadurch wird die Sortierung auf alle Unterordner angewendet und deren benutzerdefinierte Reihenfolge möglicherweise überschrieben. Fortfahren?",
 	"markdownAppearanceSettings": "Darstellungseinstellungen",
 	"markdownFontSizeSettings": "Schriftgrößeneinstellungen",
 	"markdownFontSettings": "Schrifteinstellungen",

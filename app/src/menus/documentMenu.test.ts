@@ -33,6 +33,9 @@ const setup = (mobile = false, readonly = false, controller?: Partial<DocTreeCon
         id: string, path: string, notebookId: string, effectiveSortMode: number, childrenSortMode?: number | null,
     }[]}}[] = [];
     const fileTree = {parentDocTitleClickMode: 1, sort: 0};
+    const storage: Record<string, unknown> = {};
+    const notebookConfs: {id: string, config: unknown}[] = [];
+    const notebooks: INotebook[] = [];
     const created: unknown[][] = [];
     const menuAttributes = new Map<string, string>();
     const menu = {element: {setAttribute: (name: string, value: string) => menuAttributes.set(name, value)},
@@ -59,14 +62,17 @@ const setup = (mobile = false, readonly = false, controller?: Partial<DocTreeCon
                     requests.push({url, data}); callback?.({code: 0, data: {ial: {}}});
                 }},
                 "../config/util/resourceConfig": {
-                    saveNotebookConf: (_id: string, _config: unknown, callback: (response: unknown) => void) => callback({code: 0}),
+                    saveNotebookConf: (id: string, config: unknown, callback: (response: unknown) => void) => {
+                        notebookConfs.push({id, config}); callback({code: 0});
+                    },
                     saveNotebookConfSync: async () => ({code: 0}),
                 },
                 "../dialog/mobileConfirmDialog": {mobileConfirmDialog: (...args: unknown[]) => confirmations.push(args)},
                 "../emoji": {openEmojiPanel: (...args: unknown[]) => icons.push(args)},
                 "../config/encryptedAssets": {canCleanEncryptedNotebookAssets: () => false},
                 "../util/contractFormData": {ContractFormData: class {}},
-                "../constants": {Constants: {MENU_DOC_TREE_MORE: "doctree", MENU_FROM_DOC_TREE_MORE_DOC: "doc", HELP_PATH: {}}},
+                "../constants": {Constants: {MENU_DOC_TREE_MORE: "doctree", MENU_FROM_DOC_TREE_MORE_DOC: "doc", HELP_PATH: {},
+                    LOCAL_SORT_APPLY_TO_SUBFOLDERS: "local-sort-apply-to-subfolders"}},
                 "../util/newFile": {newFileInTree: (...args: unknown[]) => created.push(args)},
                 "../protyle/util/hasClosest": {hasClosestByTag: (row: {tree: unknown}) => row.tree},
                 "../editor/deleteFile": {deleteFile: (...args: string[]) => deletions.push(args),
@@ -84,12 +90,15 @@ const setup = (mobile = false, readonly = false, controller?: Partial<DocTreeCon
                 }},
                 "../protyle/render/av/addToDatabase": {addBlocksToDatabase: (...args: unknown[]) => databases.push(args)},
                 "../util/fileTreeSort": {getConfiguredChildrenSortMode: (element: Element) =>
-                    controller?.getItemFromElement?.(element)?.childrenSortMode ?? null},
+                    controller?.getItemFromElement?.(element)?.childrenSortMode ?? null,
+                    SORT_MODE_CUSTOM: 6, SORT_MODE_FILE_TREE: 15},
+                "../protyle/util/compatibility": {isPhablet: (): boolean => false, saveExportFile: (): void => undefined,
+                    setStorageVal: (key: string, value: unknown): void => { storage[key] = value; }},
                 "../util/hostCapabilities": {getHostCapabilities: () => ({documentImportExport: true})},
             };
             return dependencies[name] || {};
         },
-        window: {siyuan: {notebooks: [], menus: {menu}, languages: {}, mobile: {docks: {}},
+        window: {siyuan: {notebooks, menus: {menu}, languages: {}, mobile: {docks: {}}, storage,
             config: {readonly, fileTree, flashcard: {deck: true},
                 keymap: {general: keymap, editor: {general: keymap}}}}},
     });
@@ -106,7 +115,7 @@ const setup = (mobile = false, readonly = false, controller?: Partial<DocTreeCon
         assert.ok(item, id);
         return item.click(null, null);
     };
-    return {exports, open, click, options, items, requests, renames, histories, databases, confirmations, icons, deletions, treeDeletions, moves, events, created, menuAttributes, fileTree};
+    return {exports, open, click, options, items, requests, renames, histories, databases, confirmations, icons, deletions, treeDeletions, moves, events, created, menuAttributes, fileTree, storage, notebookConfs, notebooks};
 };
 
 for (const mobile of [false, true]) {
@@ -235,6 +244,18 @@ test("shared notebook sorting tolerates an absent desktop or mobile file dock", 
             await sort.find(item => item.id === "fileNameASC").click(null, null);
         }
     }
+test("notebook recursive sorting maps document tree rules to inheritance", () => {
+    const f = setup();
+    f.storage["local-sort-apply-to-subfolders"] = true;
+    f.exports.initDocTreeMenu({} as never, {items: [menuTarget("notebook", "notebook", "notebook")],
+        elements: () => [] as unknown as NodeListOf<HTMLElement>, target: f.options.target});
+    const sort = f.items.find(item => item.id === "sort").submenu as IMenu[];
+    sort.find(item => item.id === "sortByFiletree").click(null, null);
+    assert.equal(f.requests[0].url, "/api/filetree/setDocTreeSortRecursive");
+    assert.equal(JSON.stringify(f.requests[0].data), '{"boxId":"notebook","path":"/","sortMode":null}');
+});
+
+
 });
 
 test("mobile notebook icon menu uses the API position and internal anchor", () => {
@@ -304,6 +325,68 @@ test("document menu applies inherited custom sorting and updates sort mode witho
     assert.equal(requests[0].url, "/api/filetree/setDocSortMode");
     assert.equal(JSON.stringify(requests[0].data), '{"id":"doc","sortMode":null}');
 });
+test("unified sort submenu exposes the apply-to-subfolders toggle and persists it", () => {
+    const {open, items, storage} = setup();
+    open();
+    const sort = items.find(item => item.id === "sort").submenu as IMenu[];
+    const toggle = sort.find(item => item.id === "applyToSubfolders");
+    assert.ok(toggle);
+    assert.equal(toggle.checked, false);
+    toggle.click(null, null);
+    assert.equal(storage["local-sort-apply-to-subfolders"], true);
+});
+
+test("enabled apply-to-subfolders routes sorting through the recursive endpoint", () => {
+    const {open, items, requests, storage} = setup();
+    storage["local-sort-apply-to-subfolders"] = true;
+    open();
+    const sort = items.find(item => item.id === "sort").submenu as IMenu[];
+    sort.find(item => item.id === "fileNameASC").click(null, null);
+    assert.equal(requests[0].url, "/api/filetree/setDocTreeSortRecursive");
+    assert.equal(JSON.stringify(requests[0].data), '{"boxId":"notebook","path":"/parent/doc.sy","sortMode":16}');
+});
+
+test("recursive custom sorting asks for confirmation before applying", () => {
+    const {open, items, requests, confirmations, storage} = setup();
+    storage["local-sort-apply-to-subfolders"] = true;
+    open();
+    const sort = items.find(item => item.id === "sort").submenu as IMenu[];
+    sort.find(item => item.id === "customSort").click(null, null);
+    assert.equal(requests.length, 0);
+    assert.equal(confirmations.length, 1);
+    (confirmations[0][2] as () => void)();
+    assert.equal(requests[0].url, "/api/filetree/setDocTreeSortRecursive");
+    assert.equal(JSON.stringify(requests[0].data), '{"boxId":"notebook","path":"/parent/doc.sy","sortMode":22}');
+});
+
+test("notebook root sorting uses notebook configuration and the recursive endpoint", () => {
+    const {open, items, requests, notebookConfs, storage, notebooks} = setup();
+    notebooks.push({id: "notebook", sortMode: 15} as INotebook);
+    open({id: "notebook", path: "/"});
+    let sort = items.find(item => item.id === "sort").submenu as IMenu[];
+    assert.equal(sort.find(item => item.id === "sortByParent").checked, true);
+    sort.find(item => item.id === "fileNameASC").click(null, null);
+    assert.equal(notebookConfs.length, 1);
+    assert.equal(notebookConfs[0].id, "notebook");
+    assert.equal(JSON.stringify(notebookConfs[0].config), '{"sortMode":0}');
+    assert.equal(requests.length, 0);
+
+    notebooks[0].sortMode = 3;
+    open({id: "notebook", path: "/"});
+    sort = items.find(item => item.id === "sort").submenu as IMenu[];
+    assert.equal(sort.find(item => item.id === "modifiedDESC").checked, true);
+    sort.find(item => item.id === "sortByParent").click(null, null);
+    assert.equal(JSON.stringify(notebookConfs[1].config), '{"sortMode":15}');
+
+    storage["local-sort-apply-to-subfolders"] = true;
+    open({id: "notebook", path: "/"});
+    sort = items.find(item => item.id === "sort").submenu as IMenu[];
+    sort.find(item => item.id === "fileNameASC").click(null, null);
+    assert.equal(requests[0].url, "/api/filetree/setDocTreeSortRecursive");
+    assert.equal(JSON.stringify(requests[0].data), '{"boxId":"notebook","path":"/","sortMode":16}');
+});
+
+
 
 test("readonly document menu retains opening and export while respecting existing mutation and history restrictions", () => {
     const {open, items} = setup(false, true);
@@ -311,10 +394,11 @@ test("readonly document menu retains opening and export while respecting existin
     assert.deepEqual(items.map(item => item.id), ["openDocument", "openBy", "export", "separator_pluginTop", "plugin"]);
 });
 
-test("notebook documents do not expose regular document deletion, moving, renaming or duplication", () => {
+test("notebook documents keep sorting but do not expose regular document deletion, moving, renaming or duplication", () => {
     const {open, items} = setup();
     open({id: "notebook", path: "/notebook.sy", customSort: true});
-    assert.ok(!items.some(item => ["delete", "move", "rename", "sort", "newDocAbove", "newDocBelow", "newSiblingDoc"].includes(item.id)));
+    assert.ok(!items.some(item => ["delete", "move", "rename", "newDocAbove", "newDocBelow", "newSiblingDoc"].includes(item.id)));
+    assert.ok(items.some(item => item.id === "sort"));
     const copy = items.find(item => item.id === "copy").submenu as IMenu[];
     assert.ok(copy.filter(item => ["duplicate", "duplicateTree"].includes(item.id)).every(item => item.ignore));
 });

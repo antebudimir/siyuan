@@ -1,4 +1,7 @@
 {
+	"applyToSubfolders": "उपफ़ोल्डरों पर लागू करें",
+	"recursiveSortConfirmTitle": "उपफ़ोल्डरों को क्रमबद्ध करें",
+	"recursiveSortConfirmMessage": "यह सभी उपफ़ोल्डरों पर क्रम लागू करेगा और उनके कस्टम क्रम को अधिलेखित कर सकता है। जारी रखें?",
 	"markdownAppearanceSettings": "दिखावट सेटिंग्स",
 	"markdownFontSizeSettings": "फ़ॉन्ट आकार सेटिंग्स",
 	"markdownFontSettings": "फ़ॉन्ट सेटिंग्स",
