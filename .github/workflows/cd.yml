@@ -217,6 +217,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y strace
       - name: Prepare native OCR verification resources
+        # OCR 资源下载失败不阻塞后续发布构建（fork 暂时禁用 OCR 测试）
+        continue-on-error: true
         run: python3 scripts/prepare-ocr.py --runtime linux-amd64 --build-worker
       - name: Test kernel test runner
         run: node --test scripts/test-kernel.test.mjs
