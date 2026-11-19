@@ -29832,6 +29832,26 @@
       ],
       "additionalProperties": false
     },
+    "FileTreeSortRecursiveRequestInput": {
+      "type": "object",
+      "properties": {
+        "boxId": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "sortMode": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "boxId",
+        "path",
+        "sortMode"
+      ],
+      "additionalProperties": false
+    },
     "FileTreeTrimIDRequestInput": {
       "type": "object",
       "properties": {
@@ -161784,6 +161804,86 @@
                         "type": "null"
                       }
                     ]
+                  }
+                ]
+              },
+              "msg": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "msg",
+              "data"
+            ],
+            "additionalProperties": true
+          }
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/filetree/setDocTreeSortRecursive",
+      "handler": "setDocTreeSortRecursive",
+      "authorization": [
+        "authenticated",
+        "admin",
+        "writable"
+      ],
+      "body": "structJSON",
+      "request": {
+        "$ref": "#/$defs/FileTreeSortRecursiveRequestInput"
+      },
+      "response": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "integer",
+                "enum": [
+                  0
+                ]
+              },
+              "data": {
+                "type": "null"
+              },
+              "msg": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "msg",
+              "data"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "integer",
+                "enum": [
+                  -1
+                ]
+              },
+              "data": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "closeTimeout": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "closeTimeout"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
                   }
                 ]
               },
