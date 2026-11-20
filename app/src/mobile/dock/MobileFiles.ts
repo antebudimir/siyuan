@@ -10,7 +10,7 @@ import {config as configApi} from "../../config/util/configApi";
 import {Model} from "../../layout/Model";
 import {Constants} from "../../constants";
 import {isMoveTargetAllowed, setNoteBook} from "../../util/pathName";
-import {initFileMenu, initNavigationMenu, sortMenu} from "../../menus/navigation";
+import {initFileMenu, initNavigationMenu, sortMenu, getSortApplyToSubfolders, setSortApplyToSubfolders} from "../../menus/navigation";
 import {getDocTreeActionItems} from "../../menus/navigationSelection";
 import {toggleMenu, type IMenuSession} from "../../menus/menuToggle";
 import {
@@ -33,7 +33,7 @@ import {showMessage} from "../../dialog/message";
 import {dragOverScroll, stopScrollAnimation} from "../../boot/globalEvent/dragover";
 import {bindMousePointerTouchBridge, isMousePointerTouchEvent} from "../util/mousePointerTouchBridge";
 import {getRelativeReorderRequest} from "../../util/fileTreeMove";
-import {type IDocSortModeChanged, updateFileTreeSortMode} from "../../util/fileTreeSort";
+import {type IDocSortModeChanged, SORT_MODE_CUSTOM, updateFileTreeSortMode} from "../../util/fileTreeSort";
 import {MobileOpenedFileSelection} from "./mobileOpenedFileSelection";
 import {insertMobileMultiSelectMenu, renderMultiSelectToolbar, updateMultiSelectToolbar} from "../util/multiSelectToolbar";
 import {PinnedDocs} from "../../layout/dock/PinnedDocs";
@@ -618,8 +618,12 @@ export class MobileFiles extends Model {
         toggleMenu({
             target: this.actionsElement.querySelector("[data-type=sort]"),
             build: (_menu, session) => {
-                const subMenu = sortMenu("notebooks", window.siyuan.config.fileTree.sort, (sort) => {
+                const subMenu = sortMenu("notebooks", window.siyuan.config.fileTree.sort, (sort, recursive) => {
                     if (sort === null) {
+                        return;
+                    }
+                    if (recursive) {
+                        this.applyRecursiveSort(sort);
                         return;
                     }
                     configApi.set("fileTree.sort", sort, () => {
@@ -631,14 +635,57 @@ export class MobileFiles extends Model {
                             sortMode: sort,
                         });
                     });
-                });
+                }, {recursiveToggle: true});
                 subMenu.forEach((item) => {
+                    if (item.id === "applyToSubfolders") {
+                        item.click = () => {
+                            const newValue = !getSortApplyToSubfolders();
+                            setSortApplyToSubfolders(newValue);
+                            item.checked = newValue;
+                            return true; // Keep menu open
+                        };
+                    }
                     window.siyuan.menus.menu.append(new MenuItem(item).element);
                 });
                 session.show(() => window.siyuan.menus.menu.fullscreen("bottom"));
 
             },
         });
+    }
+
+    // 全局排序开启“应用到子文件夹”时，逐个笔记本递归写入排序方式，全部完成后再统一刷新文档树。
+    private applyRecursiveSort(sort: number) {
+        const apply = () => {
+            configApi.set("fileTree.sort", sort, () => {
+                const notebooks = window.siyuan.notebooks.filter(item => !item.closed &&
+                    (!item.encrypted || (item.unlocked && (!item.state || item.state === "Unlocked"))));
+                let pending = notebooks.length;
+                if (pending === 0) {
+                    this.onDocSortModeChanged({scope: "global", box: "", id: "", path: "/", sortMode: sort});
+                    return;
+                }
+                notebooks.forEach(notebook => {
+                    fetchPost("/api/filetree/setDocTreeSortRecursive", {
+                        boxId: notebook.id,
+                        path: "/",
+                        sortMode: sort + 16,
+                    }, (response) => {
+                        if (response.code === 0) {
+                            notebook.sortMode = sort;
+                        }
+                        if (--pending === 0) {
+                            this.onDocSortModeChanged({scope: "global", box: "", id: "", path: "/", sortMode: sort});
+                        }
+                    });
+                });
+            });
+        };
+        if (sort === SORT_MODE_CUSTOM) {
+            confirmDialog(window.siyuan.languages.recursiveSortConfirmTitle,
+                window.siyuan.languages.recursiveSortConfirmMessage, apply);
+            return;
+        }
+        apply();
     }
 
     private genNotebook(item: INotebook) {

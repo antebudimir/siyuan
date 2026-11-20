@@ -6,6 +6,7 @@ import {createSourceFile, isClassDeclaration, ScriptTarget, transpileModule} fro
 import {MobileOpenedFileSelection} from "./mobileOpenedFileSelection";
 import type {DocTreeController} from "../../layout/dock/docTree/DocTreeController";
 import type {IMenuSession} from "../../menus/menuToggle";
+import type {IDocSortModeChanged} from "../../util/fileTreeSort";
 import {DocTreeModel} from "../../layout/dock/docTree/DocTreeModel";
 
 test("mobile notebook clicks load the directory before creating and can fold nonempty notebooks", async () => {
@@ -219,4 +220,54 @@ test("mobile canceled locates leave a newer viewport and saved state alone", asy
     interaction++;
     complete();
     assert.equal(await result, undefined);
+});
+
+test("mobile global sorting applies recursively to every open notebook", () => {
+    const requests: {url: string, data: Record<string, unknown>}[] = [];
+    const callbacks: ((response: {code: number}) => void)[] = [];
+    const changes: IDocSortModeChanged[] = [];
+    const notebooks: Record<string, unknown>[] = [
+        {id: "open", closed: false, sortMode: 0},
+        {id: "closed", closed: true, sortMode: 0},
+        {id: "locked", closed: false, encrypted: true, unlocked: false, sortMode: 0},
+        {id: "unlocked", closed: false, encrypted: true, unlocked: true, state: "Unlocked", sortMode: 0},
+    ];
+    const adapter = loadMethods(["applyRecursiveSort"], {
+        SORT_MODE_CUSTOM: 6,
+        configApi: {set: (_path: string, _value: unknown, applied: () => void) => applied()},
+        fetchPost: (url: string, data: Record<string, unknown>, callback: (response: {code: number}) => void) => {
+            requests.push({url, data});
+            callbacks.push(callback);
+        },
+        window: {siyuan: {notebooks, languages: {}}},
+    }) as {applyRecursiveSort: (sort: number) => void, onDocSortModeChanged: (data: IDocSortModeChanged) => void};
+    adapter.onDocSortModeChanged = data => changes.push(data);
+    adapter.applyRecursiveSort(3);
+    assert.deepEqual(requests.map(item => item.data.boxId), ["open", "unlocked"]);
+    assert.equal(JSON.stringify(requests[0]),
+        '{"url":"/api/filetree/setDocTreeSortRecursive","data":{"boxId":"open","path":"/","sortMode":19}}');
+    assert.equal(changes.length, 0);
+    callbacks[0]({code: 0});
+    assert.equal(changes.length, 0);
+    callbacks[1]({code: 0});
+    assert.equal(changes.length, 1);
+    assert.equal(JSON.stringify(changes[0]), '{"scope":"global","box":"","id":"","path":"/","sortMode":3}');
+    assert.equal(notebooks[0].sortMode, 3);
+});
+
+test("mobile recursive custom sorting asks for confirmation before touching notebooks", () => {
+    const confirmations: (() => void)[] = [];
+    const requests: unknown[] = [];
+    const adapter = loadMethods(["applyRecursiveSort"], {
+        SORT_MODE_CUSTOM: 6,
+        configApi: {set: (_path: string, _value: unknown, applied: () => void) => applied()},
+        fetchPost: (...args: unknown[]) => requests.push(args),
+        confirmDialog: (_title: string, _message: string, confirm: () => void) => confirmations.push(confirm),
+        window: {siyuan: {notebooks: [{id: "open", closed: false, sortMode: 0}], languages: {}}},
+    }) as {applyRecursiveSort: (sort: number) => void};
+    adapter.applyRecursiveSort(6);
+    assert.equal(requests.length, 0);
+    assert.equal(confirmations.length, 1);
+    confirmations[0]();
+    assert.equal(requests.length, 1);
 });

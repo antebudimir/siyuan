@@ -1325,9 +1325,9 @@ export const genImportMenu = (notebookId: string, pathString: string) => {
     }).element);
 };
 
-const getSortApplyToSubfolders = () => window.siyuan.storage?.[Constants.LOCAL_SORT_APPLY_TO_SUBFOLDERS] === true;
+export const getSortApplyToSubfolders = () => window.siyuan.storage?.[Constants.LOCAL_SORT_APPLY_TO_SUBFOLDERS] === true;
 
-const setSortApplyToSubfolders = (value: boolean) => {
+export const setSortApplyToSubfolders = (value: boolean) => {
     if (window.siyuan.storage) {
         window.siyuan.storage[Constants.LOCAL_SORT_APPLY_TO_SUBFOLDERS] = value;
     }

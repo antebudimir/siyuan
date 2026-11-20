@@ -196,4 +196,17 @@ func TestSetDocTreeSortRecursiveAppliesAndClearsInheritance(t *testing.T) {
 	if mode := fixture.box.GetConf().SortMode; util.SortModeFileTree != mode {
 		t.Fatalf("expected notebook inheritance %d, got %d", util.SortModeFileTree, mode)
 	}
+
+	// 子文档数降序（14）的递归模式为 30，是菜单可选的最高递归模式。
+	highestRecursiveMode := util.SortModeSubDocCountDESC + 16
+	if err := SetDocTreeSortRecursive(fixture.box.ID, "/", &highestRecursiveMode); nil != err {
+		t.Fatalf("highest recursive sort mode failed: %v", err)
+	}
+	if mode := fixture.box.GetConf().SortMode; util.SortModeSubDocCountDESC != mode {
+		t.Fatalf("expected notebook mode %d, got %d", util.SortModeSubDocCountDESC, mode)
+	}
+	invalidRecursiveMode := highestRecursiveMode + 1
+	if err := SetDocTreeSortRecursive(fixture.box.ID, "/", &invalidRecursiveMode); nil == err {
+		t.Fatal("expected an out-of-range recursive sort mode to be rejected")
+	}
 }

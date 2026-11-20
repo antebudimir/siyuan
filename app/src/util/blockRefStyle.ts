@@ -12,18 +12,18 @@ export const normalizeBlockRefStyle = (
 ): IBlockRefStyle => {
 	// 负数或非法数值回退当前默认外观，保证旧工作空间补全后与既有渲染一致。
 	const clamp = (num: unknown, fallback: number) =>
-		typeof num === 'number' && Number.isFinite(num) && num >= 0
+		typeof num === "number" && Number.isFinite(num) && num >= 0
 			? Math.floor(num)
 			: fallback;
 	return {
-		mode: value?.mode === 'off' ? 'off' : 'border',
+		mode: value?.mode === "off" ? "off" : "border",
 		borderWidth: clamp(value?.borderWidth, 1),
 		radius: clamp(value?.radius, 4),
 		paddingX: clamp(value?.paddingX, 7),
 		paddingY: clamp(value?.paddingY, 0),
-		borderColor: /^#[\da-f]{6}$/i.test(value?.borderColor || '')
+		borderColor: /^#[\da-f]{6}$/i.test(value?.borderColor || "")
 			? value.borderColor
-			: 'auto',
+			: "auto",
 	};
 };
 
@@ -37,33 +37,33 @@ export const setBlockRefStyle = (
 ) => {
 	const config = normalizeBlockRefStyle(style);
 	const htmlElement = document.documentElement;
-	const off = config.mode === 'off';
+	const off = config.mode === "off";
 	htmlElement.style.setProperty(
-		'--b3-protyle-inline-blockref-border-width',
-		off ? '0px' : `${config.borderWidth}px`,
+		"--b3-protyle-inline-blockref-border-width",
+		off ? "0px" : `${config.borderWidth}px`,
 	);
 	htmlElement.style.setProperty(
-		'--b3-protyle-inline-blockref-radius',
-		off ? '0px' : `${config.radius}px`,
+		"--b3-protyle-inline-blockref-radius",
+		off ? "0px" : `${config.radius}px`,
 	);
 	htmlElement.style.setProperty(
-		'--b3-protyle-inline-blockref-padding-x',
-		off ? '0px' : `${config.paddingX}px`,
+		"--b3-protyle-inline-blockref-padding-x",
+		off ? "0px" : `${config.paddingX}px`,
 	);
 	htmlElement.style.setProperty(
-		'--b3-protyle-inline-blockref-padding-y',
-		off ? '0px' : `${config.paddingY}px`,
+		"--b3-protyle-inline-blockref-padding-y",
+		off ? "0px" : `${config.paddingY}px`,
 	);
 	htmlElement.style.setProperty(
-		'--b3-protyle-inline-blockref-padding-shift',
-		off ? '0em' : `${getBlockRefPaddingShift()}em`,
+		"--b3-protyle-inline-blockref-padding-shift",
+		off ? "0em" : `${getBlockRefPaddingShift()}em`,
 	);
-	if (!off && config.borderColor !== 'auto') {
+	if (!off && config.borderColor !== "auto") {
 		htmlElement.style.setProperty(
-			'--b3-protyle-inline-blockref-color',
+			"--b3-protyle-inline-blockref-color",
 			config.borderColor,
 		);
 	} else {
-		htmlElement.style.removeProperty('--b3-protyle-inline-blockref-color');
+		htmlElement.style.removeProperty("--b3-protyle-inline-blockref-color");
 	}
 };

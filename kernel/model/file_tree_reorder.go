@@ -243,11 +243,11 @@ func ReorderDocTree(sourceIDs []string, targetID, position string, preview, remo
 }
 
 // SetDocTreeSortRecursive 递归设置当前目录及所有后代的排序方式。
-// sortMode 为 16-29 时取减去 16 的基础排序方式；为 nil 时清除显式声明并恢复继承。
+// sortMode 为 16-30 时取减去 16 的基础排序方式；为 nil 时清除显式声明并恢复继承。
 func SetDocTreeSortRecursive(boxID, listPath string, sortMode *int) error {
 	var baseMode *int
 	if nil != sortMode {
-		if *sortMode < 16 || *sortMode > 29 {
+		if *sortMode < 16 || *sortMode > 30 {
 			return fmt.Errorf("invalid recursive sort mode: %d", *sortMode)
 		}
 		base := *sortMode - 16
