@@ -603,8 +603,11 @@ const initNotebookMenu = (app: App, selection: IDocTreeMenuContext, item: IDocTr
             };
             if (recursive) {
                 if (sort === SORT_MODE_CUSTOM) {
-                    confirmDialog(window.siyuan.languages.recursiveSortConfirmTitle,
-                        window.siyuan.languages.recursiveSortConfirmMessage, applyRecursive);
+                    confirmDialog({
+                        title: window.siyuan.languages.recursiveSortConfirmTitle,
+                        text: window.siyuan.languages.recursiveSortConfirmMessage,
+                        confirm: applyRecursive,
+                    });
                 } else {
                     applyRecursive();
                 }
@@ -1108,10 +1111,13 @@ export const initDocumentMenu = (app: App, options: {
                 return;
             }
             if (sortMode === SORT_MODE_CUSTOM || sortMode === null) {
-                confirmDialog(window.siyuan.languages.recursiveSortConfirmTitle,
-                    window.siyuan.languages.recursiveSortConfirmMessage, () => {
+                confirmDialog({
+                    title: window.siyuan.languages.recursiveSortConfirmTitle,
+                    text: window.siyuan.languages.recursiveSortConfirmMessage,
+                    confirm: () => {
                         applyRecursiveSortMode(sortMode);
-                    });
+                    },
+                });
                 return;
             }
             applyRecursiveSortMode(sortMode);

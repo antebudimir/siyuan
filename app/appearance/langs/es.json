@@ -1,9 +1,7 @@
 {
-<<<<<<< HEAD
 	"applyToSubfolders": "Aplicar a las subcarpetas",
 	"recursiveSortConfirmTitle": "Ordenar subcarpetas",
 	"recursiveSortConfirmMessage": "Esto aplicará el orden a todas las subcarpetas y puede sobrescribir su orden personalizado. ¿Continuar?",
-=======
 	"confirmActionFailed": "La operación falló. Inténtalo de nuevo",
 	"updateInstallNow": "Instalar ahora",
 	"updateInstallLater": "Ahora no",
@@ -57,7 +55,6 @@
 	"pluginSnapshotRestored": "Restaurado; el complemento sigue desactivado. Copia de seguridad: ${id}",
 	"restoreDocPosition": "Restaurar la última posición de lectura",
 	"restoreDocPositionTip": "Al desactivar, los documentos se abren al principio; los enlaces a bloques, los resultados de búsqueda y la restauración de pestañas conservan sus posiciones. La posición de apertura específica del documento tiene prioridad",
->>>>>>> upstream/master
 	"markdownAppearanceSettings": "Ajustes de apariencia",
 	"markdownFontSizeSettings": "Ajustes de tamaño de fuente",
 	"markdownFontSettings": "Ajustes de fuente",
@@ -1764,7 +1761,7 @@
 	"configGroupImages": "Imágenes",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "Cuenta",
-	"accountSync": "Sincronización",
+	"accountSync": "Cuenta y Sincronización",
 	"configGroupSync": "Sincronización",
 	"authentication": "Autenticación",
 	"configGroupServer": "Servidor",
@@ -2517,6 +2514,7 @@
 	"rollback": "Rollback",
 	"custom": "Personalizado",
 	"feedback": "Comentarios",
+	"inbox": "Bandeja de entrada",
 	"turnToStatic": "Texto de anclaje estático",
 	"turnToDynamic": "Texto de anclaje dinámico",
 	"sizeLimit": "Límite",
@@ -2568,8 +2566,11 @@
 	"removeAssetsFolder": "Eliminar directorio de recursos",
 	"upload": "Subir",
 	"reminderTip": "La hora del recordatorio no puede ser inferior a la hora actual",
+	"wechatTip": "El bloque de contenido se enviará a la nube en texto claro, y se empujará a través del mensaje de plantilla de WeChat MP cuando caduque",
 	"notEmpty": "La hora del recordatorio no puede estar vacía",
 	"experimentalFeature": "(⚗️ Esta característica está en fase experimental)",
+	"wechatReminder": "Recordatorio de WeChat",
+	"notifyTime": "Tiempo de notificación",
 	"docName": "Nombre del documento",
 	"bootSyncFailed": "Fallo en la sincronización de datos al inicio",
 	"use": "Utilice",
@@ -2854,7 +2855,7 @@
 	"next": "Siguiente",
 	"kernelFault0": "SiYuan está teniendo un problema...",
 	"kernelFault1": "Se ha perdido la conexión con el kernel, pero sus datos deberían estar seguros. SiYuan intentará reconectarse automáticamente cada 3 segundos, y esta ventana se cerrará por sí sola cuando el kernel se recupere.",
-	"kernelFault2": "Si el problema persiste, busque ayuda o informe de errores <a href=\"https://github.com/antebudimir/siyuan/issues\" target=\"_blank\">aquí</a>",
+	"kernelFault2": "Si el problema persiste, busque ayuda o informe de errores <a href=\"https://liuyun.io/article/1686530886208\" target=\"_blank\">aquí</a>",
 	"fontSize": "Tamaño de la fuente",
 	"fontSizeTip": "El tamaño de fuente predeterminado es <code class='fn__code'>16</code>, esta configuración afecta el editor y la visualización del tamaño de fuente PDF/HTML exportado",
 	"font1": "Este ajuste solo afecta a la visualización de fuentes en el editor; cuando no se selecciona ninguna fuente, se utiliza la fuente del tema",
@@ -3192,8 +3193,10 @@
 	"desktop": "Escritorio",
 	"tablet": "Tablet",
 	"mobile": "Móvil",
+	"copyToWechatMP": "Copiar a Wechat MP",
 	"copyToZhihu": "Copiar a Zhihu",
 	"copyToYuque": "Copiar a Yuque",
+	"pasteToWechatMP": "Copiado, listo para pegar en Wechat MP",
 	"pasteToZhihu": "Copiado, listo para pegar en Zhihu",
 	"pasteToYuque": "Copiado, listo para pegar en Yuque",
 	"quote": "Bloque de cita",
@@ -3777,8 +3780,10 @@
 		"466": "OCR automático con IA pausado para %s; se reintentará en 10 minutos. Revisa la cuenta del proveedor y la configuración del modelo: %s",
 		"467": "La respuesta en streaming se interrumpió porque el cliente no pudo seguir el ritmo; vuelva a abrir la sesión para recuperar el contenido disponible",
 		"468": "La respuesta se interrumpió; vuelva a abrir la sesión para recuperar el contenido disponible",
-<<<<<<< HEAD
-		"469": "Error de autenticación: esta solicitud no superó las comprobaciones de acceso local. Las VPN, los proxies o las aplicaciones de filtrado de red pueden afectar al acceso local; prueba a desactivarlos temporalmente y vuelve a intentarlo. Para acceder mediante una dirección no local, configura primero una contraseña de bloqueo de pantalla"
+		"469": "Error de autenticación: esta solicitud no superó las comprobaciones de acceso local. Las VPN, los proxies o las aplicaciones de filtrado de red pueden afectar al acceso local; prueba a desactivarlos temporalmente y vuelve a intentarlo. Para acceder mediante una dirección no local, configura primero una contraseña de bloqueo de pantalla",
+		"470": "Se ha alcanzado el límite de rondas de llamadas a herramientas. He dejado de usar herramientas; esta tarea puede seguir incompleta",
+		"471": "Las llamadas repetidas a herramientas devolvieron el mismo resultado. He dejado de usar herramientas; esta tarea puede seguir incompleta",
+		"472": "No se pudo convertir el mapa mental antiguo, vuelve a abrir el documento e inténtalo de nuevo"
 	},
 	"docMenu": "Menú del documento",
 	"customBackground": "Color de fondo",
@@ -3793,11 +3798,4 @@
 	"blockRefStylePaddingY": "Relleno vertical",
 	"blockRefStyleBorderColor": "Color del borde",
 	"blockRefStyleBorderColorAuto": "Automático (tema)"
-=======
-		"469": "Error de autenticación: esta solicitud no superó las comprobaciones de acceso local. Las VPN, los proxies o las aplicaciones de filtrado de red pueden afectar al acceso local; prueba a desactivarlos temporalmente y vuelve a intentarlo. Para acceder mediante una dirección no local, configura primero una contraseña de bloqueo de pantalla",
-		"470": "Se ha alcanzado el límite de rondas de llamadas a herramientas. He dejado de usar herramientas; esta tarea puede seguir incompleta",
-		"471": "Las llamadas repetidas a herramientas devolvieron el mismo resultado. He dejado de usar herramientas; esta tarea puede seguir incompleta",
-		"472": "No se pudo convertir el mapa mental antiguo, vuelve a abrir el documento e inténtalo de nuevo"
-	}
->>>>>>> upstream/master
 }

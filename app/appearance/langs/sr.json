@@ -1,9 +1,7 @@
 {
-<<<<<<< HEAD
 	"applyToSubfolders": "Primeni na podfoldere",
 	"recursiveSortConfirmTitle": "Sortiraj podfoldere",
 	"recursiveSortConfirmMessage": "Ovo će primeniti sortiranje na sve podfoldere i može prepisati njihov prilagođeni redosled. Nastaviti?",
-=======
 	"confirmActionFailed": "Радња није успела. Покушајте поново",
 	"updateInstallNow": "Инсталирај сада",
 	"updateInstallLater": "Не сада",
@@ -57,7 +55,6 @@
 	"pluginSnapshotRestored": "Враћено; додатак остаје искључен. Резервни снимак: ${id}",
 	"restoreDocPosition": "Врати последњи положај читања",
 	"restoreDocPositionTip": "Када је искључено, документи се поново отварају од почетка; везе ка блоковима, резултати претраге и обнова картица задржавају своје положаје. Предност има положај отварања подешен за појединачни документ",
->>>>>>> upstream/master
 	"markdownAppearanceSettings": "Подешавања изгледа",
 	"markdownFontSizeSettings": "Подешавања величине фонта",
 	"markdownFontSettings": "Подешавања фонта",
@@ -1764,7 +1761,7 @@
 	"configGroupImages": "Slike",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "Nalog",
-	"accountSync": "Sinhronizacija",
+	"accountSync": "Nalog i sinhronizacija",
 	"configGroupSync": "Sinhronizacija",
 	"authentication": "Autentifikacija",
 	"configGroupServer": "Server",
@@ -2517,6 +2514,7 @@
 	"rollback": "Vrati na prethodno stanje",
 	"custom": "Prilagođeno",
 	"feedback": "Povratne informacije",
+	"inbox": "Prijemno sanduče",
 	"turnToStatic": "Statički tekst reference",
 	"turnToDynamic": "Dinamički tekst reference",
 	"sizeLimit": "Ograničenje",
@@ -2568,8 +2566,11 @@
 	"removeAssetsFolder": "Ukloni fasciklu priloga",
 	"upload": "Otpremi",
 	"reminderTip": "Vreme podsetnika ne sme biti pre trenutnog vremena",
+	"wechatTip": "Blok sadržaja će biti poslat u oblak kao običan (nešifrovan) tekst i prosleđen preko WeChat MP šablonske poruke kada istekne",
 	"notEmpty": "Vreme podsetnika ne sme biti prazno",
 	"experimentalFeature": "(⚗️ Ova funkcija je u eksperimentalnoj fazi)",
+	"wechatReminder": "WeChat podsetnik",
+	"notifyTime": "Vreme obaveštenja",
 	"docName": "Naziv dokumenta",
 	"bootSyncFailed": "Sinhronizacija podataka pri pokretanju nije uspela",
 	"use": "Koristi",
@@ -2854,7 +2855,7 @@
 	"next": "Sledeće",
 	"kernelFault0": "SiYuan je naišao na mali problem...",
 	"kernelFault1": "Veza sa jezgrom je izgubljena, ali podaci bi trebalo da budu bezbedni. SiYuan će automatski pokušavati ponovno povezivanje na svake 3 sekunde, a ovaj prozor će se sam zatvoriti čim se jezgro oporavi.",
-	"kernelFault2": "Ako se problem nastavi, potražite pomoć ili prijavite grešku <a href=\"https://github.com/antebudimir/siyuan/issues\" target=\"_blank\">ovde</a>",
+	"kernelFault2": "Ako se problem nastavi, potražite pomoć ili prijavite grešku <a href=\"https://liuyun.io/article/1686530886208\" target=\"_blank\">ovde</a>",
 	"fontSize": "Veličina fonta",
 	"fontSizeTip": "Podrazumevana veličina fonta je <code class='fn__code'>16</code>; ovo podešavanje utiče na prikaz veličine fonta u uređivaču i u izvezenom PDF-u/HTML-u",
 	"font1": "Ovo podešavanje utiče samo na prikaz fonta u uređivaču; kada nijedan font nije izabran, koristi se font teme",
@@ -3192,8 +3193,10 @@
 	"desktop": "Računar",
 	"tablet": "Tablet",
 	"mobile": "Mobilni",
+	"copyToWechatMP": "Kopiraj u WeChat MP",
 	"copyToZhihu": "Kopiraj u Zhihu",
 	"copyToYuque": "Kopiraj u Yuque",
+	"pasteToWechatMP": "Kopirano, spremno za lepljenje u Wechat MP",
 	"pasteToZhihu": "Kopirano, spremno za lepljenje u Zhihu",
 	"pasteToYuque": "Kopirano, spremno za lepljenje u Yuque",
 	"quote": "Blok citata",
@@ -3777,8 +3780,10 @@
 		"466": "Аутоматски AI OCR је паузиран за %s; поновни покушај за 10 минута. Проверите налог добављача и подешавања модела: %s",
 		"467": "Стримовање одговора је прекинуто јер клијент није могао да прати темпо пријема; поново отворите сесију да бисте опоравили доступан садржај",
 		"468": "Одговор је прекинут; поново отворите сесију да бисте опоравили доступан садржај",
-<<<<<<< HEAD
-		"469": "Потврда идентитета није успела: овај захтев није прошао провере локалног приступа. VPN, проксији или апликације за филтрирање мреже могу утицати на локални приступ; покушајте да их привремено искључите и покушајте поново. При приступу преко адресе која није локална, прво поставите лозинку за закључавање екрана"
+		"469": "Потврда идентитета није успела: овај захтев није прошао провере локалног приступа. VPN, проксији или апликације за филтрирање мреже могу утицати на локални приступ; покушајте да их привремено искључите и покушајте поново. При приступу преко адресе која није локална, прво поставите лозинку за закључавање екрана",
+		"470": "Достигнуто је ограничење броја кругова позива алата. Престао сам да користим алате; овај задатак можда још није завршен",
+		"471": "Поновљени позиви алата вратили су исти резултат. Престао сам да користим алате; овај задатак можда још није завршен",
+		"472": "Претварање старе мапе ума није успело, поново отворите документ и покушајте поново"
 	},
 	"docMenu": "Мени документа",
 	"customBackground": "Боја позадине",
@@ -3793,11 +3798,4 @@
 	"blockRefStylePaddingY": "Вертикална испуна",
 	"blockRefStyleBorderColor": "Боја ивице",
 	"blockRefStyleBorderColorAuto": "Аутоматски (према теми)"
-=======
-		"469": "Потврда идентитета није успела: овај захтев није прошао провере локалног приступа. VPN, проксији или апликације за филтрирање мреже могу утицати на локални приступ; покушајте да их привремено искључите и покушајте поново. При приступу преко адресе која није локална, прво поставите лозинку за закључавање екрана",
-		"470": "Достигнуто је ограничење броја кругова позива алата. Престао сам да користим алате; овај задатак можда још није завршен",
-		"471": "Поновљени позиви алата вратили су исти резултат. Престао сам да користим алате; овај задатак можда још није завршен",
-		"472": "Претварање старе мапе ума није успело, поново отворите документ и покушајте поново"
-	}
->>>>>>> upstream/master
 }

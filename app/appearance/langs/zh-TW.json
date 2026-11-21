@@ -1,9 +1,7 @@
 {
-<<<<<<< HEAD
 	"applyToSubfolders": "套用到子資料夾",
 	"recursiveSortConfirmTitle": "排序子資料夾",
 	"recursiveSortConfirmMessage": "這會將排序套用到所有子資料夾，並可能覆寫它們的自訂順序。確定繼續嗎？",
-=======
 	"confirmActionFailed": "操作失敗，請重試",
 	"updateInstallNow": "立即安裝",
 	"updateInstallLater": "暫不安裝",
@@ -57,7 +55,6 @@
 	"pluginSnapshotRestored": "已恢復，外掛保持停用。備份快照：${id}",
 	"restoreDocPosition": "恢復上次瀏覽位置",
 	"restoreDocPositionTip": "關閉後從文件開頭重新開啟；區塊連結、搜尋結果和頁籤恢復仍定位到指定位置。單篇文件的開啟位置設定優先",
->>>>>>> upstream/master
 	"markdownAppearanceSettings": "外觀設定",
 	"markdownFontSizeSettings": "字型大小設定",
 	"markdownFontSettings": "字型設定",
@@ -1764,7 +1761,7 @@
 	"configGroupImages": "圖片",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "帳號",
-	"accountSync": "同步",
+	"accountSync": "帳號與同步",
 	"configGroupSync": "同步",
 	"authentication": "鑑權",
 	"configGroupServer": "伺服",
@@ -2517,6 +2514,7 @@
 	"rollback": "回復",
 	"custom": "自定義",
 	"feedback": "問題反饋",
+	"inbox": "收件箱",
 	"turnToStatic": "靜態錨文字",
 	"turnToDynamic": "動態錨文字",
 	"sizeLimit": "上限",
@@ -2568,8 +2566,11 @@
 	"removeAssetsFolder": "移除 assets 目錄",
 	"upload": "上傳",
 	"reminderTip": "提醒時間不能小於當前時間",
+	"wechatTip": "該內容區塊將以明文形式發送到雲端，到期時通過微信公眾號範本消息進行推送",
 	"notEmpty": "提醒時間不能為空",
 	"experimentalFeature": "（⚗️ 該特性正處於試驗階段）",
+	"wechatReminder": "微信提醒",
+	"notifyTime": "提醒時間",
 	"docName": "文件名",
 	"bootSyncFailed": "啟動時同步資料失敗",
 	"use": "使用",
@@ -2854,7 +2855,7 @@
 	"next": "下一個",
 	"kernelFault0": "思源筆記遇到了一點問題...",
 	"kernelFault1": "與內核的連線已中斷，但資料通常是安全的。思源會每 3 秒自動嘗試重新連線，如果內核恢復，本視窗會自動關閉。",
-	"kernelFault2": "如果仍然出現該問題，請在<a href=\"https://github.com/antebudimir/siyuan/issues\" target=\"_blank\">這裡</a>尋求幫助或者報告缺陷",
+	"kernelFault2": "如果仍然出現該問題，請在<a href=\"https://liuyun.io/article/1686530886208\" target=\"_blank\">這裡</a>尋求幫助或者報告缺陷",
 	"fontSize": "字型大小",
 	"fontSizeTip": "字號預設為 <code class='fn__code'>16</code>，該設置影響編輯器和導出 PDF/HTML 字體大小顯示",
 	"font1": "該設定僅影響編輯器內字體顯示，未選擇任何字體時則使用主題自帶字體",
@@ -3192,8 +3193,10 @@
 	"desktop": "桌面",
 	"tablet": "平板",
 	"mobile": "行動端",
+	"copyToWechatMP": "複製到公眾號",
 	"copyToZhihu": "複製到知乎",
 	"copyToYuque": "複製到語雀",
+	"pasteToWechatMP": "已複製，可貼到微信公眾號平臺",
 	"pasteToZhihu": "已複製，可貼到知乎",
 	"pasteToYuque": "已複製，可貼到語雀",
 	"quote": "引述區塊",
@@ -3777,8 +3780,10 @@
 		"466": "AI 自動 OCR 已暫停（%s），10 分鐘後重試。請檢查供應商帳戶和模型設定：%s",
 		"467": "用戶端接收不及，串流回答已中斷；請重新開啟會話以恢復可用內容",
 		"468": "回答已中斷；請重新開啟會話以恢復可用內容",
-<<<<<<< HEAD
-		"469": "驗證失敗：目前的請求未通過本機存取檢查。VPN、代理或網路過濾類應用程式可能影響本機存取，請嘗試暫時關閉後重試。使用非本機位址存取時，請先設定鎖屏密碼"
+		"469": "驗證失敗：目前的請求未通過本機存取檢查。VPN、代理或網路過濾類應用程式可能影響本機存取，請嘗試暫時關閉後重試。使用非本機位址存取時，請先設定鎖屏密碼",
+		"470": "已達到工具呼叫輪數上限，已停止呼叫工具，目前任務可能尚未完成",
+		"471": "重複工具呼叫持續傳回相同結果，已停止呼叫工具，目前任務可能尚未完成",
+		"472": "舊版心智圖轉換失敗，請重新開啟文件後重試"
 	},
 	"docMenu": "文件選單",
 	"customBackground": "背景顏色",
@@ -3793,11 +3798,4 @@
 	"blockRefStylePaddingY": "垂直內邊距",
 	"blockRefStyleBorderColor": "邊框顏色",
 	"blockRefStyleBorderColorAuto": "自動（跟隨主題）"
-=======
-		"469": "驗證失敗：目前的請求未通過本機存取檢查。VPN、代理或網路過濾類應用程式可能影響本機存取，請嘗試暫時關閉後重試。使用非本機位址存取時，請先設定鎖屏密碼",
-		"470": "已達到工具呼叫輪數上限，已停止呼叫工具，目前任務可能尚未完成",
-		"471": "重複工具呼叫持續傳回相同結果，已停止呼叫工具，目前任務可能尚未完成",
-		"472": "舊版心智圖轉換失敗，請重新開啟文件後重試"
-	}
->>>>>>> upstream/master
 }

@@ -1,9 +1,7 @@
 {
-<<<<<<< HEAD
 	"applyToSubfolders": "Aplicar às subpastas",
 	"recursiveSortConfirmTitle": "Ordenar subpastas",
 	"recursiveSortConfirmMessage": "Isso aplicará a ordenação a todas as subpastas e pode substituir a ordem personalizada delas. Continuar?",
-=======
 	"confirmActionFailed": "Falha na operação. Tente novamente",
 	"updateInstallNow": "Instalar agora",
 	"updateInstallLater": "Agora não",
@@ -57,7 +55,6 @@
 	"pluginSnapshotRestored": "Restaurado; o plugin continua desativado. Backup: ${id}",
 	"restoreDocPosition": "Restaurar a última posição de leitura",
 	"restoreDocPositionTip": "Quando desativado, os documentos reabrem no início; links de blocos, resultados de pesquisa e restauração de abas mantêm suas posições. A posição de abertura específica do documento tem prioridade",
->>>>>>> upstream/master
 	"markdownAppearanceSettings": "Configurações de aparência",
 	"markdownFontSizeSettings": "Configurações de tamanho da fonte",
 	"markdownFontSettings": "Configurações de fonte",
@@ -1764,7 +1761,7 @@
 	"configGroupImages": "Imagens",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "Conta",
-	"accountSync": "Sincronização",
+	"accountSync": "Conta e Sincronização",
 	"configGroupSync": "Sincronização",
 	"authentication": "Autenticação",
 	"configGroupServer": "Servidor",
@@ -2517,6 +2514,7 @@
 	"rollback": "Reverter",
 	"custom": "Personalizado",
 	"feedback": "Feedback",
+	"inbox": "Caixa de Entrada",
 	"turnToStatic": "Texto âncora estático",
 	"turnToDynamic": "Texto âncora dinâmico",
 	"sizeLimit": "Limite",
@@ -2568,8 +2566,11 @@
 	"removeAssetsFolder": "Remover diretório de ativos",
 	"upload": "Enviar",
 	"reminderTip": "O horário do lembrete não pode ser menor que o horário atual",
+	"wechatTip": "O bloco de conteúdo será enviado para a nuvem em texto claro e enviado através da mensagem de modelo MP do WeChat quando expirar",
 	"notEmpty": "O horário do lembrete não pode estar vazio",
 	"experimentalFeature": "(⚗️ Este recurso está em fase experimental)",
+	"wechatReminder": "Lembrete WeChat",
+	"notifyTime": "Hora de Notificação",
 	"docName": "Nome do Documento",
 	"bootSyncFailed": "Falha ao sincronizar dados na inicialização",
 	"use": "Usar",
@@ -2854,7 +2855,7 @@
 	"next": "Próximo",
 	"kernelFault0": "SiYuan encontrou um pequeno problema...",
 	"kernelFault1": "A conexão com o kernel foi perdida, mas seus dados devem estar seguros. O SiYuan tentará se reconectar automaticamente a cada 3 segundos, e esta janela se fechará sozinha quando o kernel for recuperado.",
-	"kernelFault2": "Se o problema persistir, procure ajuda ou relate bugs <a href=\"https://github.com/antebudimir/siyuan/issues\" target=\"_blank\">aqui</a>",
+	"kernelFault2": "Se o problema persistir, procure ajuda ou relate bugs <a href=\"https://liuyun.io/article/1686530886208\" target=\"_blank\">aqui</a>",
 	"fontSize": "Tamanho da Fonte",
 	"fontSizeTip": "O tamanho padrão da fonte é <code class='fn__code'>16</code>, esta configuração afeta o editor e a exibição do tamanho da fonte em PDF/HTML exportados",
 	"font1": "Esta configuração afeta apenas a exibição de fontes no editor; quando nenhuma fonte é selecionada, a fonte do tema é usada",
@@ -3192,8 +3193,10 @@
 	"desktop": "Área de Trabalho",
 	"tablet": "Tablet",
 	"mobile": "Celular",
+	"copyToWechatMP": "Copiar para Wechat MP",
 	"copyToZhihu": "Copiar para Zhihu",
 	"copyToYuque": "Copiar para Yuque",
+	"pasteToWechatMP": "Copiado, pronto para colar no Wechat MP",
 	"pasteToZhihu": "Copiado, pronto para colar no Zhihu",
 	"pasteToYuque": "Copiado, pronto para colar no Yuque",
 	"quote": "Bloco de citação",
@@ -3777,8 +3780,10 @@
 		"466": "OCR automático com IA pausado para %s; nova tentativa em 10 minutos. Verifique a conta do provedor e as configurações do modelo: %s",
 		"467": "A resposta em streaming foi interrompida porque o cliente não conseguiu acompanhar o ritmo; reabra a sessão para recuperar o conteúdo disponível",
 		"468": "A resposta foi interrompida; reabra a sessão para recuperar o conteúdo disponível",
-<<<<<<< HEAD
-		"469": "Falha na autenticação: esta solicitação não passou nas verificações de acesso local. VPNs, proxies ou aplicativos de filtragem de rede podem afetar o acesso local; tente desativá-los temporariamente e tente novamente. Ao acessar por um endereço não local, defina primeiro uma senha de bloqueio de tela"
+		"469": "Falha na autenticação: esta solicitação não passou nas verificações de acesso local. VPNs, proxies ou aplicativos de filtragem de rede podem afetar o acesso local; tente desativá-los temporariamente e tente novamente. Ao acessar por um endereço não local, defina primeiro uma senha de bloqueio de tela",
+		"470": "O limite de rodadas de chamadas de ferramentas foi atingido. Parei de usar ferramentas; esta tarefa ainda pode estar incompleta",
+		"471": "Chamadas repetidas de ferramentas retornaram o mesmo resultado. Parei de usar ferramentas; esta tarefa ainda pode estar incompleta",
+		"472": "Não foi possível converter o mapa mental antigo, reabra o documento e tente novamente"
 	},
 	"docMenu": "Menu do documento",
 	"customBackground": "Cor de fundo",
@@ -3793,11 +3798,4 @@
 	"blockRefStylePaddingY": "Preenchimento vertical",
 	"blockRefStyleBorderColor": "Cor da borda",
 	"blockRefStyleBorderColorAuto": "Automático (tema)"
-=======
-		"469": "Falha na autenticação: esta solicitação não passou nas verificações de acesso local. VPNs, proxies ou aplicativos de filtragem de rede podem afetar o acesso local; tente desativá-los temporariamente e tente novamente. Ao acessar por um endereço não local, defina primeiro uma senha de bloqueio de tela",
-		"470": "O limite de rodadas de chamadas de ferramentas foi atingido. Parei de usar ferramentas; esta tarefa ainda pode estar incompleta",
-		"471": "Chamadas repetidas de ferramentas retornaram o mesmo resultado. Parei de usar ferramentas; esta tarefa ainda pode estar incompleta",
-		"472": "Não foi possível converter o mapa mental antigo, reabra o documento e tente novamente"
-	}
->>>>>>> upstream/master
 }

@@ -1,9 +1,7 @@
 {
-<<<<<<< HEAD
 	"applyToSubfolders": "Alt klasörlere uygula",
 	"recursiveSortConfirmTitle": "Alt klasörleri sırala",
 	"recursiveSortConfirmMessage": "Bu, sıralamayı tüm alt klasörlere uygular ve özel sıralamalarının üzerine yazabilir. Devam edilsin mi?",
-=======
 	"confirmActionFailed": "İşlem başarısız oldu. Lütfen tekrar deneyin",
 	"updateInstallNow": "Şimdi yükle",
 	"updateInstallLater": "Şimdi değil",
@@ -57,7 +55,6 @@
 	"pluginSnapshotRestored": "Geri yüklendi; eklenti devre dışı kalır. Yedek: ${id}",
 	"restoreDocPosition": "Son okuma konumunu geri yükle",
 	"restoreDocPositionTip": "Devre dışıyken belgeler baştan açılır; blok bağlantıları, arama sonuçları ve sekme geri yükleme kendi konumlarını korur. Belgeye özel açılış konumu önceliklidir",
->>>>>>> upstream/master
 	"markdownAppearanceSettings": "Görünüm ayarları",
 	"markdownFontSizeSettings": "Yazı tipi boyutu ayarları",
 	"markdownFontSettings": "Yazı tipi ayarları",
@@ -1764,7 +1761,7 @@
 	"configGroupImages": "Görseller",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "Hesap",
-	"accountSync": "Senkronizasyon",
+	"accountSync": "Hesap ve Senkronizasyon",
 	"configGroupSync": "Senkronizasyon",
 	"authentication": "Kimlik Doğrulama",
 	"configGroupServer": "Sunucu",
@@ -2517,6 +2514,7 @@
 	"rollback": "Geri al",
 	"custom": "Özel",
 	"feedback": "Geri bildirim",
+	"inbox": "Gelen kutusu",
 	"turnToStatic": "Statik bağlantı metni",
 	"turnToDynamic": "Dinamik bağlantı metni",
 	"sizeLimit": "Sınır",
@@ -2568,8 +2566,11 @@
 	"removeAssetsFolder": "Varlıklar klasörünü kaldır",
 	"upload": "Yükle",
 	"reminderTip": "Hatırlatma zamanı şu andan önce olamaz",
+	"wechatTip": "İçerik bloğu şifrelenmeden buluta gönderilir ve süresi dolduğunda WeChat bildirim mesajı olarak iletilir",
 	"notEmpty": "Hatırlatma zamanı boş olamaz",
 	"experimentalFeature": "(⚗️ Bu özellik deneme aşamasındadır)",
+	"wechatReminder": "WeChat hatırlatıcısı",
+	"notifyTime": "Bildirim zamanı",
 	"docName": "Belge adı",
 	"bootSyncFailed": "Başlangıçta veri senkronizasyonu başarısız oldu",
 	"use": "Kullan",
@@ -2854,7 +2855,7 @@
 	"next": "Sonraki",
 	"kernelFault0": "SiYuan ufak bir sorunla karşılaştı...",
 	"kernelFault1": "Çekirdekle bağlantı kesildi, ancak verileriniz güvende olmalıdır. SiYuan her 3 saniyede bir otomatik olarak yeniden bağlanmayı dener ve çekirdek geri geldiğinde bu pencere kendiliğinden kapanır.",
-	"kernelFault2": "Sorun devam ederse <a href=\"https://github.com/antebudimir/siyuan/issues\" target=\"_blank\">buradan</a> yardım al veya hata bildir",
+	"kernelFault2": "Sorun devam ederse <a href=\"https://liuyun.io/article/1686530886208\" target=\"_blank\">buradan</a> yardım al veya hata bildir",
 	"fontSize": "Yazı boyutu",
 	"fontSizeTip": "Varsayılan yazı boyutu <code class='fn__code'>16</code>. Bu ayar düzenleyici ve dışa aktarılan PDF/HTML yazı boyutunu etkiler",
 	"font1": "Bu ayar yalnızca düzenleyicideki yazı tipi görünümünü etkiler; hiçbir yazı tipi seçilmediğinde tema yazı tipi kullanılır",
@@ -3192,8 +3193,10 @@
 	"desktop": "Masaüstü",
 	"tablet": "Tablet",
 	"mobile": "Mobil",
+	"copyToWechatMP": "WeChat MP’ye kopyala",
 	"copyToZhihu": "Zhihu’ya kopyala",
 	"copyToYuque": "Yuque’ye kopyala",
+	"pasteToWechatMP": "Kopyalandı, WeChat MP’ye yapıştırabilirsin",
 	"pasteToZhihu": "Kopyalandı, Zhihu’ya yapıştırabilirsin",
 	"pasteToYuque": "Kopyalandı, Yuque’ye yapıştırabilirsin",
 	"quote": "Alıntı bloğu",
@@ -3777,8 +3780,10 @@
 		"466": "%s için otomatik AI OCR duraklatıldı; 10 dakika sonra yeniden denenecek. Sağlayıcı hesabını ve model ayarlarını kontrol edin: %s",
 		"467": "İstemci verileri yeterince hızlı alamadığı için akış yanıtı kesildi; mevcut çıktıyı kurtarmak için oturumu yeniden açın",
 		"468": "Yanıt kesildi; mevcut çıktıyı kurtarmak için oturumu yeniden açın",
-<<<<<<< HEAD
-		"469": "Kimlik doğrulama başarısız: bu istek yerel erişim denetimlerinden geçemedi. VPN, proxy veya ağ filtreleme uygulamaları yerel erişimi etkileyebilir; bunları geçici olarak devre dışı bırakıp yeniden deneyin. Yerel olmayan bir adres üzerinden erişirken önce bir ekran kilidi parolası belirleyin"
+		"469": "Kimlik doğrulama başarısız: bu istek yerel erişim denetimlerinden geçemedi. VPN, proxy veya ağ filtreleme uygulamaları yerel erişimi etkileyebilir; bunları geçici olarak devre dışı bırakıp yeniden deneyin. Yerel olmayan bir adres üzerinden erişirken önce bir ekran kilidi parolası belirleyin",
+		"470": "Araç çağrısı tur sınırına ulaşıldı. Araç kullanmayı durdurdum; bu görev hâlâ tamamlanmamış olabilir",
+		"471": "Tekrarlanan araç çağrıları aynı sonucu döndürdü. Araç kullanmayı durdurdum; bu görev hâlâ tamamlanmamış olabilir",
+		"472": "Eski zihin haritası dönüştürülemedi, lütfen belgeyi yeniden açıp tekrar deneyin"
 	},
 	"docMenu": "Belge menüsü",
 	"customBackground": "Arka plan rengi",
@@ -3793,11 +3798,4 @@
 	"blockRefStylePaddingY": "Dikey dolgu",
 	"blockRefStyleBorderColor": "Kenarlık rengi",
 	"blockRefStyleBorderColorAuto": "Otomatik (tema)"
-=======
-		"469": "Kimlik doğrulama başarısız: bu istek yerel erişim denetimlerinden geçemedi. VPN, proxy veya ağ filtreleme uygulamaları yerel erişimi etkileyebilir; bunları geçici olarak devre dışı bırakıp yeniden deneyin. Yerel olmayan bir adres üzerinden erişirken önce bir ekran kilidi parolası belirleyin",
-		"470": "Araç çağrısı tur sınırına ulaşıldı. Araç kullanmayı durdurdum; bu görev hâlâ tamamlanmamış olabilir",
-		"471": "Tekrarlanan araç çağrıları aynı sonucu döndürdü. Araç kullanmayı durdurdum; bu görev hâlâ tamamlanmamış olabilir",
-		"472": "Eski zihin haritası dönüştürülemedi, lütfen belgeyi yeniden açıp tekrar deneyin"
-	}
->>>>>>> upstream/master
 }

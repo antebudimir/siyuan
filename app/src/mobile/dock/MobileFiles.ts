@@ -686,8 +686,11 @@ export class MobileFiles extends Model {
             });
         };
         if (sort === SORT_MODE_CUSTOM) {
-            confirmDialog(window.siyuan.languages.recursiveSortConfirmTitle,
-                window.siyuan.languages.recursiveSortConfirmMessage, apply);
+            confirmDialog({
+                title: window.siyuan.languages.recursiveSortConfirmTitle,
+                text: window.siyuan.languages.recursiveSortConfirmMessage,
+                confirm: apply,
+            });
             return;
         }
         apply();

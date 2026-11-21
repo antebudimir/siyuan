@@ -1,9 +1,7 @@
 {
-<<<<<<< HEAD
 	"applyToSubfolders": "Auf Unterordner anwenden",
 	"recursiveSortConfirmTitle": "Unterordner sortieren",
 	"recursiveSortConfirmMessage": "Dadurch wird die Sortierung auf alle Unterordner angewendet und deren benutzerdefinierte Reihenfolge möglicherweise überschrieben. Fortfahren?",
-=======
 	"confirmActionFailed": "Vorgang fehlgeschlagen. Bitte erneut versuchen",
 	"updateInstallNow": "Jetzt installieren",
 	"updateInstallLater": "Später installieren",
@@ -57,7 +55,6 @@
 	"pluginSnapshotRestored": "Wiederhergestellt; das Plugin bleibt deaktiviert. Sicherung: ${id}",
 	"restoreDocPosition": "Letzte Leseposition wiederherstellen",
 	"restoreDocPositionTip": "Deaktiviert werden Dokumente am Anfang geöffnet; Blocklinks, Suchtreffer und die Wiederherstellung von Tabs bleiben unverändert. Die dokumentbezogene Öffnungsposition hat Vorrang",
->>>>>>> upstream/master
 	"markdownAppearanceSettings": "Darstellungseinstellungen",
 	"markdownFontSizeSettings": "Schriftgrößeneinstellungen",
 	"markdownFontSettings": "Schrifteinstellungen",
@@ -1764,7 +1761,7 @@
 	"configGroupImages": "Bilder",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "Konto",
-	"accountSync": "Synchronisierung",
+	"accountSync": "Konto & Synchronisierung",
 	"configGroupSync": "Synchronisierung",
 	"authentication": "Authentifizierung",
 	"configGroupServer": "Server",
@@ -2517,6 +2514,7 @@
 	"rollback": "Rollback",
 	"custom": "Benutzerdefiniert",
 	"feedback": "Feedback",
+	"inbox": "Posteingang",
 	"turnToStatic": "Statischer Ankertext",
 	"turnToDynamic": "Dynamischer Ankertext",
 	"sizeLimit": "Limit",
@@ -2568,8 +2566,11 @@
 	"removeAssetsFolder": "Assets-Verzeichnis entfernen",
 	"upload": "Hochladen",
 	"reminderTip": "Die Erinnerungszeit kann nicht kleiner sein als die aktuelle Zeit",
+	"wechatTip": "Der Inhaltsblock wird im Klartext an die Cloud gesendet und bei Ablauf über die WeChat MP-Vorlagenmeldung gepusht.",
 	"notEmpty": "Die Erinnerungszeit darf nicht leer sein",
 	"experimentalFeature": "(⚗️ Diese Funktion befindet sich im experimentellen Stadium)",
+	"wechatReminder": "WeChat-Erinnerung",
+	"notifyTime": "Benachrichtungszeit",
 	"docName": "Dokumentname",
 	"bootSyncFailed": "Daten konnten beim Start nicht synchronisiert werden.",
 	"use": "Nutzen",
@@ -2854,7 +2855,7 @@
 	"next": "Nächste",
 	"kernelFault0": "SiYuan hat ein kleines Problem festgestellt...",
 	"kernelFault1": "Die Verbindung zum Kernel wurde unterbrochen, aber Ihre Daten sollten sicher sein. SiYuan versucht automatisch alle 3 Sekunden eine erneute Verbindung, und dieses Fenster schließt sich von selbst, sobald der Kernel wiederhergestellt ist.",
-	"kernelFault2": "Wenn das Problem weiterhin besteht, suchen Sie bitte Hilfe oder melden Sie Bugs <a href=\"https://github.com/antebudimir/siyuan/issues\" target=\"_blank\">hier</a>",
+	"kernelFault2": "Wenn das Problem weiterhin besteht, suchen Sie bitte Hilfe oder melden Sie Bugs <a href=\"https://liuyun.io/article/1686530886208\" target=\"_blank\">hier</a>",
 	"fontSize": "Schriftgröße",
 	"fontSizeTip": "Die Standard-Schriftgröße beträgt <code class='fn__code'>16</code>, diese Einstellung hat Einfluss auf die Schriftgröße im Editor und beim exportierten PDF/HTML.",
 	"font1": "Diese Einstellung wirkt sich nur auf die Schriftanzeige im Editor aus; wenn keine Schriftart ausgewählt ist, wird die Schriftart des Themes verwendet",
@@ -3192,8 +3193,10 @@
 	"desktop": "Desktop",
 	"tablet": "Tablet",
 	"mobile": "Mobil",
+	"copyToWechatMP": "In Wechat MP kopieren",
 	"copyToZhihu": "In Zhihu kopieren",
 	"copyToYuque": "In Yuque kopieren",
+	"pasteToWechatMP": "Kopiert, bereit zum Einfügen in Wechat MP",
 	"pasteToZhihu": "Kopiert, bereit zum Einfügen in Zhihu",
 	"pasteToYuque": "Kopiert, bereit zum Einfügen in Yuque",
 	"quote": "Zitatblock",
@@ -3777,8 +3780,10 @@
 		"466": "Automatische KI-OCR für %s pausiert; erneuter Versuch in 10 Minuten. Anbieterkonto und Modelleinstellungen prüfen: %s",
 		"467": "Die Streaming-Antwort wurde unterbrochen, weil der Client nicht mithalten konnte; öffnen Sie die Sitzung erneut, um verfügbare Ausgaben wiederherzustellen",
 		"468": "Die Antwort wurde unterbrochen; öffnen Sie die Sitzung erneut, um verfügbare Ausgaben wiederherzustellen",
-<<<<<<< HEAD
-		"469": "Authentifizierung fehlgeschlagen: Diese Anfrage hat die Prüfungen für den lokalen Zugriff nicht bestanden. VPNs, Proxys oder Netzwerkfilter-Apps können den lokalen Zugriff beeinträchtigen; deaktivieren Sie diese vorübergehend und versuchen Sie es erneut. Richten Sie beim Zugriff über eine nicht lokale Adresse zuerst ein Sperrbildschirm-Passwort ein"
+		"469": "Authentifizierung fehlgeschlagen: Diese Anfrage hat die Prüfungen für den lokalen Zugriff nicht bestanden. VPNs, Proxys oder Netzwerkfilter-Apps können den lokalen Zugriff beeinträchtigen; deaktivieren Sie diese vorübergehend und versuchen Sie es erneut. Richten Sie beim Zugriff über eine nicht lokale Adresse zuerst ein Sperrbildschirm-Passwort ein",
+		"470": "Die maximale Anzahl an Werkzeugaufrufrunden wurde erreicht. Ich habe die Verwendung von Werkzeugen beendet; diese Aufgabe ist möglicherweise noch nicht abgeschlossen",
+		"471": "Wiederholte Werkzeugaufrufe lieferten dasselbe Ergebnis. Ich habe die Verwendung von Werkzeugen beendet; diese Aufgabe ist möglicherweise noch nicht abgeschlossen",
+		"472": "Die alte Mindmap konnte nicht konvertiert werden. Bitte öffne das Dokument erneut und versuche es noch einmal"
 	},
 	"docMenu": "Dokumentmenü",
 	"customBackground": "Hintergrundfarbe",
@@ -3793,11 +3798,4 @@
 	"blockRefStylePaddingY": "Vertikaler Innenabstand",
 	"blockRefStyleBorderColor": "Rahmenfarbe",
 	"blockRefStyleBorderColorAuto": "Automatisch (Theme)"
-=======
-		"469": "Authentifizierung fehlgeschlagen: Diese Anfrage hat die Prüfungen für den lokalen Zugriff nicht bestanden. VPNs, Proxys oder Netzwerkfilter-Apps können den lokalen Zugriff beeinträchtigen; deaktivieren Sie diese vorübergehend und versuchen Sie es erneut. Richten Sie beim Zugriff über eine nicht lokale Adresse zuerst ein Sperrbildschirm-Passwort ein",
-		"470": "Die maximale Anzahl an Werkzeugaufrufrunden wurde erreicht. Ich habe die Verwendung von Werkzeugen beendet; diese Aufgabe ist möglicherweise noch nicht abgeschlossen",
-		"471": "Wiederholte Werkzeugaufrufe lieferten dasselbe Ergebnis. Ich habe die Verwendung von Werkzeugen beendet; diese Aufgabe ist möglicherweise noch nicht abgeschlossen",
-		"472": "Die alte Mindmap konnte nicht konvertiert werden. Bitte öffne das Dokument erneut und versuche es noch einmal"
-	}
->>>>>>> upstream/master
 }

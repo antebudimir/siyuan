@@ -1,9 +1,7 @@
 {
-<<<<<<< HEAD
 	"applyToSubfolders": "Zastosuj do podfolderów",
 	"recursiveSortConfirmTitle": "Sortuj podfoldery",
 	"recursiveSortConfirmMessage": "Spowoduje to zastosowanie sortowania do wszystkich podfolderów i może nadpisać ich niestandardową kolejność. Kontynuować?",
-=======
 	"confirmActionFailed": "Operacja nie powiodła się. Spróbuj ponownie",
 	"updateInstallNow": "Zainstaluj teraz",
 	"updateInstallLater": "Nie teraz",
@@ -57,7 +55,6 @@
 	"pluginSnapshotRestored": "Przywrócono; wtyczka pozostaje wyłączona. Kopia zapasowa: ${id}",
 	"restoreDocPosition": "Przywracaj ostatnią pozycję czytania",
 	"restoreDocPositionTip": "Po wyłączeniu dokumenty otwierają się od początku; łącza do bloków, wyniki wyszukiwania i przywracanie kart zachowują swoje pozycje. Ustawienie pozycji otwierania danego dokumentu ma pierwszeństwo",
->>>>>>> upstream/master
 	"markdownAppearanceSettings": "Ustawienia wyglądu",
 	"markdownFontSizeSettings": "Ustawienia rozmiaru czcionki",
 	"markdownFontSettings": "Ustawienia czcionek",
@@ -1764,7 +1761,7 @@
 	"configGroupImages": "Obrazy",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "Konto",
-	"accountSync": "Synchronizacja",
+	"accountSync": "Konto i Synchronizacja",
 	"configGroupSync": "Synchronizacja",
 	"authentication": "Uwierzytelnianie",
 	"configGroupServer": "Serwer",
@@ -2517,6 +2514,7 @@
 	"rollback": "Cofnięcie",
 	"custom": "Niestandardowy",
 	"feedback": "Opinie",
+	"inbox": "Skrzynka odbiorcza",
 	"turnToStatic": "Statyczny tekst zakotwiczenia",
 	"turnToDynamic": "Dynamiczny tekst zakotwiczenia",
 	"sizeLimit": "Limit",
@@ -2568,8 +2566,11 @@
 	"removeAssetsFolder": "Usuń katalog zasobów",
 	"upload": "Prześlij",
 	"reminderTip": "Czas przypomnienia nie może być krótszy niż aktualny czas",
+	"wechatTip": "Blok treści zostanie wysłany do chmury w postaci czystego tekstu i przesyłany przez szablon wiadomości MP WeChat po wygaśnięciu",
 	"notEmpty": "Czas przypomnienia nie może być pusty",
 	"experimentalFeature": "(⚗️ Ta funkcja jest na etapie eksperymentalnym)",
+	"wechatReminder": "Przypomnienie WeChat",
+	"notifyTime": "Czas powiadomienia",
 	"docName": "Nazwa dokumentu",
 	"bootSyncFailed": "Nie udało się zsynchronizować danych podczas uruchamiania",
 	"use": "Używaj",
@@ -2854,7 +2855,7 @@
 	"next": "Następny",
 	"kernelFault0": "SiYuan napotkał mały problem...",
 	"kernelFault1": "Połączenie z jądrem zostało utracone, ale Twoje dane powinny być bezpieczne. SiYuan będzie automatycznie próbował połączyć się ponownie co 3 sekundy, a to okno zamknie się samo, gdy jądro zostanie przywrócone.",
-	"kernelFault2": "Jeśli problem będzie się powtarzał, poszukaj pomocy lub zgłoś błąd <a href=\"https://github.com/antebudimir/siyuan/issues\" target=\"_blank\">tutaj</a>",
+	"kernelFault2": "Jeśli problem będzie się powtarzał, poszukaj pomocy lub zgłoś błąd <a href=\"https://liuyun.io/article/1686530886208\" target=\"_blank\">tutaj</a>",
 	"fontSize": "Rozmiar czcionki",
 	"fontSizeTip": "Domyślny rozmiar czcionki to <code class='fn__code'>16</code>, to ustawienie wpływa na wyświetlanie rozmiaru czcionki w edytorze i wyeksportowanych plikach PDF/HTML",
 	"font1": "To ustawienie wpływa tylko na wyświetlanie czcionek w edytorze; gdy nie wybrano żadnej czcionki, używana jest czcionka motywu",
@@ -3192,8 +3193,10 @@
 	"desktop": "Desktop",
 	"tablet": "Tablet",
 	"mobile": "Mobilny",
+	"copyToWechatMP": "Skopiuj do Wechat MP",
 	"copyToZhihu": "Skopiuj do Zhihu",
 	"copyToYuque": "Skopiuj do Yuque",
+	"pasteToWechatMP": "Skopiowane, gotowe do wklejenia do Wechat MP",
 	"pasteToZhihu": "Skopiowane, gotowe do wklejenia do Zhihu",
 	"pasteToYuque": "Skopiowane, gotowe do wklejenia do Yuque",
 	"quote": "Blok cytatu",
@@ -3777,8 +3780,10 @@
 		"466": "Automatyczny OCR AI wstrzymany dla %s; ponowna próba za 10 minut. Sprawdź konto dostawcy i ustawienia modelu: %s",
 		"467": "Odpowiedź strumieniowa została przerwana, ponieważ klient nie nadążał z odbiorem; otwórz sesję ponownie, aby odzyskać dostępną treść",
 		"468": "Odpowiedź została przerwana; otwórz sesję ponownie, aby odzyskać dostępną treść",
-<<<<<<< HEAD
-		"469": "Uwierzytelnianie nie powiodło się: to żądanie nie przeszło kontroli dostępu lokalnego. Sieci VPN, serwery proxy lub aplikacje filtrujące sieć mogą wpływać na dostęp lokalny; spróbuj je tymczasowo wyłączyć i ponowić próbę. Przy dostępie przez adres inny niż lokalny najpierw ustaw hasło blokady ekranu"
+		"469": "Uwierzytelnianie nie powiodło się: to żądanie nie przeszło kontroli dostępu lokalnego. Sieci VPN, serwery proxy lub aplikacje filtrujące sieć mogą wpływać na dostęp lokalny; spróbuj je tymczasowo wyłączyć i ponowić próbę. Przy dostępie przez adres inny niż lokalny najpierw ustaw hasło blokady ekranu",
+		"470": "Osiągnięto limit rund wywołań narzędzi. Przestałem używać narzędzi; to zadanie może nadal być nieukończone",
+		"471": "Powtarzane wywołania narzędzi zwracały ten sam wynik. Przestałem używać narzędzi; to zadanie może nadal być nieukończone",
+		"472": "Nie udało się przekonwertować starej mapy myśli, otwórz ponownie dokument i spróbuj jeszcze raz"
 	},
 	"docMenu": "Menu dokumentu",
 	"customBackground": "Kolor tła",
@@ -3793,11 +3798,4 @@
 	"blockRefStylePaddingY": "Dopełnienie pionowe",
 	"blockRefStyleBorderColor": "Kolor obramowania",
 	"blockRefStyleBorderColorAuto": "Automatycznie (motyw)"
-=======
-		"469": "Uwierzytelnianie nie powiodło się: to żądanie nie przeszło kontroli dostępu lokalnego. Sieci VPN, serwery proxy lub aplikacje filtrujące sieć mogą wpływać na dostęp lokalny; spróbuj je tymczasowo wyłączyć i ponowić próbę. Przy dostępie przez adres inny niż lokalny najpierw ustaw hasło blokady ekranu",
-		"470": "Osiągnięto limit rund wywołań narzędzi. Przestałem używać narzędzi; to zadanie może nadal być nieukończone",
-		"471": "Powtarzane wywołania narzędzi zwracały ten sam wynik. Przestałem używać narzędzi; to zadanie może nadal być nieukończone",
-		"472": "Nie udało się przekonwertować starej mapy myśli, otwórz ponownie dokument i spróbuj jeszcze raz"
-	}
->>>>>>> upstream/master
 }

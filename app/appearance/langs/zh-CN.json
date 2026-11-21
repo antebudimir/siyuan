@@ -1,9 +1,7 @@
 {
-<<<<<<< HEAD
 	"applyToSubfolders": "应用到子文件夹",
 	"recursiveSortConfirmTitle": "排序子文件夹",
 	"recursiveSortConfirmMessage": "这会将排序应用到所有子文件夹，并可能覆盖它们的自定义顺序。确定继续吗？",
-=======
 	"confirmActionFailed": "操作失败，请重试",
 	"updateInstallNow": "现在安装",
 	"updateInstallLater": "暂不安装",
@@ -57,7 +55,6 @@
 	"pluginSnapshotRestored": "已恢复，插件保持停用。备份快照：${id}",
 	"restoreDocPosition": "恢复上次浏览位置",
 	"restoreDocPositionTip": "关闭后从文档开头重新打开；块链接、搜索结果和页签恢复仍定位到指定位置。单篇文档的打开位置设置优先",
->>>>>>> upstream/master
 	"markdownAppearanceSettings": "外观设置",
 	"markdownFontSizeSettings": "字号设置",
 	"markdownFontSettings": "字体设置",
@@ -1764,7 +1761,7 @@
 	"configGroupImages": "图片",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "账号",
-	"accountSync": "同步",
+	"accountSync": "账号与同步",
 	"configGroupSync": "同步",
 	"authentication": "鉴权",
 	"configGroupServer": "伺服",
@@ -2517,6 +2514,7 @@
 	"rollback": "回滚",
 	"custom": "自定义",
 	"feedback": "问题反馈",
+	"inbox": "收集箱",
 	"turnToStatic": "静态锚文本",
 	"turnToDynamic": "动态锚文本",
 	"sizeLimit": "上限",
@@ -2568,12 +2566,11 @@
 	"removeAssetsFolder": "移除 assets 目录",
 	"upload": "上传",
 	"reminderTip": "提醒时间不能小于当前时间",
-<<<<<<< HEAD
-=======
 	"wechatTip": "该内容块将以明文形式发送到云端\n到期时通过微信公众号模板消息进行推送",
->>>>>>> upstream/master
 	"notEmpty": "提醒时间不能为空",
 	"experimentalFeature": "（⚗️ 该特性正处于试验阶段）",
+	"wechatReminder": "微信提醒",
+	"notifyTime": "提醒时间",
 	"docName": "文档名",
 	"bootSyncFailed": "启动时同步数据失败",
 	"use": "使用",
@@ -3196,8 +3193,10 @@
 	"desktop": "桌面",
 	"tablet": "平板",
 	"mobile": "移动端",
+	"copyToWechatMP": "复制到公众号",
 	"copyToZhihu": "复制到知乎",
 	"copyToYuque": "复制到语雀",
+	"pasteToWechatMP": "已复制，可粘贴到微信公众号平台",
 	"pasteToZhihu": "已复制，可粘贴到知乎",
 	"pasteToYuque": "已复制，可粘贴到语雀",
 	"quote": "引述块",
@@ -3781,8 +3780,10 @@
 		"466": "AI 自动 OCR 已暂停（%s），10 分钟后重试。请检查提供商账户和模型设置：%s",
 		"467": "客户端接收不及时，流式回答已中断；请重新打开会话以恢复可用内容",
 		"468": "回答已中断；请重新打开会话以恢复可用内容",
-<<<<<<< HEAD
-		"469": "认证失败：当前请求未通过本机访问校验。VPN、代理或网络过滤类应用可能影响本机访问，请尝试临时关闭后重试。使用非本机地址访问时，请先设置锁屏密码"
+		"469": "认证失败：当前请求未通过本机访问校验。VPN、代理或网络过滤类应用可能影响本机访问，请尝试临时关闭后重试。使用非本机地址访问时，请先设置锁屏密码",
+		"470": "已达到工具调用轮数上限，已停止调用工具，当前任务可能尚未完成",
+		"471": "重复工具调用持续返回相同结果，已停止调用工具，当前任务可能尚未完成",
+		"472": "旧版脑图转换失败，请重新打开文档后重试"
 	},
 	"docMenu": "文档菜单",
 	"customBackground": "背景颜色",
@@ -3797,11 +3798,4 @@
 	"blockRefStylePaddingY": "垂直内边距",
 	"blockRefStyleBorderColor": "边框颜色",
 	"blockRefStyleBorderColorAuto": "自动（跟随主题）"
-=======
-		"469": "认证失败：当前请求未通过本机访问校验。VPN、代理或网络过滤类应用可能影响本机访问，请尝试临时关闭后重试。使用非本机地址访问时，请先设置锁屏密码",
-		"470": "已达到工具调用轮数上限，已停止调用工具，当前任务可能尚未完成",
-		"471": "重复工具调用持续返回相同结果，已停止调用工具，当前任务可能尚未完成",
-		"472": "旧版脑图转换失败，请重新打开文档后重试"
-	}
->>>>>>> upstream/master
 }

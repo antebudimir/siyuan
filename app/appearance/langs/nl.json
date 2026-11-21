@@ -1,9 +1,7 @@
 {
-<<<<<<< HEAD
 	"applyToSubfolders": "Toepassen op submappen",
 	"recursiveSortConfirmTitle": "Submappen sorteren",
 	"recursiveSortConfirmMessage": "Hiermee wordt de sortering op alle submappen toegepast en kan de aangepaste volgorde worden overschreven. Doorgaan?",
-=======
 	"confirmActionFailed": "De bewerking is mislukt. Probeer het opnieuw",
 	"updateInstallNow": "Nu installeren",
 	"updateInstallLater": "Niet nu",
@@ -57,7 +55,6 @@
 	"pluginSnapshotRestored": "Hersteld; de plugin blijft uitgeschakeld. Back-up: ${id}",
 	"restoreDocPosition": "Laatste leespositie herstellen",
 	"restoreDocPositionTip": "Indien uitgeschakeld openen documenten opnieuw aan het begin; bloklinks, zoekresultaten en tabbladherstel behouden hun posities. De openingspositie per document heeft voorrang",
->>>>>>> upstream/master
 	"markdownAppearanceSettings": "Weergave-instellingen",
 	"markdownFontSizeSettings": "Instellingen voor lettergrootte",
 	"markdownFontSettings": "Lettertype-instellingen",
@@ -1764,7 +1761,7 @@
 	"configGroupImages": "Afbeeldingen",
 	"configGroupPandoc": "Pandoc-conversie",
 	"configGroupAccount": "Gebruikersaccount",
-	"accountSync": "Synchronisatie",
+	"accountSync": "Account en synchronisatie",
 	"configGroupSync": "Synchronisatie",
 	"authentication": "Authenticatie",
 	"configGroupServer": "Serverinstellingen",
@@ -2517,6 +2514,7 @@
 	"rollback": "Terugdraaien",
 	"custom": "Aangepast",
 	"feedback": "Terugkoppeling",
+	"inbox": "Postvak IN",
 	"turnToStatic": "Statische ankertekst",
 	"turnToDynamic": "Dynamische ankertekst",
 	"sizeLimit": "Limiet",
@@ -2568,8 +2566,11 @@
 	"removeAssetsFolder": "Assets-map verwijderen",
 	"upload": "Uploaden",
 	"reminderTip": "Herinneringstijd niet voor huidige tijd",
+	"wechatTip": "Het inhoudsblok wordt in platte tekst naar de cloud verzonden en bij het verstrijken via een WeChat MP-sjabloonbericht gepusht",
 	"notEmpty": "Herinneringstijd mag niet leeg zijn",
 	"experimentalFeature": "(⚗️ Deze functie bevindt zich in de experimentele fase)",
+	"wechatReminder": "WeChat-herinnering",
+	"notifyTime": "Meldtijd",
 	"docName": "Docnaam",
 	"bootSyncFailed": "Sync bij opstarten mislukt",
 	"use": "Gebruiken",
@@ -2854,7 +2855,7 @@
 	"next": "Volgende",
 	"kernelFault0": "SiYuan probleem...",
 	"kernelFault1": "De verbinding met de kernel is verbroken, maar je gegevens zouden veilig moeten zijn. SiYuan probeert automatisch elke 3 seconden opnieuw verbinding te maken, en dit venster sluit zichzelf zodra de kernel is hersteld.",
-	"kernelFault2": "Blijft het probleem aanhouden? Zoek hulp of meld bugs <a href=\"https://github.com/antebudimir/siyuan/issues\" target=\"_blank\">hier</a>",
+	"kernelFault2": "Blijft het probleem aanhouden? Zoek hulp of meld bugs <a href=\"https://liuyun.io/article/1686530886208\" target=\"_blank\">hier</a>",
 	"fontSize": "Lettergrootte",
 	"fontSizeTip": "Standaard <code class='fn__code'>16</code>; beinvloedt editor en PDF/HTML",
 	"font1": "Deze instelling heeft alleen invloed op de lettertypeweergave in de editor; als er geen lettertype is geselecteerd, wordt het lettertype van het thema gebruikt",
@@ -3192,8 +3193,10 @@
 	"desktop": "Bureaublad",
 	"tablet": "Tablet-computer",
 	"mobile": "Mobiel",
+	"copyToWechatMP": "Naar WeChat MP",
 	"copyToZhihu": "Naar Zhihu",
 	"copyToYuque": "Naar Yuque",
+	"pasteToWechatMP": "Gekopieerd, klaar om te plakken in WeChat MP",
 	"pasteToZhihu": "Gekopieerd, klaar om te plakken in Zhihu",
 	"pasteToYuque": "Gekopieerd, klaar om te plakken in Yuque",
 	"quote": "Citaatblok",
@@ -3777,8 +3780,10 @@
 		"466": "Automatische AI-OCR gepauzeerd voor %s; nieuwe poging over 10 minuten. Controleer het provideraccount en de modelinstellingen: %s",
 		"467": "Het streamingantwoord is onderbroken omdat de client het tempo niet kon bijhouden; open de sessie opnieuw om beschikbare uitvoer te herstellen",
 		"468": "Het antwoord is onderbroken; open de sessie opnieuw om beschikbare uitvoer te herstellen",
-<<<<<<< HEAD
-		"469": "Authenticatie mislukt: dit verzoek heeft de controles voor lokale toegang niet doorstaan. VPN’s, proxy’s of netwerkfilterapps kunnen lokale toegang beïnvloeden; schakel ze tijdelijk uit en probeer het opnieuw. Stel bij toegang via een niet-lokaal adres eerst een wachtwoord voor schermvergrendeling in"
+		"469": "Authenticatie mislukt: dit verzoek heeft de controles voor lokale toegang niet doorstaan. VPN’s, proxy’s of netwerkfilterapps kunnen lokale toegang beïnvloeden; schakel ze tijdelijk uit en probeer het opnieuw. Stel bij toegang via een niet-lokaal adres eerst een wachtwoord voor schermvergrendeling in",
+		"470": "Het maximumaantal rondes met hulpmiddelaanroepen is bereikt. Ik ben gestopt met het gebruik van hulpmiddelen; deze taak is mogelijk nog niet voltooid",
+		"471": "Herhaalde hulpmiddelaanroepen leverden hetzelfde resultaat op. Ik ben gestopt met het gebruik van hulpmiddelen; deze taak is mogelijk nog niet voltooid",
+		"472": "De oude mindmap kon niet worden geconverteerd, open het document opnieuw en probeer het nogmaals"
 	},
 	"docMenu": "Documentmenu",
 	"customBackground": "Achtergrondkleur",
@@ -3793,11 +3798,4 @@
 	"blockRefStylePaddingY": "Verticale opvulling",
 	"blockRefStyleBorderColor": "Randkleur",
 	"blockRefStyleBorderColorAuto": "Automatisch (thema)"
-=======
-		"469": "Authenticatie mislukt: dit verzoek heeft de controles voor lokale toegang niet doorstaan. VPN’s, proxy’s of netwerkfilterapps kunnen lokale toegang beïnvloeden; schakel ze tijdelijk uit en probeer het opnieuw. Stel bij toegang via een niet-lokaal adres eerst een wachtwoord voor schermvergrendeling in",
-		"470": "Het maximumaantal rondes met hulpmiddelaanroepen is bereikt. Ik ben gestopt met het gebruik van hulpmiddelen; deze taak is mogelijk nog niet voltooid",
-		"471": "Herhaalde hulpmiddelaanroepen leverden hetzelfde resultaat op. Ik ben gestopt met het gebruik van hulpmiddelen; deze taak is mogelijk nog niet voltooid",
-		"472": "De oude mindmap kon niet worden geconverteerd, open het document opnieuw en probeer het nogmaals"
-	}
->>>>>>> upstream/master
 }

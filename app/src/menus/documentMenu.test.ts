@@ -354,7 +354,7 @@ test("recursive custom sorting asks for confirmation before applying", () => {
     sort.find(item => item.id === "customSort").click(null, null);
     assert.equal(requests.length, 0);
     assert.equal(confirmations.length, 1);
-    (confirmations[0][2] as () => void)();
+    (confirmations[0] as {confirm: () => void}).confirm();
     assert.equal(requests[0].url, "/api/filetree/setDocTreeSortRecursive");
     assert.equal(JSON.stringify(requests[0].data), '{"boxId":"notebook","path":"/parent/doc.sy","sortMode":22}');
 });

@@ -1,9 +1,7 @@
 {
-<<<<<<< HEAD
 	"applyToSubfolders": "Použiť na podpriečinky",
 	"recursiveSortConfirmTitle": "Zoradiť podpriečinky",
 	"recursiveSortConfirmMessage": "Týmto sa zoradenie použije na všetky podpriečinky a môže prepísať ich vlastné poradie. Pokračovať?",
-=======
 	"confirmActionFailed": "Operácia zlyhala. Skúste to znova",
 	"updateInstallNow": "Nainštalovať teraz",
 	"updateInstallLater": "Teraz nie",
@@ -57,7 +55,6 @@
 	"pluginSnapshotRestored": "Obnovené; doplnok zostáva vypnutý. Záloha: ${id}",
 	"restoreDocPosition": "Obnoviť poslednú pozíciu čítania",
 	"restoreDocPositionTip": "Po vypnutí sa dokumenty otvárajú od začiatku; odkazy na bloky, výsledky vyhľadávania a obnovenie kariet si zachovajú svoje pozície. Prednosť má pozícia otvorenia nastavená pre konkrétny dokument",
->>>>>>> upstream/master
 	"markdownAppearanceSettings": "Nastavenia vzhľadu",
 	"markdownFontSizeSettings": "Nastavenia veľkosti písma",
 	"markdownFontSettings": "Nastavenia písma",
@@ -1764,7 +1761,7 @@
 	"configGroupImages": "Obrázky",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "Účet",
-	"accountSync": "Synchronizácia",
+	"accountSync": "Účet a Synchronizácia",
 	"configGroupSync": "Synchronizácia",
 	"authentication": "Autentifikácia",
 	"configGroupServer": "Server",
@@ -2517,6 +2514,7 @@
 	"rollback": "Vrátiť späť (Rollback)",
 	"custom": "Vlastné",
 	"feedback": "Spätná väzba",
+	"inbox": "Doručená pošta (Inbox)",
 	"turnToStatic": "Statický text odkazu",
 	"turnToDynamic": "Dynamický text odkazu",
 	"sizeLimit": "Limit veľkosti",
@@ -2568,8 +2566,11 @@
 	"removeAssetsFolder": "Odstrániť adresár príloh",
 	"upload": "Nahrať",
 	"reminderTip": "Čas pripomienky nemôže byť v minulosti",
+	"wechatTip": "Obsah bude odoslaný cez WeChat po expirácii",
 	"notEmpty": "Čas pripomienky nesmie byť prázdny",
 	"experimentalFeature": "(⚗️ Experimentálna funkcia)",
+	"wechatReminder": "WeChat pripomienka",
+	"notifyTime": "Čas oznámenia",
 	"docName": "Názov dokumentu",
 	"bootSyncFailed": "Synchronizácia pri štarte zlyhala",
 	"use": "Použiť",
@@ -2854,7 +2855,7 @@
 	"next": "Nasledujúci",
 	"kernelFault0": "SiYuan narazil na problém...",
 	"kernelFault1": "Spojenie s jadrom bolo stratené, ale vaše dáta by mali byť v bezpečí. SiYuan sa automaticky pokúsi znova pripojiť každé 3 sekundy a toto okno sa samo zatvorí, keď sa jadro obnoví.",
-	"kernelFault2": "Ak problém pretrváva, vyhľadajte pomoc alebo nahláste chyby <a href=\"https://github.com/antebudimir/siyuan/issues\" target=\"_blank\">tu</a>",
+	"kernelFault2": "Ak problém pretrváva, vyhľadajte pomoc alebo nahláste chyby <a href=\"https://liuyun.io/article/1686530886208\" target=\"_blank\">tu</a>",
 	"fontSize": "Veľkosť písma",
 	"fontSizeTip": "Predvolená veľkosť písma je <code class='fn__code'>16</code>, toto nastavenie ovplyvňuje editor a veľkosť písma exportovaného PDF/HTML",
 	"font1": "Toto nastavenie ovplyvňuje iba zobrazenie písiem v editore; ak nie je vybraté žiadne písmo, použije sa písmo témy",
@@ -3192,8 +3193,10 @@
 	"desktop": "Počítač",
 	"tablet": "Tablet",
 	"mobile": "Mobil",
+	"copyToWechatMP": "Kopírovať do WeChat MP",
 	"copyToZhihu": "Kopírovať do Zhihu",
 	"copyToYuque": "Kopírovať do Yuque",
+	"pasteToWechatMP": "Skopírované pre WeChat MP",
 	"pasteToZhihu": "Skopírované pre Zhihu",
 	"pasteToYuque": "Skopírované pre Yuque",
 	"quote": "Blok citácie",
@@ -3777,8 +3780,10 @@
 		"466": "Automatické AI OCR pozastavené pre %s; ďalší pokus o 10 minút. Skontrolujte účet poskytovateľa a nastavenia modelu: %s",
 		"467": "Streamovaná odpoveď bola prerušená, pretože klient nestíhal prijímať údaje; znova otvorte reláciu a obnovte dostupný výstup",
 		"468": "Odpoveď bola prerušená; znova otvorte reláciu a obnovte dostupný výstup",
-<<<<<<< HEAD
-		"469": "Overenie zlyhalo: táto požiadavka neprešla kontrolami lokálneho prístupu. VPN, proxy alebo aplikácie na filtrovanie siete môžu ovplyvniť lokálny prístup; skúste ich dočasne vypnúť a skúste to znova. Pri prístupe cez inú ako lokálnu adresu najprv nastavte heslo uzamknutia obrazovky"
+		"469": "Overenie zlyhalo: táto požiadavka neprešla kontrolami lokálneho prístupu. VPN, proxy alebo aplikácie na filtrovanie siete môžu ovplyvniť lokálny prístup; skúste ich dočasne vypnúť a skúste to znova. Pri prístupe cez inú ako lokálnu adresu najprv nastavte heslo uzamknutia obrazovky",
+		"470": "Bol dosiahnutý limit kôl volaní nástrojov. Prestal som používať nástroje; táto úloha môže byť stále nedokončená",
+		"471": "Opakované volania nástrojov vrátili rovnaký výsledok. Prestal som používať nástroje; táto úloha môže byť stále nedokončená",
+		"472": "Staršiu myšlienkovú mapu sa nepodarilo previesť, znova otvorte dokument a skúste to ešte raz"
 	},
 	"docMenu": "Ponuka dokumentu",
 	"customBackground": "Farba pozadia",
@@ -3793,11 +3798,4 @@
 	"blockRefStylePaddingY": "Zvislé odsadenie",
 	"blockRefStyleBorderColor": "Farba ohraničenia",
 	"blockRefStyleBorderColorAuto": "Automaticky (podľa témy)"
-=======
-		"469": "Overenie zlyhalo: táto požiadavka neprešla kontrolami lokálneho prístupu. VPN, proxy alebo aplikácie na filtrovanie siete môžu ovplyvniť lokálny prístup; skúste ich dočasne vypnúť a skúste to znova. Pri prístupe cez inú ako lokálnu adresu najprv nastavte heslo uzamknutia obrazovky",
-		"470": "Bol dosiahnutý limit kôl volaní nástrojov. Prestal som používať nástroje; táto úloha môže byť stále nedokončená",
-		"471": "Opakované volania nástrojov vrátili rovnaký výsledok. Prestal som používať nástroje; táto úloha môže byť stále nedokončená",
-		"472": "Staršiu myšlienkovú mapu sa nepodarilo previesť, znova otvorte dokument a skúste to ešte raz"
-	}
->>>>>>> upstream/master
 }

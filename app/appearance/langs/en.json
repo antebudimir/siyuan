@@ -1,9 +1,7 @@
 {
-<<<<<<< HEAD
 	"applyToSubfolders": "Apply to subfolders",
 	"recursiveSortConfirmTitle": "Sort subfolders",
 	"recursiveSortConfirmMessage": "This will apply the sorting to all subfolders and may overwrite their custom order. Continue?",
-=======
 	"confirmActionFailed": "Operation failed. Please try again",
 	"updateInstallNow": "Install now",
 	"updateInstallLater": "Not now",
@@ -57,7 +55,6 @@
 	"pluginSnapshotRestored": "Restored; the plugin remains disabled. Backup snapshot: ${id}",
 	"restoreDocPosition": "Restore last reading position",
 	"restoreDocPositionTip": "When disabled, reopen documents at the beginning; block links, search targets and tab restoration retain their positions. A document-specific opening position takes precedence",
->>>>>>> upstream/master
 	"markdownAppearanceSettings": "Appearance settings",
 	"markdownFontSizeSettings": "Font size settings",
 	"markdownFontSettings": "Font settings",
@@ -1764,7 +1761,7 @@
 	"configGroupImages": "Images",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "Account",
-	"accountSync": "Sync",
+	"accountSync": "Account & Sync",
 	"configGroupSync": "Sync",
 	"authentication": "Authentication",
 	"configGroupServer": "Server",
@@ -2517,6 +2514,7 @@
 	"rollback": "Rollback",
 	"custom": "Custom",
 	"feedback": "Feedback",
+	"inbox": "Inbox",
 	"turnToStatic": "Static anchor text",
 	"turnToDynamic": "Dynamic anchor text",
 	"sizeLimit": "Limit",
@@ -2568,8 +2566,11 @@
 	"removeAssetsFolder": "Remove assets directory",
 	"upload": "Upload",
 	"reminderTip": "The reminder time cannot be less than the current time",
+	"wechatTip": "The content block will be sent to the cloud in clear text, and pushed through the WeChat MP template message when it expires",
 	"notEmpty": "The reminder time cannot be empty",
 	"experimentalFeature": "(⚗️ This feature is in the experimental stage)",
+	"wechatReminder": "WeChat Reminder",
+	"notifyTime": "Notify Time",
 	"docName": "Doc Name",
 	"bootSyncFailed": "Failed to synchronize data at startup",
 	"use": "Use",
@@ -2854,7 +2855,7 @@
 	"next": "Next",
 	"kernelFault0": "SiYuan encountered a little problem...",
 	"kernelFault1": "The connection to the kernel has been lost, but your data should be safe. SiYuan will automatically try to reconnect every 3 seconds, and this window will close by itself once the kernel recovers.",
-	"kernelFault2": "If the problem persists, please look for help or report bugs <a href=\"https://github.com/antebudimir/siyuan/issues\" target=\"_blank\">here</a>",
+	"kernelFault2": "If the problem persists, please look for help or report bugs <a href=\"https://liuyun.io/article/1686530886208\" target=\"_blank\">here</a>",
 	"fontSize": "Font Size",
 	"fontSizeTip": "The default font size is <code class='fn__code'>16</code>, this setting affects the editor and exported PDF/HTML font size display",
 	"font1": "This setting only affects font display in the editor; when no font is selected, the theme&#039;s font is used",
@@ -3192,8 +3193,10 @@
 	"desktop": "Desktop",
 	"tablet": "Tablet",
 	"mobile": "Mobile",
+	"copyToWechatMP": "Copy to Wechat MP",
 	"copyToZhihu": "Copy to Zhihu",
 	"copyToYuque": "Copy to Yuque",
+	"pasteToWechatMP": "Copied, ready to paste to Wechat MP",
 	"pasteToZhihu": "Copied, ready to paste to Zhihu",
 	"pasteToYuque": "Copied, ready to paste to Yuque",
 	"quote": "Quote block",
@@ -3777,8 +3780,10 @@
 		"466": "Automatic AI OCR paused for %s; retrying in 10 minutes. Check the provider account and model settings: %s",
 		"467": "The streaming response was interrupted because the client could not keep up; reopen the session to recover available output",
 		"468": "The response was interrupted; reopen the session to recover available output",
-<<<<<<< HEAD
-		"469": "Authentication failed: this request did not pass the local access checks. VPNs, proxies or network filtering apps may affect local access; try temporarily disabling them and retrying. When accessing through a non-local address, set a lock screen password first"
+		"469": "Authentication failed: this request did not pass the local access checks. VPNs, proxies or network filtering apps may affect local access; try temporarily disabling them and retrying. When accessing through a non-local address, set a lock screen password first",
+		"470": "Tool call round limit reached. I have stopped using tools; this task may still be incomplete",
+		"471": "Repeated tool calls returned the same result. I have stopped using tools; this task may still be incomplete",
+		"472": "Failed to convert the legacy mind map, please reopen the document and try again"
 	},
 	"docMenu": "Document menu",
 	"customBackground": "Background color",
@@ -3793,11 +3798,4 @@
 	"blockRefStylePaddingY": "Vertical padding",
 	"blockRefStyleBorderColor": "Border color",
 	"blockRefStyleBorderColorAuto": "Automatic (theme)"
-=======
-		"469": "Authentication failed: this request did not pass the local access checks. VPNs, proxies or network filtering apps may affect local access; try temporarily disabling them and retrying. When accessing through a non-local address, set a lock screen password first",
-		"470": "Tool call round limit reached. I have stopped using tools; this task may still be incomplete",
-		"471": "Repeated tool calls returned the same result. I have stopped using tools; this task may still be incomplete",
-		"472": "Failed to convert the legacy mind map, please reopen the document and try again"
-	}
->>>>>>> upstream/master
 }

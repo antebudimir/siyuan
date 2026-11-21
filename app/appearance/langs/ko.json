@@ -1,9 +1,7 @@
 {
-<<<<<<< HEAD
 	"applyToSubfolders": "하위 폴더에 적용",
 	"recursiveSortConfirmTitle": "하위 폴더 정렬",
 	"recursiveSortConfirmMessage": "모든 하위 폴더에 정렬을 적용하며 사용자 지정 순서를 덮어쓸 수 있습니다. 계속하시겠습니까?",
-=======
 	"confirmActionFailed": "작업에 실패했습니다. 다시 시도해 주세요",
 	"updateInstallNow": "지금 설치",
 	"updateInstallLater": "나중에 설치",
@@ -57,7 +55,6 @@
 	"pluginSnapshotRestored": "복원됨; 플러그인은 비활성 상태입니다. 백업 스냅샷: ${id}",
 	"restoreDocPosition": "마지막 읽기 위치 복원",
 	"restoreDocPositionTip": "비활성화하면 문서를 처음부터 다시 엽니다. 블록 링크, 검색 결과 및 탭 복원은 해당 위치를 유지합니다. 문서별 열기 위치 설정이 우선 적용됩니다",
->>>>>>> upstream/master
 	"markdownAppearanceSettings": "외관 설정",
 	"markdownFontSizeSettings": "글꼴 크기 설정",
 	"markdownFontSettings": "글꼴 설정",
@@ -1764,7 +1761,7 @@
 	"configGroupImages": "이미지",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "계정",
-	"accountSync": "동기화",
+	"accountSync": "계정 및 동기화",
 	"configGroupSync": "동기화",
 	"authentication": "인증",
 	"configGroupServer": "서버",
@@ -2517,6 +2514,7 @@
 	"rollback": "롤백",
 	"custom": "사용자 지정",
 	"feedback": "피드백",
+	"inbox": "수집함",
 	"turnToStatic": "정적 앵커 텍스트",
 	"turnToDynamic": "동적 앵커 텍스트",
 	"sizeLimit": "제한",
@@ -2568,8 +2566,11 @@
 	"removeAssetsFolder": "assets 디렉토리 제거",
 	"upload": "업로드",
 	"reminderTip": "알림 시간은 현재 시간보다 빠를 수 없습니다",
+	"wechatTip": "콘텐츠 블록은 일반 텍스트로 클라우드로 전송되며 만료 시 WeChat MP 템플릿 메시지를 통해 푸시됩니다",
 	"notEmpty": "알림 시간은 비워둘 수 없습니다",
 	"experimentalFeature": "(⚗️ 이 기능은 실험 단계입니다)",
+	"wechatReminder": "WeChat 알림",
+	"notifyTime": "알림 시간",
 	"docName": "문서 이름",
 	"bootSyncFailed": "시작 시 데이터 동기화 실패",
 	"use": "사용",
@@ -2854,7 +2855,7 @@
 	"next": "다음",
 	"kernelFault0": "SiYuan에 약간의 문제가 발생했습니다...",
 	"kernelFault1": "커널과의 연결이 끊어졌습니다. 데이터는 대개 안전하며, SiYuan은 3초마다 자동으로 재연결을 시도합니다. 커널이 복구되면 이 창은 자동으로 닫힙니다",
-	"kernelFault2": "문제가 지속되면 도움을 요청하거나 <a href=\"https://github.com/antebudimir/siyuan/issues\" target=\"_blank\">여기</a>에서 버그를 신고하세요",
+	"kernelFault2": "문제가 지속되면 도움을 요청하거나 <a href=\"https://liuyun.io/article/1686530886208\" target=\"_blank\">여기</a>에서 버그를 신고하세요",
 	"fontSize": "글꼴 크기",
 	"fontSizeTip": "기본 글꼴 크기는 <code class='fn__code'>16</code>이며, 이 설정은 에디터 및 내보낸 PDF/HTML 글꼴 크기 표시에 영향을 줍니다",
 	"font1": "이 설정은 에디터의 글꼴 표시에만 영향을 줍니다. 선택한 글꼴이 없으면 테마의 글꼴을 사용합니다",
@@ -3192,8 +3193,10 @@
 	"desktop": "데스크톱",
 	"tablet": "태블릿",
 	"mobile": "모바일",
+	"copyToWechatMP": "WeChat MP에 복사",
 	"copyToZhihu": "Zhihu에 복사",
 	"copyToYuque": "Yuque에 복사",
+	"pasteToWechatMP": "복사되었습니다. WeChat MP에 붙여넣을 준비가 되었습니다",
 	"pasteToZhihu": "복사되었습니다. Zhihu에 붙여넣을 준비가 되었습니다",
 	"pasteToYuque": "복사되었습니다. Yuque에 붙여넣을 준비가 되었습니다",
 	"quote": "인용구 블록",
@@ -3777,8 +3780,10 @@
 		"466": "%s의 AI 자동 OCR이 일시 중지되었습니다. 10분 후 다시 시도합니다. 제공업체 계정과 모델 설정을 확인하세요: %s",
 		"467": "클라이언트가 수신 속도를 따라가지 못해 스트리밍 응답이 중단되었습니다. 세션을 다시 열어 복구 가능한 출력을 확인하세요",
 		"468": "응답이 중단되었습니다. 세션을 다시 열어 복구 가능한 출력을 확인하세요",
-<<<<<<< HEAD
-		"469": "인증 실패: 이 요청은 로컬 접근 검사를 통과하지 못했습니다. VPN, 프록시 또는 네트워크 필터링 앱이 로컬 접근에 영향을 줄 수 있으므로 일시적으로 비활성화한 후 다시 시도하세요. 로컬이 아닌 주소로 접근하려면 먼저 화면 잠금 비밀번호를 설정하세요"
+		"469": "인증 실패: 이 요청은 로컬 접근 검사를 통과하지 못했습니다. VPN, 프록시 또는 네트워크 필터링 앱이 로컬 접근에 영향을 줄 수 있으므로 일시적으로 비활성화한 후 다시 시도하세요. 로컬이 아닌 주소로 접근하려면 먼저 화면 잠금 비밀번호를 설정하세요",
+		"470": "도구 호출 라운드 수가 한도에 도달했습니다. 도구 사용을 중단했으며, 이 작업은 아직 완료되지 않았을 수 있습니다",
+		"471": "반복된 도구 호출이 동일한 결과를 반환했습니다. 도구 사용을 중단했으며, 이 작업은 아직 완료되지 않았을 수 있습니다",
+		"472": "이전 형식의 마인드맵을 변환하지 못했습니다. 문서를 다시 열고 재시도하세요"
 	},
 	"docMenu": "문서 메뉴",
 	"customBackground": "배경색",
@@ -3793,11 +3798,4 @@
 	"blockRefStylePaddingY": "세로 안쪽 여백",
 	"blockRefStyleBorderColor": "테두리 색상",
 	"blockRefStyleBorderColorAuto": "자동(테마 따르기)"
-=======
-		"469": "인증 실패: 이 요청은 로컬 접근 검사를 통과하지 못했습니다. VPN, 프록시 또는 네트워크 필터링 앱이 로컬 접근에 영향을 줄 수 있으므로 일시적으로 비활성화한 후 다시 시도하세요. 로컬이 아닌 주소로 접근하려면 먼저 화면 잠금 비밀번호를 설정하세요",
-		"470": "도구 호출 라운드 수가 한도에 도달했습니다. 도구 사용을 중단했으며, 이 작업은 아직 완료되지 않았을 수 있습니다",
-		"471": "반복된 도구 호출이 동일한 결과를 반환했습니다. 도구 사용을 중단했으며, 이 작업은 아직 완료되지 않았을 수 있습니다",
-		"472": "이전 형식의 마인드맵을 변환하지 못했습니다. 문서를 다시 열고 재시도하세요"
-	}
->>>>>>> upstream/master
 }

@@ -1,9 +1,7 @@
 {
-<<<<<<< HEAD
 	"applyToSubfolders": "Terapkan ke subfolder",
 	"recursiveSortConfirmTitle": "Urutkan subfolder",
 	"recursiveSortConfirmMessage": "Ini akan menerapkan pengurutan ke semua subfolder dan dapat menimpa urutan kustomnya. Lanjutkan?",
-=======
 	"confirmActionFailed": "Operasi gagal. Silakan coba lagi",
 	"updateInstallNow": "Instal sekarang",
 	"updateInstallLater": "Nanti saja",
@@ -57,7 +55,6 @@
 	"pluginSnapshotRestored": "Dipulihkan; plugin tetap nonaktif. Snapshot cadangan: ${id}",
 	"restoreDocPosition": "Pulihkan posisi baca terakhir",
 	"restoreDocPositionTip": "Jika dinonaktifkan, dokumen dibuka kembali dari awal; tautan blok, hasil pencarian dan pemulihan tab tetap mempertahankan posisinya. Posisi pembukaan khusus dokumen diutamakan",
->>>>>>> upstream/master
 	"markdownAppearanceSettings": "Pengaturan tampilan",
 	"markdownFontSizeSettings": "Pengaturan ukuran font",
 	"markdownFontSettings": "Pengaturan font",
@@ -1764,7 +1761,7 @@
 	"configGroupImages": "Gambar",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "Akun",
-	"accountSync": "Sinkronisasi",
+	"accountSync": "Akun & Sinkronisasi",
 	"configGroupSync": "Sinkronisasi",
 	"authentication": "Autentikasi",
 	"configGroupServer": "Server",
@@ -2517,6 +2514,7 @@
 	"rollback": "Putar balik",
 	"custom": "Kustom",
 	"feedback": "Umpan Balik",
+	"inbox": "Kotak Masuk",
 	"turnToStatic": "Teks jangkar statis",
 	"turnToDynamic": "Teks jangkar dinamis",
 	"sizeLimit": "Batas",
@@ -2568,8 +2566,11 @@
 	"removeAssetsFolder": "Hapus direktori aset",
 	"upload": "Unggah",
 	"reminderTip": "Waktu pengingat tidak boleh kurang dari waktu saat ini",
+	"wechatTip": "Blok konten akan dikirim ke cloud dalam teks biasa, dan didorong melalui pesan template WeChat MP saat kedaluwarsa",
 	"notEmpty": "Waktu pengingat tidak boleh kosong",
 	"experimentalFeature": "(⚗️ Fitur ini dalam tahap eksperimental)",
+	"wechatReminder": "Pengingat WeChat",
+	"notifyTime": "Waktu Pemberitahuan",
 	"docName": "Nama Dokumen",
 	"bootSyncFailed": "Gagal menyinkronkan data saat startup",
 	"use": "Gunakan",
@@ -2854,7 +2855,7 @@
 	"next": "Berikutnya",
 	"kernelFault0": "SiYuan mengalami sedikit masalah...",
 	"kernelFault1": "Koneksi ke kernel telah terputus, namun data Anda seharusnya aman. SiYuan akan mencoba menyambung ulang secara otomatis setiap 3 detik, dan jendela ini akan menutup sendiri setelah kernel pulih.",
-	"kernelFault2": "Jika masalah berlanjut, silakan cari bantuan atau laporkan bug <a href=\"https://github.com/antebudimir/siyuan/issues\" target=\"_blank\">di sini</a>",
+	"kernelFault2": "Jika masalah berlanjut, silakan cari bantuan atau laporkan bug <a href=\"https://liuyun.io/article/1686530886208\" target=\"_blank\">di sini</a>",
 	"fontSize": "Ukuran Font",
 	"fontSizeTip": "Ukuran font default adalah <code class='fn__code'>16</code>, pengaturan ini memengaruhi tampilan ukuran font editor dan PDF/HTML yang diekspor",
 	"font1": "Pengaturan ini hanya memengaruhi tampilan font di editor; jika tidak ada font yang dipilih, font tema akan digunakan",
@@ -3192,8 +3193,10 @@
 	"desktop": "Desktop",
 	"tablet": "Tablet",
 	"mobile": "Seluler",
+	"copyToWechatMP": "Salin ke Wechat MP",
 	"copyToZhihu": "Salin ke Zhihu",
 	"copyToYuque": "Salin ke Yuque",
+	"pasteToWechatMP": "Disalin, siap untuk ditempel ke Wechat MP",
 	"pasteToZhihu": "Disalin, siap untuk ditempel ke Zhihu",
 	"pasteToYuque": "Disalin, siap untuk ditempel ke Yuque",
 	"quote": "Blok kutipan",
@@ -3777,8 +3780,10 @@
 		"466": "OCR AI otomatis dijeda untuk %s; mencoba lagi dalam 10 menit. Periksa akun penyedia dan pengaturan model: %s",
 		"467": "Respons streaming terputus karena klien tidak dapat mengimbangi laju penerimaan; buka kembali sesi untuk memulihkan keluaran yang tersedia",
 		"468": "Respons terputus; buka kembali sesi untuk memulihkan keluaran yang tersedia",
-<<<<<<< HEAD
-		"469": "Autentikasi gagal: permintaan ini tidak lolos pemeriksaan akses lokal. VPN, proksi, atau aplikasi penyaring jaringan dapat memengaruhi akses lokal; coba nonaktifkan sementara lalu coba lagi. Saat mengakses melalui alamat nonlokal, atur kata sandi layar kunci terlebih dahulu"
+		"469": "Autentikasi gagal: permintaan ini tidak lolos pemeriksaan akses lokal. VPN, proksi, atau aplikasi penyaring jaringan dapat memengaruhi akses lokal; coba nonaktifkan sementara lalu coba lagi. Saat mengakses melalui alamat nonlokal, atur kata sandi layar kunci terlebih dahulu",
+		"470": "Batas putaran pemanggilan alat telah tercapai. Saya telah berhenti menggunakan alat; tugas ini mungkin masih belum selesai",
+		"471": "Pemanggilan alat berulang mengembalikan hasil yang sama. Saya telah berhenti menggunakan alat; tugas ini mungkin masih belum selesai",
+		"472": "Gagal mengonversi peta pikiran lama, buka kembali dokumen dan coba lagi"
 	},
 	"docMenu": "Menu dokumen",
 	"customBackground": "Warna latar belakang",
@@ -3793,11 +3798,4 @@
 	"blockRefStylePaddingY": "Padding vertikal",
 	"blockRefStyleBorderColor": "Warna tepi",
 	"blockRefStyleBorderColorAuto": "Otomatis (tema)"
-=======
-		"469": "Autentikasi gagal: permintaan ini tidak lolos pemeriksaan akses lokal. VPN, proksi, atau aplikasi penyaring jaringan dapat memengaruhi akses lokal; coba nonaktifkan sementara lalu coba lagi. Saat mengakses melalui alamat nonlokal, atur kata sandi layar kunci terlebih dahulu",
-		"470": "Batas putaran pemanggilan alat telah tercapai. Saya telah berhenti menggunakan alat; tugas ini mungkin masih belum selesai",
-		"471": "Pemanggilan alat berulang mengembalikan hasil yang sama. Saya telah berhenti menggunakan alat; tugas ini mungkin masih belum selesai",
-		"472": "Gagal mengonversi peta pikiran lama, buka kembali dokumen dan coba lagi"
-	}
->>>>>>> upstream/master
 }

@@ -76,10 +76,6 @@ func getUpdateRelease(force bool) (*updateRelease, error) {
 	}
 	// fork：stable 通道也走 fork 仓库的 GitHub Releases，不再读取上游云端（Rhy）数据
 	return getGitHubUpdateRelease(channel, force)
-	if err == nil {
-		rememberUpdateReleaseURL(release)
-	}
-	return release, err
 }
 
 func rememberUpdateReleaseURL(release *updateRelease) {
@@ -100,7 +96,6 @@ func GetInstallPackageReleaseURL(installPkgPath string) string {
 	}
 	// 重启后可能尚未检查更新，按待安装包版本定位公告，退出流程不发起网络请求。
 	return githubReleaseURLPrefix + strings.TrimPrefix(version, "v")
->>>>>>> theirs
 }
 
 func getUpdatePackageURLs(pkgName, githubURL string) []string {

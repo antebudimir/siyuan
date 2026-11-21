@@ -1,9 +1,7 @@
 {
-<<<<<<< HEAD
 	"applyToSubfolders": "Appliquer aux sous-dossiers",
 	"recursiveSortConfirmTitle": "Trier les sous-dossiers",
 	"recursiveSortConfirmMessage": "Cela appliquera le tri à tous les sous-dossiers et peut remplacer leur ordre personnalisé. Continuer ?",
-=======
 	"confirmActionFailed": "L'opération a échoué. Veuillez réessayer",
 	"updateInstallNow": "Installer maintenant",
 	"updateInstallLater": "Plus tard",
@@ -57,7 +55,6 @@
 	"pluginSnapshotRestored": "Restauration terminée ; le plugin reste désactivé. Sauvegarde : ${id}",
 	"restoreDocPosition": "Restaurer la dernière position de lecture",
 	"restoreDocPositionTip": "Si désactivé, les documents se rouvrent au début ; les liens de bloc, les résultats de recherche et la restauration des onglets conservent leurs positions. La position d’ouverture propre au document est prioritaire",
->>>>>>> upstream/master
 	"markdownAppearanceSettings": "Paramètres d’apparence",
 	"markdownFontSizeSettings": "Paramètres de taille de police",
 	"markdownFontSettings": "Paramètres de police",
@@ -1764,7 +1761,7 @@
 	"configGroupImages": "Images",
 	"configGroupPandoc": "Pandoc",
 	"configGroupAccount": "Compte",
-	"accountSync": "Synchronisation",
+	"accountSync": "Compte et Synchronisation",
 	"configGroupSync": "Synchronisation",
 	"authentication": "Authentification",
 	"configGroupServer": "Serveur",
@@ -2517,6 +2514,7 @@
 	"rollback": "Rollback",
 	"custom": "Personnalisé",
 	"feedback": "Retour d'information",
+	"inbox": "Boîte de réception",
 	"turnToStatic": "Texte d'ancrage statique",
 	"turnToDynamic": "Texte d'ancrage dynamique",
 	"sizeLimit": "Limite",
@@ -2568,8 +2566,11 @@
 	"removeAssetsFolder": "Supprimer le répertoire des actifs",
 	"upload": "Télécharger",
 	"reminderTip": "L'heure de rappel ne peut pas être antérieure à l'heure actuelle",
+	"wechatTip": "Le bloc de contenu sera envoyé au cloud en texte clair et transmis au message du modèle de compte officiel WeChat à son expiration.",
 	"notEmpty": "L'heure de rappel ne peut pas être vide",
 	"experimentalFeature": "(⚗️ Cette fonctionnalité est au stade expérimental)",
+	"wechatReminder": "Wechat Rappel",
+	"notifyTime": "Notifier l'heure",
 	"docName": "Nom du document",
 	"bootSyncFailed": "Impossible de synchroniser les données au démarrage",
 	"use": "Utiliser",
@@ -2854,7 +2855,7 @@
 	"next": "Prochain",
 	"kernelFault0": "SiYuan a rencontré un petit problème...",
 	"kernelFault1": "La connexion au noyau a été perdue, mais vos données devraient être en sécurité. SiYuan tentera de se reconnecter automatiquement toutes les 3 secondes, et cette fenêtre se fermera d'elle-même une fois le noyau rétabli.",
-	"kernelFault2": "Si le problème persiste, veuillez rechercher de l'aide ou signaler les bogues <a href=\"https://github.com/antebudimir/siyuan/issues\" target=\"_blank\">ici</a>",
+	"kernelFault2": "Si le problème persiste, veuillez rechercher de l'aide ou signaler les bogues <a href=\"https://liuyun.io/article/1686530886208\" target=\"_blank\">ici</a>",
 	"fontSize": "Taille de la police",
 	"fontSizeTip": "La taille de police par défaut est de <code class='fn__code'>16</code>, ce paramètre affecte l'éditeur et l'affichage de la taille de police PDF/HTML exportée",
 	"font1": "Ce paramètre n'affecte que l'affichage des polices dans l'éditeur ; si aucune police n'est sélectionnée, la police du thème est utilisée",
@@ -3192,8 +3193,10 @@
 	"desktop": "bureau",
 	"tablet": "Tablette",
 	"mobile": "Mobile",
+	"copyToWechatMP": "Copier vers Wechat MP",
 	"copyToZhihu": "Copier vers Zhihu",
 	"copyToYuque": "Copier vers Yuque",
+	"pasteToWechatMP": "Copié, prêt à coller sur Wechat MP",
 	"pasteToZhihu": "Copié, prêt à coller sur Zhihu",
 	"pasteToYuque": "Copié, prêt à coller sur Yuque",
 	"quote": "Bloc de citation",
@@ -3777,8 +3780,10 @@
 		"466": "OCR automatique par IA suspendue pour %s ; nouvel essai dans 10 minutes. Vérifiez le compte du fournisseur et les paramètres du modèle : %s",
 		"467": "La réponse en streaming a été interrompue car le client ne pouvait pas suivre le rythme ; rouvrez la session pour récupérer le contenu disponible",
 		"468": "La réponse a été interrompue ; rouvrez la session pour récupérer le contenu disponible",
-<<<<<<< HEAD
-		"469": "Échec de l’authentification : cette requête n’a pas passé les vérifications d’accès local. Les VPN, proxys ou applications de filtrage réseau peuvent affecter l’accès local ; essayez de les désactiver temporairement, puis réessayez. Pour accéder via une adresse non locale, définissez d’abord un mot de passe de verrouillage"
+		"469": "Échec de l’authentification : cette requête n’a pas passé les vérifications d’accès local. Les VPN, proxys ou applications de filtrage réseau peuvent affecter l’accès local ; essayez de les désactiver temporairement, puis réessayez. Pour accéder via une adresse non locale, définissez d’abord un mot de passe de verrouillage",
+		"470": "La limite de cycles d’appels aux outils a été atteinte. J’ai cessé d’utiliser les outils ; cette tâche est peut-être encore inachevée",
+		"471": "Les appels répétés aux outils ont renvoyé le même résultat. J’ai cessé d’utiliser les outils ; cette tâche est peut-être encore inachevée",
+		"472": "Impossible de convertir la carte mentale héritée, veuillez rouvrir le document et réessayer"
 	},
 	"docMenu": "Menu du document",
 	"customBackground": "Couleur d'arrière-plan",
@@ -3793,11 +3798,4 @@
 	"blockRefStylePaddingY": "Marge intérieure verticale",
 	"blockRefStyleBorderColor": "Couleur de la bordure",
 	"blockRefStyleBorderColorAuto": "Automatique (thème)"
-=======
-		"469": "Échec de l’authentification : cette requête n’a pas passé les vérifications d’accès local. Les VPN, proxys ou applications de filtrage réseau peuvent affecter l’accès local ; essayez de les désactiver temporairement, puis réessayez. Pour accéder via une adresse non locale, définissez d’abord un mot de passe de verrouillage",
-		"470": "La limite de cycles d’appels aux outils a été atteinte. J’ai cessé d’utiliser les outils ; cette tâche est peut-être encore inachevée",
-		"471": "Les appels répétés aux outils ont renvoyé le même résultat. J’ai cessé d’utiliser les outils ; cette tâche est peut-être encore inachevée",
-		"472": "Impossible de convertir la carte mentale héritée, veuillez rouvrir le document et réessayer"
-	}
->>>>>>> upstream/master
 }
