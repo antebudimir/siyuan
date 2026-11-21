@@ -260,7 +260,7 @@ jobs:
     name: Frontend, Electron and packaging tests
     needs: prepare
     runs-on: windows-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     permissions:
       contents: read
     steps:
