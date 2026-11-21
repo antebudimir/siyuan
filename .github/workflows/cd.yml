@@ -6,6 +6,7 @@ on:
       - '*-alpha*'
       - '*-beta*'
       - '*-rc*'
+      - '*-fork.*'
   workflow_dispatch:
 
 env:
