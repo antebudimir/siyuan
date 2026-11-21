@@ -11,7 +11,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/url"
 	"path"
+	"path/filepath"
 	"runtime"
 	"strings"
 	"sync"
@@ -64,6 +66,7 @@ var (
 	githubReleasesLock      sync.RWMutex
 	githubReleasesFlight    singleflight.Group
 	githubManifestCache     sync.Map
+	updateReleaseURLs       sync.Map
 )
 
 func getUpdateRelease(force bool) (*updateRelease, error) {
@@ -73,6 +76,31 @@ func getUpdateRelease(force bool) (*updateRelease, error) {
 	}
 	// fork：stable 通道也走 fork 仓库的 GitHub Releases，不再读取上游云端（Rhy）数据
 	return getGitHubUpdateRelease(channel, force)
+	if err == nil {
+		rememberUpdateReleaseURL(release)
+	}
+	return release, err
+}
+
+func rememberUpdateReleaseURL(release *updateRelease) {
+	version := normalizeReleaseVersion(release.Version)
+	parsed, err := url.Parse(release.ReleaseURL)
+	if semver.IsValid(version) && err == nil && parsed.Host != "" && (parsed.Scheme == "https" || parsed.Scheme == "http") {
+		updateReleaseURLs.Store(version, release.ReleaseURL)
+	}
+}
+
+func GetInstallPackageReleaseURL(installPkgPath string) string {
+	version := installPackageVersion(filepath.Base(installPkgPath))
+	if version == "" {
+		return ""
+	}
+	if releaseURL, ok := updateReleaseURLs.Load(version); ok {
+		return releaseURL.(string)
+	}
+	// 重启后可能尚未检查更新，按待安装包版本定位公告，退出流程不发起网络请求。
+	return githubReleaseURLPrefix + strings.TrimPrefix(version, "v")
+>>>>>>> theirs
 }
 
 func getUpdatePackageURLs(pkgName, githubURL string) []string {

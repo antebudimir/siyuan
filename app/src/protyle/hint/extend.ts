@@ -1,4 +1,4 @@
-import {mobileConfirmDialog} from "../../dialog/mobileConfirmDialog";
+import {confirmDialog} from "../../dialog/confirmDialog";
 import {fetchPost} from "../../util/fetch";
 import {registerBuiltinSlashHint} from "./builtinSlash";
 import {canPickIOSPhotos} from "../upload/iosPhotos";
@@ -212,6 +212,34 @@ export const getBuiltinSlashMenuItems = (protyle: IProtyle): IHintData[] => {
         icon: "iconQuote",
         hotkey: window.siyuan.config.keymap.editor.insert.quote.custom,
         marker: ">",
+    }, {
+        filter: [window.siyuan.languages.horizontalSuperBlock, window.siyuan.languages.superBlock, "horizontal super block", "columns", "layout", "横向超级块", "hengxiangchaojikuai", "hx", "超级块", "chaojikuai", "cjk", "分栏", "fenlan", "fl"],
+        id: "horizontalSuperBlock",
+        value: getSuperBlockCommand("col"),
+        icon: "iconSplitLR",
+    }, {
+        filter: [window.siyuan.languages.verticalSuperBlock, window.siyuan.languages.superBlock, "vertical super block", "columns", "layout", "纵向超级块", "zongxiangchaojikuai", "zx", "超级块", "chaojikuai", "cjk", "分栏", "fenlan", "fl"],
+        id: "verticalSuperBlock",
+        value: getSuperBlockCommand("row"),
+        icon: "iconSplitTB",
+    }, {
+        filter: [window.siyuan.languages.tabs, "tabs", "页签", "yeqian", "yq"],
+        id: "tabs",
+        value: `::: tabs\n@tab\n\n${Lute.Caret}\n\n@tab\n\n:::\n`,
+        icon: "iconTabs",
+    }, {
+        filter: [window.siyuan.languages.mindmap, "mindmap", "思维导图", "siweidaotu", "swdt", "脑图", "naotu", "nt"],
+        id: "mindmap",
+        value: `- ${Lute.Caret}\n{: ${Constants.CUSTOM_SY_LIST_MINDMAP}="1"}`,
+        icon: "iconMindmap",
+        hotkey: window.siyuan.config.keymap.editor.insert.mindmap?.custom,
+    }, {
+        filter: [window.siyuan.languages.callout, "callout", "ts", "提示", "tishi", "note"],
+        id: "calloutNote",
+        value: `> [!NOTE]\n> ${Lute.Caret}`,
+        graphic: '<span class="b3-list-item__graphic">✏️</span>',
+        label: `${window.siyuan.languages.callout} - <span style="color: var(--b3-callout-note)">Note</span>`,
+        hotkey: window.siyuan.config.keymap.editor.insert.calloutNote?.custom,
     }, {
         filter: [window.siyuan.languages.callout, "callout", "ts", "提示", "tishi", "tip"],
         id: "calloutTip",
@@ -941,12 +969,17 @@ export const hintRenderTemplate = (value: string, protyle: IProtyle, nodeElement
         const docTreePlan = response.data.docTreePlan;
         if (docTreePlan?.id) {
             hideElements(["util"], protyle);
-            mobileConfirmDialog(window.siyuan.languages.template, genTemplateDocTreePlanHTML(docTreePlan, window.siyuan.languages.newSubDoc), () => {
-                insertTemplate(docTreePlan.id);
-            }, () => {
-                if (isCurrent()) {
-                    focusByRange(range);
-                }
+            confirmDialog({
+                title: window.siyuan.languages.template,
+                text: genTemplateDocTreePlanHTML(docTreePlan, window.siyuan.languages.newSubDoc),
+                confirm: () => {
+                    insertTemplate(docTreePlan.id);
+                },
+                cancel: () => {
+                    if (isCurrent()) {
+                        focusByRange(range);
+                    }
+                },
             });
         } else {
             insertTemplate();

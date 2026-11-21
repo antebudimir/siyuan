@@ -1,7 +1,10 @@
 import {toggleMenu} from "./menuToggle";
+import {getKeymapBindings} from "../util/keymapBindings";
+import {bindInlineDatePicker, getInlineDateValue} from "../datePicker/inline";
 import type {BlockQueryRequestInput} from "../types/api";
-import {mobileConfirmDialog as confirmDialog} from "../dialog/mobileConfirmDialog";
+import {confirmDialog} from "../dialog/confirmDialog";
 import {isMobile, isValidCustomAttrName} from "../util/functions";
+import {escapeHtmlTextAndAttr} from "../util/escape";
 import {getAssetExtension, isEncryptedBox, isLocalPath, movePathTo, moveToPath, pathPosix} from "../util/pathName";
 import {MenuItem} from "./Menu";
 import {onExport, saveExport} from "../protyle/export";
@@ -21,9 +24,10 @@ import {fetchPost, fetchSyncPost} from "../util/fetch";
 import {hideMessage, showMessage} from "../dialog/message";
 import {loadTemplateDirectories, openTemplateManager} from "../template/manager";
 import {Dialog} from "../dialog";
-import {mobileInputDialog as openInputDialog} from "../dialog/mobileInputDialog";
+import {AdaptiveDialog} from "../dialog/adaptiveDialog";
+import {openInputDialog} from "../dialog/inputDialog";
 import {bindAliasInput} from "./aliasInput";
-import {focusBlock} from "../protyle/util/selection";
+import {focusBlock, getEditorRange} from "../protyle/util/selection";
 import {focusByRange} from "../protyle/util/selectionOffsets";
 /// #if !MOBILE
 import {canOpenMarkdownAsset, openMarkdownAsset} from "../editor/markdownAsset";
@@ -97,9 +101,7 @@ export const openFileAttr = (attrs: Record<string, string>, focusName = "bookmar
             return;
         }
         if (item === Constants.CUSTOM_REMINDER_WECHAT) {
-            notifyHTML = `<label class="b3-label b3-label--noborder">
-    ${window.siyuan.languages.wechatReminder}
-    <div class="fn__hr"></div>
+            notifyHTML = `<label class="b3-label b3-label--noborder">    <div class="fn__hr"></div>
     <input class="b3-text-field fn__block" type="datetime-local" max="9999-12-31 23:59" readonly data-name="${item}" value="${dayjs(attrs[item]).format("YYYY-MM-DD HH:mm")}">
 </label>`;
         } else if (item.indexOf("custom-av") > -1) {
@@ -107,11 +109,11 @@ export const openFileAttr = (attrs: Record<string, string>, focusName = "bookmar
         } else if (item.indexOf("custom") > -1) {
             customHTML += `<label class="b3-label b3-label--noborder">
      <div class="fn__flex">
-        <span class="fn__flex-1">${item.replace("custom-", "")}</span>
+        <span class="fn__flex-1">${escapeHtmlTextAndAttr(item.replace("custom-", ""))}</span>
         <span data-action="remove" class="block__icon block__icon--show"><svg><use xlink:href="#iconMin"></use></svg></span>
     </div>
     <div class="fn__hr"></div>
-    <textarea style="resize: vertical;" spellcheck="false" class="b3-text-field fn__block" rows="1" data-name="${item}"></textarea>
+    <textarea style="resize: vertical;" spellcheck="false" class="b3-text-field fn__block" rows="1" data-name="${escapeHtmlTextAndAttr(item)}"></textarea>
 </label>`;
         }
     });
@@ -574,30 +576,38 @@ ${databaseOptions}`,
                                 return true;
                             }
                             if (response.code === 1) {
-                                confirmDialog(window.siyuan.languages.export, window.siyuan.languages.exportTplTip, async () => {
-                                    const result = await fetchSyncPost("/api/template/docSaveAsTemplate", {
-                                        ...requestData, overwrite: true,
-                                    });
-                                    if (result.code !== 0) return false;
-                                    showMessage(window.siyuan.languages.exportTplSucc);
-                                    dialog.destroy();
-                                    return true;
-                                }, undefined, false, undefined, undefined, {awaitConfirm: true});
+                                confirmDialog({
+                                    title: window.siyuan.languages.export,
+                                    text: window.siyuan.languages.exportTplTip,
+                                    confirm: async () => {
+                                        const result = await fetchSyncPost("/api/template/docSaveAsTemplate", {
+                                            ...requestData, overwrite: true,
+                                        });
+                                        if (result.code !== 0) return false;
+                                        showMessage(window.siyuan.languages.exportTplSucc);
+                                        dialog.destroy();
+                                        return true;
+                                    },
+                                });
                             }
                             return false;
                         }
                         fetchPost("/api/template/docSaveAsTemplate", requestData, response => {
                             if (response.code === 1) {
                                 // 重名
-                                confirmDialog(window.siyuan.languages.export, window.siyuan.languages.exportTplTip, () => {
-                                    fetchPost("/api/template/docSaveAsTemplate", {
-                                        ...requestData,
-                                        overwrite: true
-                                    }, resp => {
-                                        if (resp.code === 0) {
-                                            showMessage(window.siyuan.languages.exportTplSucc);
-                                        }
-                                    });
+                                confirmDialog({
+                                    title: window.siyuan.languages.export,
+                                    text: window.siyuan.languages.exportTplTip,
+                                    confirm: () => {
+                                        fetchPost("/api/template/docSaveAsTemplate", {
+                                            ...requestData,
+                                            overwrite: true
+                                        }, resp => {
+                                            if (resp.code === 0) {
+                                                showMessage(window.siyuan.languages.exportTplSucc);
+                                            }
+                                        });
+                                    },
                                 });
                                 return;
                             }
@@ -815,12 +825,13 @@ ${databaseOptions}`,
                 label: window.siyuan.languages.print,
                 icon: "iconPDF",
                 ignore: !isInMobileApp() || !getHostCapabilities().importExport,
-                click: () => openHeadingPageBreakDialog(() => {
+                click: () => openHeadingPageBreakDialog((blockRefMode) => {
                     const msgId = showMessage(window.siyuan.languages.exporting);
                     const localData = window.siyuan.storage[Constants.LOCAL_EXPORTPDF];
                     fetchPost("/api/export/exportPreviewHTML", {
                         id,
                         pdf: true,
+                        blockRefMode,
                         excludeTitleImage: localData.titleImage === false,
                         keepFold: localData.keepFold,
                         merge: localData.mergeSubdocs,
@@ -882,8 +893,18 @@ export const openMenu = (app: App, src: string, onlyMenu: boolean, showAccelerat
             (extension !== ".pdf" ||
                 (extension === ".pdf" && !src.startsWith("file://")));
         const getAccelerator = (action: Config.TAssetOpenAction) => {
-            if (!showAccelerator || !src.startsWith("assets/")) {
+            if (!showAccelerator) {
                 return "";
+            }
+            const shortcuts: string[] = [];
+            /// #if !BROWSER
+            if (action === "folder") {
+                shortcuts.push(...getKeymapBindings(window.siyuan.config.keymap.editor.general.showInFolder)
+                    .map((key) => updateHotkeyTip(key)));
+            }
+            /// #endif
+            if (!src.startsWith("assets/")) {
+                return shortcuts.join(" / ");
             }
             let config = window.siyuan.config.editor.assetOpen;
             /// #if BROWSER
@@ -895,10 +916,11 @@ export const openMenu = (app: App, src: string, onlyMenu: boolean, showAccelerat
                 altClick: "⌥" + window.siyuan.languages.click,
                 shiftClick: "⇧" + window.siyuan.languages.click,
             };
-            return getAssetOpenGestures(config, action, {
+            shortcuts.push(...getAssetOpenGestures(config, action, {
                 previewable,
                 noSplitScreen: window.siyuan.config.fileTree.noSplitScreenWhenOpenTab,
-            }).map((gesture) => updateHotkeyTip(gestureLabels[gesture])).join(" / ");
+            }).map((gesture) => updateHotkeyTip(gestureLabels[gesture])));
+            return shortcuts.join(" / ");
         };
         // 与链接点击一致：PDF 去掉片段并单独取出页码或标注 ID，其他资源保留原始地址（如视频的 #t=）
         const {linkAddress: assetPath, pdfParams} = resolvePdfAssetLink(src.trim());

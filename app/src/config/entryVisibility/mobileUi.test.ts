@@ -62,7 +62,7 @@ const browserCases = async (sources: Record<string, string>, languages: Record<s
                 }},
                 "constants": {Constants: {SIYUAN_APPID: ""}},
                 "util/genID": {genUUID: () => "new"},
-                "dialog/mobileConfirmDialog": {mobileConfirmDialog: (_title: string, _text: string, callback: () => void) => callback()},
+                "dialog/confirmDialog": {confirmDialog: ({confirm}: {confirm: () => void}) => confirm()},
                 "dialog/message": {showMessage: noop},
                 "protyle/util/compatibility": {isInMobileApp: () => true,
                     isIPad: () => false, isInAndroid: () => false, isInHarmony: () => false},
